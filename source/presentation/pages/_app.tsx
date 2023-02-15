@@ -2,7 +2,8 @@ import React from "react";
 import type { AppProps } from "next/app";
 import "@/presentation/styles/globals.css";
 
-import { Poppins } from "@next/font/google";
+import {Poppins} from "@next/font/google"
+
 import classNames from "classnames";
 import Head from "next/head";
 
