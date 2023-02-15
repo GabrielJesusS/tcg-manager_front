@@ -1,0 +1,15 @@
+.btn{
+    @apply block w-fit text-lg md:text-xl font-medium text-system px-5 py-1 rounded-full drop-shadow-md
+}
+
+.btn-primary{
+    @apply bg-secondary hover:bg-secondary-light active:bg-system-800;
+}
+
+.btn-error{
+    @apply bg-error hover:bg-system-600 active:bg-system-800;
+}
+
+.btn-success{
+    @apply bg-success hover:bg-system-600 active:bg-system-800;
+}

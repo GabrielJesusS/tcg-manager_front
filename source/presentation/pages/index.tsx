@@ -5,6 +5,10 @@ export default function Home(): JSX.Element {
   return (
     <>
       <Navbar></Navbar>
+      <main>
+        <button className="btn btn-primary">Botão</button>
+        <a className="btn btn-success" href="">Botão</a>
+      </main>
       <Footer></Footer>
     </>
   );
