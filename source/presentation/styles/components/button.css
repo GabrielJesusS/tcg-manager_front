@@ -1,5 +1,5 @@
 .btn{
-    @apply block w-fit text-lg md:text-xl font-medium text-system px-5 py-1 rounded-full drop-shadow-md
+    @apply text-center block w-fit text-lg md:text-xl font-medium text-system px-5 py-1 rounded-full drop-shadow-md
 }
 
 .btn-primary{
