@@ -10,7 +10,7 @@ export const Footer = ({}:FooterProps)=>{
 
 
     return(
-        <footer className="bg-system-800 text-system w-full">
+        <footer className="bg-system-800 text-system w-full h-fit">
             <div className="p-4 w-fit mx-auto text-center text-xs md:text-base">
                 <p className="text-base">Pokémon images and names<br/>© 1995 - 2022 Nintendo/ Gamefreak</p>
                 <p>Created by <Link className="dft-link" href="#">Gabriel Jesus</Link> & <Link className="dft-link" href="#">Gabriel Lemos</Link> <CoffeeIcon className="inline"/></p>
