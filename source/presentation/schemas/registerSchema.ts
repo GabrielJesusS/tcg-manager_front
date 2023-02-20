@@ -1,8 +1,8 @@
 import { object, ref, string } from "yup";
 
 export const registerSchema = object({
-    userName: string().required().max(250),
-    email: string().required().email(),
-    password: string().required().min(8),
-    confirmPassword: string().required().oneOf([ref('password'), null],)
+    userName: string().required("O campo nome é obrigatório").max(250),
+    email: string().required("O campo e-mail é obrigatório").email("Digite um e-mail válido"),
+    password: string().required("O campo senha é obrigatório").min(8, "A senha deve possuir no minimo 8 caracteres"),
+    confirmPassword: string().oneOf([ref('password'), null], "As senhas não coincidem")
 })

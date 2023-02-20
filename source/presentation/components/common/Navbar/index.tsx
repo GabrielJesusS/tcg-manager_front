@@ -28,7 +28,7 @@ export const Navbar = ({}: NavbarProps) => {
     <header className="bg-primary w-full overflow-hidden">
       <div className="mx-auto px-6 py-2 flex items-center justify-between">
         <div>
-          <TCGLogo />
+          <TCGLogo className={"h-12"} />
         </div>
         <AnimatePresence>
           {isHideMenu && (
