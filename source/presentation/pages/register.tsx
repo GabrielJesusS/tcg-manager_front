@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import BackgroundImage from "@/presentation/public/images/rsc/bgs/formbg-1.gif";
 import CardBackplate from "@/presentation/public/images/rsc/mocks/card-back.png";
+import { PokemonCard } from "../components/common/PokemonCard";
 
 interface RegisterProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -44,9 +45,7 @@ const Register = ({}: RegisterProps) => {
         />
       </div>
       <section className="h-full relative z-10 flex justify-around max-w-7xl mx-auto w-full items-center">
-        <div>
-          <img src={CardBackplate.src}></img>
-        </div>
+        <PokemonCard></PokemonCard>
         <div className="bg-white h-fit w-fit px-12 py-8 rounded-2xl space-y-6">
           <Link href="/">
             <TCGManagerLogo className={"h-28 mx-auto"} />

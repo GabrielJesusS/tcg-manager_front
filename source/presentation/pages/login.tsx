@@ -7,8 +7,8 @@ import TCGManagerLogo from "@/presentation/public/images/logo/logo-variation.svg
 import Link from "next/link";
 import Image from "next/image";
 import BackgroundImage from "@/presentation/public/images/rsc/bgs/formbg-1.gif";
-import CardBackplate from "@/presentation/public/images/rsc/mocks/card-back.png";
 import { loginSchema } from "../schemas/loginSchema";
+import { PokemonCard } from "../components/common/PokemonCard";
 
 interface LoginProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -77,9 +77,8 @@ const Login = ({}: LoginProps) => {
             </Link>
           </p>
         </div>
-        <div>
-          <img src={CardBackplate.src}></img>
-        </div>
+        <PokemonCard></PokemonCard>
+        
       </section>
       <Footer className="relative z-10"></Footer>
     </div>
