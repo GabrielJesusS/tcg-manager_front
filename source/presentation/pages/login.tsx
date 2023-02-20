@@ -31,7 +31,7 @@ const Login = ({}: LoginProps) => {
   };
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-screen flex flex-col ">
       <div className="absolute h-full w-full z-0">
         <Image
           className="h-full object-cover w-full"
@@ -41,14 +41,15 @@ const Login = ({}: LoginProps) => {
           alt={""}
         />
       </div>
-      <section className="h-full relative z-10 flex justify-around max-w-7xl mx-auto w-full items-center">
-        <div className="bg-white h-fit w-fit px-12 py-8 rounded-2xl space-y-6">
+      <section className="h-full px-safe relative z-10 flex justify-around max-w-7xl mx-auto w-full items-center">
+        <div className="bg-white h-fit w-fit px-6 md:px-12 py-8 rounded-2xl space-y-6">
           <Link href="/">
             <TCGManagerLogo className={"h-28 mx-auto"} />
           </Link>
-          <h1 className="uppercase text-center text-2xl font-bold">Autenticação</h1>
+          <h1 className="uppercase text-center text-2xl font-bold">
+            Autenticação
+          </h1>
           <form className="space-y-6" onSubmit={handleSubmit(submitData)}>
-      
             <Textinput
               label="E-mail..."
               type="email"
@@ -65,20 +66,21 @@ const Login = ({}: LoginProps) => {
             {errors.password && (
               <span className="text-error">{errors.password.message}</span>
             )}
-      
+
             <button className="btn btn-primary uppercase w-full">
               Autenticar-se
             </button>
           </form>
-          <p className="text-center">
+          <p className="text-center text-sm md:text-base">
             Não possui registro? Registre-se{" "}
             <Link href="/register" className="dft-link">
               aqui!
             </Link>
           </p>
         </div>
-        <PokemonCard></PokemonCard>
-        
+        <div className="hidden md:block">
+          <PokemonCard></PokemonCard>
+        </div>
       </section>
       <Footer className="relative z-10"></Footer>
     </div>

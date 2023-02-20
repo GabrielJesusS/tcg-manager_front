@@ -37,74 +37,80 @@ const Register = ({}: RegisterProps) => {
     <div className="h-screen flex flex-col">
       <div className="absolute h-full w-full z-0">
         <Image
-          className="h-full object-cover w-full"
+          className="h-screen object-cover w-full"
           src={BackgroundImage.src}
           height={608}
           width={296}
           alt={""}
         />
       </div>
-      <section className="h-full relative z-10 flex justify-around max-w-7xl mx-auto w-full items-center">
-        <PokemonCard></PokemonCard>
-        <div className="bg-white h-fit w-fit px-12 py-8 rounded-2xl space-y-6">
-          <Link href="/">
-            <TCGManagerLogo className={"h-28 mx-auto"} />
-          </Link>
-          <h1 className="uppercase text-center text-2xl font-bold">Registro</h1>
-          <form className="space-y-6" onSubmit={handleSubmit(submitData)}>
-            <Textinput
-              label="Nome de usuário..."
-              type="text"
-              inputProps={{
-                ...register("userName"),
-                placeholder: "Nome de usuário",
-              }}
-            />
-            {errors.userName && (
-              <span className="text-error">{errors.userName.message}</span>
-            )}
-            <Textinput
-              label="E-mail..."
-              type="email"
-              inputProps={{ ...register("email"), placeholder: "Email" }}
-            />
-            {errors.email && (
-              <span className="text-error">{errors.email.message}</span>
-            )}
-            <Textinput
-              label="Senha..."
-              type="password"
-              inputProps={{ ...register("password"), placeholder: "Senha" }}
-            />
-            {errors.password && (
-              <span className="text-error">{errors.password.message}</span>
-            )}
-            <Textinput
-              label="Confirmar senha..."
-              type="password"
-              inputProps={{
-                ...register("confirmPassword"),
-                placeholder: "Confirmar senha",
-              }}
-            />
-            {errors.confirmPassword && (
-              <span className="text-error">
-                {errors.confirmPassword.message}
-              </span>
-            )}
-            <button className="btn btn-primary uppercase w-full">
-              Registar-se
-            </button>
-          </form>
-          <p className="text-center">
-            Já possui registro? Autentique-se{" "}
-            <Link href="/login" className="dft-link">
-              aqui!
+      <div className="relative h-screen">
+        <section className="h-full static px-safe flex justify-around max-w-7xl mx-auto w-full items-center">
+          <div className="hidden md:block">
+            <PokemonCard></PokemonCard>
+          </div>
+          <div className="bg-white h-fit w-fit my-safe px-6 md:px-12 py-8 rounded-2xl space-y-6">
+            <Link href="/">
+              <TCGManagerLogo className={"h-28 mx-auto"} />
             </Link>
-          </p>
-        </div>
-      </section>
-      <Footer className="relative z-10"></Footer>
+            <h1 className="uppercase text-center text-2xl font-bold">
+              Registro
+            </h1>
+            <form className="space-y-6" onSubmit={handleSubmit(submitData)}>
+              <Textinput
+                label="Nome de usuário..."
+                type="text"
+                inputProps={{
+                  ...register("userName"),
+                  placeholder: "Nome de usuário",
+                }}
+              />
+              {errors.userName && (
+                <span className="text-error">{errors.userName.message}</span>
+              )}
+              <Textinput
+                label="E-mail..."
+                type="email"
+                inputProps={{ ...register("email"), placeholder: "Email" }}
+              />
+              {errors.email && (
+                <span className="text-error">{errors.email.message}</span>
+              )}
+              <Textinput
+                label="Senha..."
+                type="password"
+                inputProps={{ ...register("password"), placeholder: "Senha" }}
+              />
+              {errors.password && (
+                <span className="text-error">{errors.password.message}</span>
+              )}
+              <Textinput
+                label="Confirmar senha..."
+                type="password"
+                inputProps={{
+                  ...register("confirmPassword"),
+                  placeholder: "Confirmar senha",
+                }}
+              />
+              {errors.confirmPassword && (
+                <span className="text-error">
+                  {errors.confirmPassword.message}
+                </span>
+              )}
+              <button className="btn btn-primary uppercase w-full">
+                Registar-se
+              </button>
+            </form>
+            <p className="text-center">
+              Já possui registro? Autentique-se{" "}
+              <Link href="/login" className="dft-link">
+                aqui!
+              </Link>
+            </p>
+          </div>
+        </section>
+        <Footer className="static"></Footer>
+      </div>
     </div>
   );
 };

@@ -7,6 +7,9 @@ module.exports = {
   mode: "jit",
   theme: {
     extend: {
+      spacing:{
+        "safe" : "1.5rem"
+      },
       colors: {
         primary: {
           dark: "#950014",

@@ -11,9 +11,7 @@ interface PokemonCardProps{
 export const PokemonCard = ({height, width, className}:PokemonCardProps) => {
   return (
     <Tilty>
-      <div>
         <img className={className} width={width ?? 320} height={height ?? 444} src={CardBackplate.src}></img>
-      </div>
     </Tilty>
   );
 };
