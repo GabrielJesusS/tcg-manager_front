@@ -21,9 +21,9 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     <Head>
 
     </Head>
-    <main className={classNames(poppins.variable, "font-poppins")}>
+    <div className={classNames(poppins.variable, "font-poppins")}>
       <Component {...pageProps} />
-    </main>
+    </div>
     </>
   )
 }

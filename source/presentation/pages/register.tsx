@@ -34,19 +34,19 @@ const Register = ({}: RegisterProps) => {
   };
 
   return (
-    <div className="h-screen flex flex-col">
-      <div className="absolute h-full w-full z-0">
+    <div className="flex flex-col h-screen relative">
+      <div className="absolute h-full w-full z-0 bg-red-300">
         <Image
-          className="h-screen object-cover w-full"
+          className=" h-full object-cover w-full"
           src={BackgroundImage.src}
           height={608}
           width={296}
           alt={""}
         />
       </div>
-      <div className="relative h-screen">
-        <section className="h-full static px-safe flex justify-around max-w-7xl mx-auto w-full items-center">
-          <div className="hidden md:block">
+      <div className="relative">
+        <section className="h-full px-safe flex justify-around max-w-7xl mx-auto w-full items-center">
+          <div className="hidden lg:block">
             <PokemonCard></PokemonCard>
           </div>
           <div className="bg-white h-fit w-fit my-safe px-6 md:px-12 py-8 rounded-2xl space-y-6">
@@ -109,7 +109,7 @@ const Register = ({}: RegisterProps) => {
             </p>
           </div>
         </section>
-        <Footer className="static"></Footer>
+        <Footer></Footer>
       </div>
     </div>
   );
