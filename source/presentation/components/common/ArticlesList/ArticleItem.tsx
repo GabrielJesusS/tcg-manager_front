@@ -33,7 +33,7 @@ export const ArticleItem = ({
           />
         </picture>
         <small className="absolute text-system bottom-0 right-0 px-1 bg-system-800 rounded-sm">
-          {articleViews} Views
+          {articleViews > 1000 ? (`${articleViews/1000}k`) : articleViews} Views
         </small>
       </Link>
       <div className="w-full grow-0 flex-shrink">

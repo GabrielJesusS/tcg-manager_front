@@ -1,4 +1,4 @@
-interface ArticleProps {
+interface ArticleParams {
     articleId: string;
   articleTitle: string;
   articleAuthor: string;
@@ -8,7 +8,7 @@ interface ArticleProps {
   articleDescription: string;
 }
 
-export const Articles:Array<ArticleProps> = [
+export const Articles:Array<ArticleParams> = [
     {   
         articleId: "1",
         articleTitle: "6 Baralhos Pioneer e suas Novidades para ficar de olho no Pro Tour",
