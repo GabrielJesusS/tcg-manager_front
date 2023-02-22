@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
     <Head>
-
+      <title>TCG Manager - Pokémon TCG Wiki</title>
     </Head>
     <div className={classNames(poppins.variable, "font-poppins")}>
       <Component {...pageProps} />
