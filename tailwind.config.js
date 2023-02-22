@@ -7,6 +7,9 @@ module.exports = {
   mode: "jit",
   theme: {
     extend: {
+      fontSize:{
+        "3.5xl": "2rem"
+      },
       spacing:{
         "safe" : "1.5rem"
       },
