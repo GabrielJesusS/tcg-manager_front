@@ -1,3 +1,7 @@
 .dft-link{
     @apply text-secondary hover:text-secondary-light hover:underline transition-all duration-150
 }
+
+.dft-container{
+    @apply max-w-7xl mx-auto
+}
