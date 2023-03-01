@@ -4,14 +4,10 @@ import { Textinput } from "@/presentation/components/common/Textinput";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
 import { Setitems } from "@/presentation/data/mocks/setMocks";
 
-const Sets = ({}) =>{
-
-
-
-
-    return(
-       <DefaultLayout>
-           <main>
+const Sets = ({}) => {
+  return (
+    <DefaultLayout>
+      <main>
         <Header>Coleções</Header>
 
         <section className="p-safe mx-auto max-w-7xl space-y-4">
@@ -46,10 +42,8 @@ const Sets = ({}) =>{
           </div>
         </section>
       </main>
-       </DefaultLayout>
-    )
-}
-
-
+    </DefaultLayout>
+  );
+};
 
 export default Sets;
