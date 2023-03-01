@@ -25,7 +25,7 @@ export const Navbar = ({}: NavbarProps) => {
   };
 
   return (
-    <header className="bg-primary w-full overflow-hidden">
+    <header className={classNames("bg-primary w-full sticky z-20 top-0",)}>
       <div className="mx-auto px-6 py-2 flex items-center justify-between">
         <div>
           <TCGLogo className={"h-12"} />

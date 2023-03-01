@@ -13,28 +13,23 @@ export default function Home(): JSX.Element {
   return (
     <>
       <Navbar></Navbar>
-      <main className="my-20">
+      <main>
         <div className="dft-container">
           <HomeCaroussel banners={Banners}></HomeCaroussel>
-          <section className="px-safe">
+          <section className="px-safe py-safe space-y-6 lg:space-y-0 lg:grid lg:grid-cols-2 gap-6">
             <ArticlesList
               topicTitle="Recentes"
               articles={Articles}
             ></ArticlesList>
-            <ul className="grid grid-cols-2 grid-flow-row gap-2">
-              {Deckitems.map((item) => (
-                <li key={item.deckId}>
-                  <Deckitem {...item}></Deckitem>
-                </li>
-              ))}
-            </ul>
-            <ul className="grid grid-cols-2 grid-flow-row gap-2">
-              {Setitems.map((item) => (
-                <li key={item.setId}>
-                  <Setitem {...item}></Setitem>
-                </li>
-              ))}
-            </ul>
+            <ArticlesList
+              topicTitle="Recentes"
+              articles={Articles}
+            ></ArticlesList>
+            <ArticlesList
+              topicTitle="Recentes"
+              articles={Articles}
+            ></ArticlesList>
+          
           </section>
         </div>
       </main>
