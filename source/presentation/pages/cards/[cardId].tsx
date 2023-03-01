@@ -10,11 +10,11 @@ const CardViewer = ({}) => {
 
   return (
     <DefaultLayout>
-      <div className="bg-green-200">
-        <main className="p-safe mx-auto max-w-7xl space-y-4 ">
-          <section className="bg-system rounded-lg p-3 text-xs">
+      <div className="">
+        <main className="p-safe mx-auto max-w-7xl space-y-4">
+          <section className="bg-system rounded-lg p-3 text-xs sm:text-base lg:flex">
             <div className="grid grid-cols-2 gap-5 mb-3">
-              <div className="space-y-2">
+              <div className="space-y-2 ">
                 <PokemonCard />
                 <p className="block">Pokémon - Estagio 2</p>
                 <p className="block">Avaliação: 5.0</p>
@@ -26,8 +26,10 @@ const CardViewer = ({}) => {
                 </div>
               </div>
               <div>
-                <h1 className="text-xl font-bold">Fletchinder</h1>
-                <hr />
+                
+                  <h1 className="text-xl sm:text-3xl font-bold">Fletchinder</h1>
+                <hr className="h-1 bg-system-200 border-none " />
+              
                 <div className="space-y-4 mt-2">
                   <div className="space-y-1">
                     <p>Tipo:</p>
@@ -60,10 +62,11 @@ const CardViewer = ({}) => {
                 </div>
               </div>
             </div>
-            <hr />
-            <div className="mt-3 space-y-3">
-              <div>
-                <p className="text-base">
+            <hr className="lg:hidden h-1 bg-system-200 border-none "/>
+            <div className="mt-3 space-y-3 lg:mt-0">
+              <hr className="mt-9 h-1 bg-system-200 border-none lg:block hidden"  />
+            <div>
+                <p className="text-base sm:text-lg font-semibold">
                   <span>Passivas:</span>
                   <span>Poké-Body</span>
                 </p>
@@ -72,7 +75,7 @@ const CardViewer = ({}) => {
                 </p>
               </div>
               <div>
-                <p className="text-base">
+                <p className="text-base sm:text-lg font-semibold">
                   <span>Passivas:</span>
                   <span>Poké-Body</span>
                 </p>
@@ -81,7 +84,7 @@ const CardViewer = ({}) => {
                 </p>
               </div>
               <div>
-                <p className="text-base">
+                <p className="text-base sm:text-lg font-semibold">
                   <span>Passivas:</span>
                   <span>Poké-Body</span>
                 </p>
