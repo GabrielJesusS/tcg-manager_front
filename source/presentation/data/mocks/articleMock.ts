@@ -8,7 +8,7 @@ interface ArticleParams {
   articleDescription: string;
 }
 
-export const Articles:Array<ArticleParams> = [
+export const ArticlesItems:Array<ArticleParams> = [
     {   
         articleId: "1",
         articleTitle: "6 Baralhos Pioneer e suas Novidades para ficar de olho no Pro Tour",

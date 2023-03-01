@@ -1,6 +1,7 @@
 import React from "react";
 import type { AppProps } from "next/app";
 import "@/presentation/styles/globals.css";
+import favicon from "@/presentation/public/images/logo/favicon.ico"
 
 import {Poppins} from "@next/font/google"
 
@@ -20,6 +21,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     <>
     <Head>
       <title>TCG Manager - Pokémon TCG Wiki</title>
+      <link rel="shortcut icon" href={favicon.src} type="image/x-icon" />
     </Head>
     <div className={classNames(poppins.variable, "font-poppins")}>
       <Component {...pageProps} />

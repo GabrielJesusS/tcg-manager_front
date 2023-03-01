@@ -1,8 +1,5 @@
-import { Header } from "@/presentation/components/common/Header";
 import { PokemonCard } from "@/presentation/components/common/PokemonCard";
-import { Textinput } from "@/presentation/components/common/Textinput";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
-import { Cardsitems } from "@/presentation/data/mocks/cardMocks";
 import { pokemonTypeIcons } from "@/presentation/public/images/icons/types";
 
 interface ICARD {}
