@@ -79,7 +79,7 @@ const Login = ({}: LoginProps) => {
           </p>
         </div>
         <div className="hidden md:block">
-          <PokemonCard></PokemonCard>
+          <PokemonCard src="https://images.pokemontcg.io/xy1/1.png"></PokemonCard>
         </div>
       </section>
       <Footer className="relative z-10"></Footer>
