@@ -29,7 +29,6 @@ export default function Home(): JSX.Element {
               topicTitle="Recentes"
               articles={Articles}
             ></ArticlesList>
-          
           </section>
         </div>
       </main>

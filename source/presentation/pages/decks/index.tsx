@@ -1,21 +1,49 @@
+import { Deckitem } from "@/presentation/components/common/Deckitem";
 import { Header } from "@/presentation/components/common/Header";
+import { Textinput } from "@/presentation/components/common/Textinput";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
+import { Deckitems } from "@/presentation/data/mocks/deckMocks";
 
+const Decks = ({}) => {
+  return (
+    <DefaultLayout>
+      <main>
+        <Header>Decks</Header>
 
-const Decks = ({}) =>{
+        <section className="p-safe mx-auto max-w-7xl space-y-4">
+          <header>
+            <h2 className="font-bold">Mais recentes</h2>
+          </header>
+          <div className="mt-4">
+            <ol className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8">
+              {Deckitems.map((item) => (
+                <li key={item.deckId}>
+                  <Deckitem {...item} />
+                </li>
+              ))}
+            </ol>
+          </div>
 
+          <form action="" className="space-y-6">
+            <Textinput label="" placeholder="Buscar por..." type="text">
+              {" "}
+            </Textinput>
+            <button className="btn btn-primary w-full">Filtrar</button>
+          </form>
 
-
-
-    return(
-       <DefaultLayout>
-            <section>
-                <Header>Decks</Header>
-            </section>
-       </DefaultLayout>
-    )
-}
-
-
+          <div>
+            <ol className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8">
+              {Deckitems.map((item) => (
+                <li key={item.deckId}>
+                  <Deckitem {...item} />
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      </main>
+    </DefaultLayout>
+  );
+};
 
 export default Decks;
