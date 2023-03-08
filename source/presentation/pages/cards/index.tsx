@@ -9,15 +9,10 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 
 const Cards = ({}) => {
+  const [modalIsOpen, toggleModal] = useRecoilState(cardFilterAtom);
 
-  function alert(){
-    window.alert("para de clicar gay")
-  }
-
-  const [modalIsOpen, toggleModal] = useRecoilState(cardFilterAtom)
-
-  function toggle(){
-    toggleModal(!modalIsOpen)
+  function toggle() {
+    toggleModal(!modalIsOpen);
   }
 
   return (
@@ -31,12 +26,14 @@ const Cards = ({}) => {
         </header>
 
         <div className="space-y-6">
-          <form action="" >
+          <form action="">
             <Textinput label="" placeholder="Buscar por..." type="text">
               {" "}
             </Textinput>
           </form>
-          <button onClick={toggle} className="btn btn-primary w-full">Filtrar</button>
+          <button onClick={toggle} className="btn btn-primary w-full">
+            Filtrar
+          </button>
         </div>
         <div>
           <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8">
@@ -51,8 +48,7 @@ const Cards = ({}) => {
           </ul>
         </div>
       </section>
-        <CardFilterModal/>
-      
+      <CardFilterModal />
     </DefaultLayout>
   );
 };

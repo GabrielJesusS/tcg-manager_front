@@ -1,12 +1,22 @@
 import { Deckitem } from "@/presentation/components/common/Deckitem";
 import { Header } from "@/presentation/components/common/Header";
+import { DeckFilterModal } from "@/presentation/components/common/modals/DeckFilterModal";
 import { Textinput } from "@/presentation/components/common/Textinput";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
 import { Deckitems } from "@/presentation/data/mocks/deckMocks";
+import { deckFilterAtom } from "@/presentation/store/modal";
+import { useRecoilState } from "recoil";
 
 const Decks = ({}) => {
+
+  const [modalIsOpen, toggleModal] = useRecoilState(deckFilterAtom)
+
+  function toggle(){
+    toggleModal(!modalIsOpen)
+  }
+
   return (
-    <DefaultLayout>
+     <DefaultLayout>
       <main>
         <Header>Decks</Header>
 
@@ -28,8 +38,8 @@ const Decks = ({}) => {
             <Textinput label="" placeholder="Buscar por..." type="text">
               {" "}
             </Textinput>
-            <button className="btn btn-primary w-full">Filtrar</button>
           </form>
+          <button onClick={toggle} className="btn btn-primary w-full">Filtrar</button>
 
           <div>
             <ol className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8">
@@ -42,6 +52,7 @@ const Decks = ({}) => {
           </div>
         </section>
       </main>
+      <DeckFilterModal></DeckFilterModal>
     </DefaultLayout>
   );
 };
