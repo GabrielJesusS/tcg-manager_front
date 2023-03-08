@@ -40,7 +40,7 @@ export const Navitem = ({ id, subitem, title }: INavitem) => {
         {isHide && (
           <motion.div
             {...animateSettings}
-            className="absolute bg-white w-full h-screen left-0 top-0 z-30 p-6"
+            className="absolute bg-white w-full h-screen left-0 top-0 z-20 p-6"
           >
             <button
               onClick={toggleHide}

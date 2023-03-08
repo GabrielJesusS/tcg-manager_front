@@ -63,7 +63,7 @@ export const Navbar = ({}: NavbarProps) => {
         <div>
           <button
             onClick={toggleMenu}
-            className="relative z-20 h-10 w-10 p-1 block"
+            className="relative z-30 h-10 w-10 p-1 block"
           >
             <svg
               viewBox="0 0 24 24"

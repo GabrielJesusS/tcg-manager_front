@@ -26,10 +26,8 @@ const CardViewer = ({}) => {
                 </div>
               </div>
               <div>
-                
-                  <h1 className="text-xl sm:text-3xl font-bold">Fletchinder</h1>
+                <h1 className="text-xl sm:text-3xl font-bold">Fletchinder</h1>
                 <hr className="h-1 bg-system-200 border-none " />
-              
                 <div className="space-y-4 mt-2">
                   <div className="space-y-1">
                     <p>Tipo:</p>
@@ -52,7 +50,7 @@ const CardViewer = ({}) => {
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <p >Custo de recuo:</p>
+                    <p>Custo de recuo:</p>
                     <div className="flex space-x-1">
                       {Array.from({ length: 4 }).map((i, index) => (
                         <Icon className={defaultIconClass}></Icon>
@@ -62,16 +60,17 @@ const CardViewer = ({}) => {
                 </div>
               </div>
             </div>
-            <hr className="lg:hidden h-1 bg-system-200 border-none "/>
+            <hr className="lg:hidden h-1 bg-system-200 border-none " />
             <div className="mt-3 space-y-3 lg:mt-0">
-              <hr className="mt-9 h-1 bg-system-200 border-none lg:block hidden"  />
-            <div>
+              <hr className="mt-9 h-1 bg-system-200 border-none lg:block hidden" />
+              <div>
                 <p className="text-base sm:text-lg font-semibold">
                   <span>Passivas:</span>
                   <span>Poké-Body</span>
                 </p>
                 <p>
-                Each Pokémon that has any damage counters on it (both yours and your opponent's) can't use any Poké-Powers."
+                  Each Pokémon that has any damage counters on it (both yours
+                  and your opponent's) can't use any Poké-Powers."
                 </p>
               </div>
               <div>
@@ -80,7 +79,8 @@ const CardViewer = ({}) => {
                   <span>Poké-Body</span>
                 </p>
                 <p>
-                Each Pokémon that has any damage counters on it (both yours and your opponent's) can't use any Poké-Powers."
+                  Each Pokémon that has any damage counters on it (both yours
+                  and your opponent's) can't use any Poké-Powers."
                 </p>
               </div>
               <div>
@@ -89,7 +89,8 @@ const CardViewer = ({}) => {
                   <span>Poké-Body</span>
                 </p>
                 <p>
-                Each Pokémon that has any damage counters on it (both yours and your opponent's) can't use any Poké-Powers."
+                  Each Pokémon that has any damage counters on it (both yours
+                  and your opponent's) can't use any Poké-Powers."
                 </p>
               </div>
             </div>
