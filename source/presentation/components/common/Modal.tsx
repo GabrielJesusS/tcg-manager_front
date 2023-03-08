@@ -1,6 +1,7 @@
 import { animate, motion } from "framer-motion";
 import { HTMLAttributes } from "react";
 import { AnimationProps, AnimatePresence } from "framer-motion";
+import CloseIcon from "@/presentation/public/images/icons/close.svg";
 
 interface ModalProps extends HTMLAttributes<HTMLDivElement> {
   isOpen: boolean;
@@ -35,9 +36,9 @@ export const Modal = ({
         duration: 0.15,
       },
     },
-    transition:{
-        duration: 0.15
-    }
+    transition: {
+      duration: 0.15,
+    },
   };
 
   return (
@@ -48,7 +49,14 @@ export const Modal = ({
           className="bg-system-800/25 p-safe flex z-40 h-screen w-full fixed justify-center items-center"
         >
           <div className="bg-system p-6 rounded-lg z-50 max-w-4xl w-full">
-            <button onClick={() => close()}>X</button>
+            <div className="w-full flex justify-end">
+              <button
+                className="bg-error p-2 rounded-full"
+                onClick={() => close()}
+              >
+                <CloseIcon className="h-5 fill-system" />
+              </button>
+            </div>
             {children}
             {action && (
               <button

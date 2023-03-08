@@ -1,10 +1,12 @@
 import { Header } from "@/presentation/components/common/Header";
-import { Modal } from "@/presentation/components/common/Modal";
+import { CardFilterModal } from "@/presentation/components/common/modals/CardFilterModal";
 import { PokemonCard } from "@/presentation/components/common/PokemonCard";
 import { Textinput } from "@/presentation/components/common/Textinput";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
 import { Cardsitems } from "@/presentation/data/mocks/cardMocks";
+import { cardFilterAtom } from "@/presentation/store/modal";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
 
 const Cards = ({}) => {
 
@@ -12,7 +14,7 @@ const Cards = ({}) => {
     window.alert("para de clicar gay")
   }
 
-  const [modalIsOpen, toggleModal] = useState<boolean>(false)
+  const [modalIsOpen, toggleModal] = useRecoilState(cardFilterAtom)
 
   function toggle(){
     toggleModal(!modalIsOpen)
@@ -49,19 +51,7 @@ const Cards = ({}) => {
           </ul>
         </div>
       </section>
-      <Modal
-        isOpen={modalIsOpen}
-        action={{actionClick: alert, actionText: "printa ai mano"}}
-        close={toggle}
-        secondAction={{secondActionClick: toggle, secondActionText: "Cancelar operação"}}
-      >
-    
-          <form action="" >
-            <Textinput label="" placeholder="Buscar por..." type="text">
-              {" "}
-            </Textinput>
-          </form>
-      </Modal>
+        <CardFilterModal/>
       
     </DefaultLayout>
   );
