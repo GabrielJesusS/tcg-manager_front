@@ -1,4 +1,5 @@
 import { Dropdown } from "../components/common/Dropdown";
+import { Radioinput } from "../components/common/Radioinput";
 
 
 export default function x () {
@@ -8,7 +9,9 @@ export default function x () {
 
         <>
         
-            <Dropdown selectPlaceholder="Selecione 1" options={[{text: "opt1", value: "222"}]}></Dropdown>
+            <Dropdown label="dwda" selectPlaceholder="Selecione 1" options={[{text: "opt1", value: "222"}]}></Dropdown>
+            <Radioinput radioName="Nota do deck" optionsQtd={5}></Radioinput>
+        
         </>
     )
 }
