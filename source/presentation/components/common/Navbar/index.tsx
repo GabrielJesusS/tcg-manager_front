@@ -27,9 +27,9 @@ export const Navbar = ({}: NavbarProps) => {
   return (
     <header className={classNames("bg-primary w-full sticky z-20 top-0",)}>
       <div className="mx-auto px-6 py-2 flex items-center justify-between">
-        <div>
+        <Link href={"/"} >
           <TCGLogo className={"h-12"} />
-        </div>
+        </Link>
         <AnimatePresence>
           {isHideMenu && (
             <motion.div onClick={toggleMenu} animate={{opacity:1}} initial={{opacity: 0}} exit={{opacity:0}} className="bg-black/25 absolute h-screen w-full left-0 top-0 z-10"/>

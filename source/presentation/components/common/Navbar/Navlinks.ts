@@ -19,31 +19,58 @@ export const NavLinks: INavlinks[] = [
         url: "/decks",
       },
       {
-        name: "Construtor",
+        name: "Criar novo deck",
         url: "/decks/new",
-      },
-      {
-        name: "Novos",
-        url: "/decks",
       },
     ],
   },
   {
     id: 2,
-    title: "Decks",
+    title: "Artigos",
     links: [
       {
         name: "Listagem",
-        url: "/decks",
+        url: "/articles",
       },
       {
-        name: "Construtor",
-        url: "/decks/new",
-      },
-      {
-        name: "Novos",
-        url: "/decks",
+        name: "Publicar novo artigo",
+        url: "/articles/new",
       },
     ],
   },
+  {
+    id: 3,
+    title: "Cards",
+    links: [
+      {
+        name: "Listagem",
+        url: "/cards/",
+      },
+      {
+        name: "Carta surpresa",
+        url: "/cards/1"
+      }
+    ],
+  },
+  {
+    id: 4,
+    title: "Coleções",
+    links: [
+      {
+        name: "Listagem",
+        url: "/sets",
+      },
+    ],
+  },
+  {
+    id: 5,
+    title: "Usuários",
+    links: [
+      {
+        name: "Listagem",
+        url: "/user",
+      },
+    ],
+  },
+  
 ];
