@@ -11,3 +11,8 @@ export const deckFilterAtom = atom<boolean>({
     key: "DeckFilterAtom",
     default: false
 })
+
+export const articlesFilterAtom = atom<boolean>({
+    key: "ArticleFilterAtom",
+    default: false
+})
