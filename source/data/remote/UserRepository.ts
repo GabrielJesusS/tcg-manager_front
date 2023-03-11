@@ -59,17 +59,16 @@ export class UserRepository implements IUserRepository {
   ): Promise<TEither<TApplicationError, undefined>> {
     try {
 
-      const payload = { ...params}
+      const payload = {...params}
 
-      const {body: {data}} = await this.client.request<IApiResponse<undefined>, IAuthUserPayload>({
+      const {body} = await this.client.request<IApiResponse<undefined>, IAuthUserPayload>({
+        method: HttpMethod.POST,
         url: UserRepository.authRoute,
-        method: HttpMethod.GET,
-        payload
+        payload: payload,
       })
+      //TODO:change data response to a response pattern
 
-      console.log(data)
-
-
+      this.cookieService.setCookie(process.env.NEXT_PUBLIC_COOKIE_NAME as string, body)
 
       return right(undefined);
     } catch (error) {

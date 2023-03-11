@@ -9,6 +9,7 @@ import Image from "next/image";
 import BackgroundImage from "@/presentation/public/images/rsc/bgs/formbg-1.gif";
 import { loginSchema } from "../schemas/loginSchema";
 import { PokemonCard } from "../components/common/PokemonCard";
+import { createAuthUserUsecase } from "@/factories/createAuthUserUsecase";
 
 interface LoginProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -16,6 +17,8 @@ interface LoginParams {
   email: string;
   password: string;
 }
+
+const authUserUsecase = createAuthUserUsecase();
 
 const Login = ({}: LoginProps) => {
   const {
@@ -27,7 +30,19 @@ const Login = ({}: LoginProps) => {
   });
 
   const submitData: SubmitHandler<LoginParams> = async (data) => {
-    console.log(data);
+
+    try {
+      
+      console.log(data)
+      const response = await authUserUsecase.execute(data);
+
+      console.log(response);
+
+    } catch (error) {
+      console.log(error);
+    }
+
+
   };
 
   return (
