@@ -1,24 +1,44 @@
 import cookies from "js-cookie";
-import axios, { AxiosRequestConfig } from "axios";
-import { IHttpClient, HttpMethod, IHttpResponse } from "@/services/http";
+import axios, { InternalAxiosRequestConfig } from "axios";
+import { IHttpClient, IHttpResponse, IHttpClientRequestParams } from "@/services/http";
+import { createQueryString } from "@/utils/queryString";
 
-const NEXT_PUBLIC_COOKIE_NAME = process.env.NEXT_PUBLIC_COOKIE_NAME;
-const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL
+const NEXT_PUBLIC_COOKIE_NAME = process.env.NEXT_PUBLIC_COOKIE_NAME
+
+console.log(NEXT_PUBLIC_COOKIE_NAME )
+console.log(process.env.NEXT_PUBLIC_API_URL)
 
 const client = axios.create({
   baseURL: NEXT_PUBLIC_API_URL,
+  paramsSerializer: {
+    serialize: createQueryString,
+  },
   timeout: 7200000,
 });
 
-client.interceptors.request.use((config: AxiosRequestConfig) => {
-  const token: string | undefined = cookies.get(
-    NEXT_PUBLIC_COOKIE_NAME as string
-  );
-  if (token != null && config.headers)
-    config.headers.Authorization = `Bearer ${token}`;
+client.interceptors.request.use(
+  (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+    const token: string | undefined = cookies.get(
+      NEXT_PUBLIC_COOKIE_NAME as string
+    );
+    if (token != null) config.headers.Authorization = `Bearer ${token}`;
 
-  return config;
-});
+    return config;
+  }
+);
+
+function sanitizeParams<Params>(params: Params): Record<string, string> | undefined {
+  return !!params && typeof params == "object" 
+    ? Object.fromEntries(
+        Object.entries(params).filter(([_, v]) => {
+          if (typeof v === "string") return v.length > 0;
+
+          return true;
+        })
+      )
+    : undefined;
+}
 
 export class HttpClientAxios implements IHttpClient {
   async request<Response, Payload = undefined, Params = undefined>({
@@ -27,30 +47,19 @@ export class HttpClientAxios implements IHttpClient {
     params,
     payload,
     baseURL,
-  }: {
-    url: string;
-    method: HttpMethod;
-    params?: Params;
-    payload?: Payload;
-    baseURL?: string;
-  }): Promise<IHttpResponse<Response>> {
-    const sanitizedParams =
-      typeof params === "object"
-        ? Object.fromEntries(
-            Object.entries(params).filter(([_, v]) => {
-              if (typeof v === "string") return v.length > 0;
+  }: IHttpClientRequestParams<Payload, Params>): Promise<
+    IHttpResponse<Response>
+  > {
 
-              return true;
-            })
-          )
-        : undefined;
+    console.log(params)
+    const sanitizedParams = sanitizeParams<Params | undefined>(params);
 
     const response = await client.request({
       url,
       method,
       params: sanitizedParams,
       data: payload,
-      baseURL,
+      baseURL
     });
 
     return await Promise.resolve({
