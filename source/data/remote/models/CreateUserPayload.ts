@@ -1,6 +1,6 @@
 
 export interface IUserCreatePayload{
-    userName: string;
+    name: string;
     email: string;
     password: string;
 }

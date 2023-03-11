@@ -10,6 +10,7 @@ import Image from "next/image";
 import BackgroundImage from "@/presentation/public/images/rsc/bgs/formbg-1.gif";
 import CardBackplate from "@/presentation/public/images/rsc/mocks/card-back.png";
 import { PokemonCard } from "../components/common/PokemonCard";
+import { createRegisterUserUsecase } from "@/factories/createRegisterUserUsecase";
 
 interface RegisterProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -21,6 +22,9 @@ interface RegisterParams {
 }
 
 const Register = ({}: RegisterProps) => {
+
+  const registerUserUsecase = createRegisterUserUsecase();
+
   const {
     register,
     formState: { errors },
@@ -30,8 +34,24 @@ const Register = ({}: RegisterProps) => {
   });
 
   const submitData: SubmitHandler<RegisterParams> = async (data) => {
-    console.log(data);
+
+    try {
+
+      const response = await registerUserUsecase.execute(data);
+
+      console.log(response)
+
+    } catch (error) {
+      console.log(error);
+    }
+
+
+
   };
+
+
+
+
 
   return (
     <div className="flex flex-col h-screen relative">

@@ -3,6 +3,8 @@ import { TApplicationError } from "@/core/Errors";
 import { IUserRepository } from "@/domain/repositories/IUserRepository";
 import { HttpMethod, IHttpClient } from "@/services/http";
 import { IApiResponse } from "../modules/IApiResponse";
+import { IUserCreatePayload } from "./models/CreateUserPayload";
+import {generateHttpErrorResponse } from "@/data/modules/generateHttpErrorResponse"
 
 interface CreateParams {
   userName: string;
@@ -15,16 +17,8 @@ export class UserRepository implements IUserRepository {
 
   private readonly cookieService: string; //TODO:change string to ICookieService when implemented
 
-
-
-
   //Routes
-  private static readonly createRoute: string = "/user"
-
-
-
-
-
+  private static readonly createRoute: string = "/user/register";
 
   constructor(
     client: IHttpClient,
@@ -38,18 +32,17 @@ export class UserRepository implements IUserRepository {
     params: CreateParams
   ): Promise<TEither<TApplicationError, undefined>> {
     try {
-      const payload: CreateParams = { ...params };
+      const payload: IUserCreatePayload = { ...params, name: params.userName };
 
-        await this.client.request<IApiResponse<undefined>, CreateParams>({
-            method: HttpMethod.POST,
-            url: UserRepository.createRoute,
-            payload
-        })
-
+      await this.client.request<IApiResponse<undefined>, IUserCreatePayload>({
+        method: HttpMethod.POST,
+        url: UserRepository.createRoute,
+        payload,
+      });
 
       return right(undefined);
     } catch (error) {
-      return left(error);
+      return left(generateHttpErrorResponse(error));
     }
   }
 }
