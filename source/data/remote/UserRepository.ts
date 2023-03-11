@@ -1,7 +1,8 @@
 import { left, right, TEither } from "@/core/Either";
 import { TApplicationError } from "@/core/Errors";
 import { IUserRepository } from "@/domain/repositories/IUserRepository";
-import { IHttpClient } from "@/services/http";
+import { HttpMethod, IHttpClient } from "@/services/http";
+import { IApiResponse } from "../modules/IApiResponse";
 
 interface CreateParams {
   userName: string;
@@ -10,40 +11,45 @@ interface CreateParams {
 }
 
 export class UserRepository implements IUserRepository {
+  private readonly client: IHttpClient;
 
-
-    private readonly client: IHttpClient;
-
-    private readonly cookieService: string; //TODO:change string to ICookieService when implemented
-
-
-    constructor(
-        client: IHttpClient,
-        cookieService: string //TODO:change string to ICookieService when implemented
-    ){
-        this.client = client;
-        this.cookieService = cookieService;
-    }
+  private readonly cookieService: string; //TODO:change string to ICookieService when implemented
 
 
 
-  async create(params: CreateParams):Promise<TEither<TApplicationError, undefined>>{
 
+  //Routes
+  private static readonly createRoute: string = "/user"
+
+
+
+
+
+
+  constructor(
+    client: IHttpClient,
+    cookieService: string //TODO:change string to ICookieService when implemented
+  ) {
+    this.client = client;
+    this.cookieService = cookieService;
+  }
+
+  async create(
+    params: CreateParams
+  ): Promise<TEither<TApplicationError, undefined>> {
     try {
-        
-        const payload: CreateParams  = {...params}
+      const payload: CreateParams = { ...params };
 
-      /*   await this.client.request<IApiResponse<undefined>, CreateParams>({
-
+        await this.client.request<IApiResponse<undefined>, CreateParams>({
+            method: HttpMethod.POST,
+            url: UserRepository.createRoute,
+            payload
         })
- */
 
-        return right(undefined)
+
+      return right(undefined);
     } catch (error) {
-        return left(error)
+      return left(error);
     }
-
-
-
   }
 }
