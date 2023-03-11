@@ -1,14 +1,22 @@
 import { TApplicationError } from "@/core/Errors";
 import { TEither } from "@/core/Either";
 
-interface IUserCreateParams{
-    userName: string;
-    email: string;
-    password: string;
+interface IUserCreateParams {
+  userName: string;
+  email: string;
+  password: string;
 }
 
-
+interface IUserAuthParams {
+  email: string;
+  password: string;
+}
 
 export interface IUserRepository {
-  create: (params: IUserCreateParams) => Promise<TEither<TApplicationError, undefined>>
+  create: (
+    params: IUserCreateParams
+  ) => Promise<TEither<TApplicationError, undefined>>;
+  auth: (
+    params: IUserAuthParams
+  ) => Promise<TEither<TApplicationError, undefined>>;
 }
