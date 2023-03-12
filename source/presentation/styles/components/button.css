@@ -1,15 +1,19 @@
 .btn{
-    @apply text-center block w-fit text-lg md:text-xl font-medium text-system px-5 py-1 rounded-full drop-shadow-md
+    @apply text-center block w-fit text-lg border-2 md:text-xl font-medium px-4 py-0.5 rounded-full drop-shadow-md
 }
 
 .btn-primary{
-    @apply bg-secondary hover:bg-secondary-light active:bg-system-800;
+    @apply bg-secondary border-secondary text-system hover:bg-secondary-light active:bg-system-800;
 }
 
 .btn-error{
-    @apply bg-error hover:bg-system-600 active:bg-system-800;
+    @apply bg-error border-error text-system hover:bg-system-600 active:bg-system-800;
 }
 
 .btn-success{
-    @apply bg-success hover:bg-system-600 active:bg-system-800;
+    @apply bg-success border-success text-system hover:bg-system-600 active:bg-system-800;
+}
+
+.btn-error-outline{
+    @apply bg-system border-error text-error hover:text-system hover:bg-error active:bg-system-800;
 }

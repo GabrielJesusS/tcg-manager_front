@@ -6,12 +6,16 @@ import Link from "next/link";
 import { motion, AnimatePresence, MotionProps } from "framer-motion";
 import classNames from "classnames";
 import { Userdata } from "../Userdata";
-import ProfilePicture from "@/presentation/public/images/rsc/mocks/profile-picture.png"
+import ProfilePicture from "@/presentation/public/images/rsc/mocks/profile-picture.png";
+import { useRecoilValue } from "recoil";
+import { userDataAtom } from "@/presentation/store/genericAtoms";
 
 interface NavbarProps extends HTMLAttributes<HTMLHeadingElement> {}
 
 export const Navbar = ({}: NavbarProps) => {
   const [isHideMenu, setHideMenu] = useState<boolean>(false);
+
+  const userData = useRecoilValue(userDataAtom);
 
   function toggleMenu() {
     setHideMenu(!isHideMenu);
@@ -24,15 +28,25 @@ export const Navbar = ({}: NavbarProps) => {
     transition: { duration: 0.3, type: "keyframes", ease: "easeInOut" },
   };
 
+  function logOut(){
+
+  }
+
   return (
-    <header className={classNames("bg-primary w-full sticky z-20 top-0",)}>
+    <header className={classNames("bg-primary w-full sticky z-20 top-0")}>
       <div className="mx-auto px-6 py-2 flex items-center justify-between">
-        <Link href={"/"} >
+        <Link href={"/"}>
           <TCGLogo className={"h-12"} />
         </Link>
         <AnimatePresence>
           {isHideMenu && (
-            <motion.div onClick={toggleMenu} animate={{opacity:1}} initial={{opacity: 0}} exit={{opacity:0}} className="bg-black/25 absolute h-screen w-full left-0 top-0 z-10"/>
+            <motion.div
+              onClick={toggleMenu}
+              animate={{ opacity: 1 }}
+              initial={{ opacity: 0 }}
+              exit={{ opacity: 0 }}
+              className="bg-black/25 absolute h-screen w-full left-0 top-0 z-10"
+            />
           )}
         </AnimatePresence>
         <AnimatePresence>
@@ -42,7 +56,14 @@ export const Navbar = ({}: NavbarProps) => {
               className="absolute top-0 right-0 md:max-w-md w-full h-screen bg-system z-20 p-6 overflow-hidden"
             >
               <nav>
-                <Userdata userId={"1"} userLevel={1} userPicture={ProfilePicture.src} username="Gabriel"  />
+                {userData && (
+                  <Userdata
+                    userId={userData.publicId}
+                    userLevel={userData.level}
+                    userPicture={userData.picture}
+                    username={userData.name}
+                  />
+                )}
                 <ul className="space-y-6 my-20 ">
                   {NavLinks.map((item) => (
                     <Navitem
@@ -53,9 +74,12 @@ export const Navbar = ({}: NavbarProps) => {
                     />
                   ))}
                 </ul>
-                <Link className="btn btn-primary w-full" href="/login">
+                {!userData && <Link className="btn btn-primary w-full" href="/login">
                   Realizar login
-                </Link>
+                </Link>}
+                {userData && <button onClick={logOut} className="btn btn-error-outline w-full">
+                  Sair
+                </button>}
               </nav>
             </motion.div>
           )}

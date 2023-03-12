@@ -17,7 +17,7 @@ export const Userdata = ({
   className
 }: UserdataProps) => {
   return (
-    <Link href={userId} className={classNames("flex shrink-0 items-center space-x-1 w-fit", className)}>
+    <Link href={`users/${userId}`} className={classNames("flex shrink-0 items-center space-x-1 w-fit", className)}>
       <div className="rounded-full overflow-hidden w-10 h-10">
         <picture>
           <img
