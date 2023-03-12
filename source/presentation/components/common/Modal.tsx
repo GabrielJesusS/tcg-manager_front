@@ -46,7 +46,7 @@ export const Modal = ({
       {isOpen && (
         <motion.div
           {...animationsSettings}
-          className="bg-system-800/25 p-safe flex z-40 h-screen w-full fixed justify-center items-center"
+          className="bg-system-800/25 p-safe top-0 flex z-40 h-screen w-full fixed justify-center items-center"
         >
           <div className="bg-system p-6 rounded-lg z-50 max-w-4xl w-full">
             <div className="w-full flex justify-end">

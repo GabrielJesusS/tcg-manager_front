@@ -1,15 +1,18 @@
+import { DeckCardList } from "@/presentation/components/common/DeckCardList";
 import { Dropdown } from "@/presentation/components/common/Dropdown";
-import { Textarea } from "@/presentation/components/common/Textarea";
+import { DeckCardInsertModal } from "@/presentation/components/common/modals/DeckCardInsertModal";
 import { Textinput } from "@/presentation/components/common/Textinput";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
 
-const NewArticle = ({}) => {
+const NewDeck = ({}) => {
+
+
   return (
     <>
       <DefaultLayout>
         <main className="flex flex-col grow justify-center items-center bg-red-400 h-full">
           <div className="w-full p-safe">
-            <h1 className="text-2xl font-bold text-center">Novo artigo!</h1>
+            <h1 className="text-2xl font-bold text-center">Novo deck</h1>
             <section className="bg-system w-full p-3 rounded-lg ">
               <form action="" className="space-y-3">
                 <div className="space-y-3 md:space-y-0 ">
@@ -24,32 +27,29 @@ const NewArticle = ({}) => {
                   type="text"
                 />
                 <Dropdown
-                  label="Classificação"
-                  selectPlaceholder="Selecione uma classificação"
-                  options={[{ text: "op1", value: "op1" }]}
-                />
-                <Dropdown
                   label="Carta cover"
                   selectPlaceholder="Selecione uma carta de capa"
                   options={[{ text: "op1", value: "op1" }]}
                 />
+                   <Dropdown
+                  label="Dificuldade"
+                  selectPlaceholder="Você considera este deck..."
+                  options={[{ text: "op1", value: "op1" }]}
+                />
                 </div>
-                <Textarea
-                  placeholder="Este artigo fala sobre..."
-                  label="Texto:"
-                />
-                <Textarea
-                  placeholder="Digite a utl da fonte e uma virgula para separa-las"
-                  label="O artigo possui fontes?"
-                />
+                <div>
+                   <div className="font-semibold text-lg"><p>Cartas</p> <span>{0}</span></div>
+                    <DeckCardList></DeckCardList>
+                </div>
                 <button className="btn btn-primary w-full">Publicar</button>
               </form>
             </section>
           </div>
         </main>
+        <DeckCardInsertModal/>
       </DefaultLayout>
     </>
   );
 };
 
-export default NewArticle;
+export default NewDeck;
