@@ -22,7 +22,6 @@ interface RegisterParams {
 }
 
 const Register = ({}: RegisterProps) => {
-
   const registerUserUsecase = createRegisterUserUsecase();
 
   const {
@@ -34,103 +33,97 @@ const Register = ({}: RegisterProps) => {
   });
 
   const submitData: SubmitHandler<RegisterParams> = async (data) => {
-
     try {
-
       const response = await registerUserUsecase.execute(data);
 
-      console.log(response)
-
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
-
-
-
   };
 
-
-
-
-
   return (
-    <div className="flex flex-col h-screen relative">
-      <div className="absolute h-full w-full z-0 bg-red-300">
-        <Image
-          className=" h-full object-cover w-full"
-          src={BackgroundImage.src}
-          height={608}
-          width={296}
-          alt={""}
-        />
+    <div>
+      <div className="absolute w-full h-full z-0 bg-red-300">
+        <picture>
+          <img
+            className="object-cover w-full h-full"
+            src={BackgroundImage.src}
+            alt=""
+            height={608}
+            width={296}
+          />
+        </picture>
       </div>
-      <div className="relative">
-        <section className="h-full px-safe flex justify-around max-w-7xl mx-auto w-full items-center">
-          <div className="hidden lg:block">
-            <PokemonCard></PokemonCard>
-          </div>
-          <div className="bg-white h-fit w-fit my-safe px-6 md:px-12 py-8 rounded-2xl space-y-6">
-            <Link href="/">
-              <TCGManagerLogo className={"h-28 mx-auto"} />
-            </Link>
-            <h1 className="uppercase text-center text-2xl font-bold">
-              Registro
-            </h1>
-            <form className="space-y-6" onSubmit={handleSubmit(submitData)}>
-              <Textinput
-                label="Nome de usuário..."
-                type="text"
-                inputProps={{
-                  ...register("userName"),
-                  placeholder: "Nome de usuário",
-                }}
-              />
-              {errors.userName && (
-                <span className="text-error">{errors.userName.message}</span>
-              )}
-              <Textinput
-                label="E-mail..."
-                type="email"
-                inputProps={{ ...register("email"), placeholder: "Email" }}
-              />
-              {errors.email && (
-                <span className="text-error">{errors.email.message}</span>
-              )}
-              <Textinput
-                label="Senha..."
-                type="password"
-                inputProps={{ ...register("password"), placeholder: "Senha" }}
-              />
-              {errors.password && (
-                <span className="text-error">{errors.password.message}</span>
-              )}
-              <Textinput
-                label="Confirmar senha..."
-                type="password"
-                inputProps={{
-                  ...register("confirmPassword"),
-                  placeholder: "Confirmar senha",
-                }}
-              />
-              {errors.confirmPassword && (
-                <span className="text-error">
-                  {errors.confirmPassword.message}
-                </span>
-              )}
-              <button className="btn btn-primary uppercase w-full">
-                Registar-se
-              </button>
-            </form>
-            <p className="text-center">
-              Já possui registro? Autentique-se{" "}
-              <Link href="/login" className="dft-link">
-                aqui!
+      <main className="relative z-10 flex flex-col">
+        <div className="relative h-full flex-col flex">
+          <section className="min-h-screen grow shrink-0 px-safe flex justify-around max-w-7xl mx-auto w-full items-center">
+            <div className="hidden lg:block">
+              <PokemonCard></PokemonCard>
+            </div>
+            <div className="bg-white h-fit w-fit my-safe px-6 md:px-12 py-8 rounded-2xl space-y-6">
+              <Link href="/">
+                <TCGManagerLogo className={"h-28 mx-auto"} />
               </Link>
-            </p>
-          </div>
-        </section>
-        <Footer></Footer>
-      </div>
+              <h1 className="uppercase text-center text-2xl font-bold">
+                Registro
+              </h1>
+              <form className="space-y-6" onSubmit={handleSubmit(submitData)}>
+                <Textinput
+                  label="Nome de usuário..."
+                  type="text"
+                  inputProps={{
+                    ...register("userName"),
+                    placeholder: "Nome de usuário",
+                  }}
+                />
+                {errors.userName && (
+                  <span className="text-error">{errors.userName.message}</span>
+                )}
+                <Textinput
+                  label="E-mail..."
+                  type="email"
+                  inputProps={{ ...register("email"), placeholder: "Email" }}
+                />
+                {errors.email && (
+                  <span className="text-error">{errors.email.message}</span>
+                )}
+                <Textinput
+                  label="Senha..."
+                  type="password"
+                  inputProps={{ ...register("password"), placeholder: "Senha" }}
+                />
+                {errors.password && (
+                  <span className="text-error">{errors.password.message}</span>
+                )}
+                <Textinput
+                  label="Confirmar senha..."
+                  type="password"
+                  inputProps={{
+                    ...register("confirmPassword"),
+                    placeholder: "Confirmar senha",
+                  }}
+                />
+                {errors.confirmPassword && (
+                  <span className="text-error">
+                    {errors.confirmPassword.message}
+                  </span>
+                )}
+                <button className="btn btn-primary uppercase w-full">
+                  Registar-se
+                </button>
+              </form>
+              <p className="text-center">
+                Já possui registro? Autentique-se{" "}
+                <Link href="/login" className="dft-link">
+                  aqui!
+                </Link>
+              </p>
+            </div>
+          </section>
+          <Footer></Footer>
+        </div>
+      </main>
     </div>
   );
 };
