@@ -21,3 +21,8 @@ export const deckCardInsertAtom = atom<boolean>({
     key: "DeckCardInsertModal",
     default: false
 })
+
+export const deckCardRemoveAtom = atom<boolean>({
+    key: "DeckCardRemoveModal",
+    default: false
+})

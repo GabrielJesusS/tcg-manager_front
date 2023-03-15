@@ -15,6 +15,12 @@ interface IDeckComposeProps {
   quantity: number;
 }
 
+interface IDeckSendObjProps {
+  cardId: string;
+  name: string;
+  quantity: number;
+}
+
 export const userDataAtom = atom<IUserDataAtomProps | null>({
   key: "UserDataAtom",
   default: null,
@@ -27,6 +33,26 @@ export const deckComposeAtom = atomFamily<IDeckComposeProps, string>({
     name: "",
     image: "",
     quantity: 0,
+  },
+});
+
+export const deckComposeArrayAtom = selector<Array<IDeckSendObjProps>>({
+  key: "DeckComposeArrayAtom",
+  get: ({ get }) => {
+    const cardsIds = get(deckComposeIdsAtom);
+
+    return cardsIds.reduce((total, cards) => {
+      const cardsOnCompose: IDeckComposeProps = get(deckComposeAtom(cards));
+
+      return [
+        ...total,
+        {
+          cardId: cardsOnCompose.cardId,
+          name: cardsOnCompose.name,
+          quantity: cardsOnCompose.quantity,
+        },
+      ];
+    }, []);
   },
 });
 
@@ -43,4 +69,22 @@ export const actualCardOnComposeAtom = atom<IDeckComposeProps>({
 export const deckComposeIdsAtom = atom<string[]>({
   key: "DeckComposeIdsAtom",
   default: [],
+});
+
+export const totalDeckCardsAtom = selector<number>({
+  key: "TotalDeckCardsOnCompose",
+  get: ({ get }) => {
+    const cardsIds = get(deckComposeIdsAtom);
+
+    return cardsIds.reduce((total, cards) => {
+      const cardsOnCompose: IDeckComposeProps = get(deckComposeAtom(cards));
+
+      return total + cardsOnCompose.quantity;
+    }, 0);
+  },
+});
+
+export const cardToRemoveAtom = atom<string>({
+  key: "CardToRemoveAtom",
+  default: "",
 });
