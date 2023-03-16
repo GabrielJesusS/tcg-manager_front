@@ -5,6 +5,7 @@ import { PokemonCard } from "@/presentation/components/common/PokemonCard";
 import { Textinput } from "@/presentation/components/common/Textinput";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
 import { Cardsitems } from "@/presentation/data/mocks/cardMocks";
+import { useFetch } from "@/presentation/hooks/useFetch";
 import { cardFilterAtom } from "@/presentation/store/modal";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -22,34 +23,30 @@ interface ICardListParams {
 
 const Cards = ({}) => {
   const [modalIsOpen, toggleModal] = useRecoilState(cardFilterAtom);
-  const [cardList, setCardList] = useState<ICardListParams[]>([]);
 
   function toggle() {
     toggleModal(!modalIsOpen);
   }
 
-  useEffect(() => {
-  
-      const response = getCardListUsecase.execute()
-      console.log(response)
-      
-       
-    
-  }, []);
+  const { data: Cards } = useFetch({
+    name: "pokemonCardList",
+    useCase: async () => await getCardListUsecase.execute(),
+  });
 
   return (
     <DefaultLayout>
       <div>
         <Header>Cards</Header>
       </div>
-      <section className="p-safe mx-auto max-w-7xl space-y-4">
-        <header>
-          <h2 className="font-bold">Mais recentes</h2>
-        </header>
-
-        <div className="space-y-6">
+      <section className="p-safe mx-auto max-w-7xl w-full space-y-4">
+        <div className="space-y-6 max-w-3xl mx-auto">
           <form action="">
-            <Textinput label="" placeholder="Buscar por..." type="text">
+            <Textinput
+              className="w-full"
+              label=""
+              placeholder="Buscar por..."
+              type="text"
+            >
               {" "}
             </Textinput>
           </form>
@@ -58,16 +55,19 @@ const Cards = ({}) => {
           </button>
         </div>
         <div>
-          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8">
-           {/*  {Cardsitems.map((card) => (
-              <li key={card.cardId}>
-                <PokemonCard
-                  url={`cards/${card.cardId}`}
-                  src={card.cardImage}
-                />
-              </li>
-            ))} */}
-          </ul>
+          {Cards && (
+            <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5  gap-8">
+              {Cards.map((card) => (
+                <li key={card.id}>
+                  <PokemonCard
+                    url={`cards/${card.id}`}
+                    src={card.images.small}
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
+          {!Cards && <p>Carregando...</p>}
         </div>
       </section>
       <CardFilterModal />

@@ -27,6 +27,7 @@ export const PokemonCard = ({
           width={width ?? 320}
           height={height ?? 444}
           src={src}
+          loading="lazy"
         ></img>
       ) : (
         <img
@@ -34,6 +35,7 @@ export const PokemonCard = ({
           width={width ?? 320}
           height={height ?? 444}
           src={CardBackplate.src}
+          loading="lazy"
         ></img>
       )}
       </Link>
