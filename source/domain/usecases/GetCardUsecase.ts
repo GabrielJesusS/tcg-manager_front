@@ -1,16 +1,9 @@
 import { TEither } from "@/core/Either";
 import { TApplicationError } from "@/core/Errors";
+import { IUsecase } from "@/core/Usecase";
+import { CardRepository } from "@/data/remote/CardRepository";
 
-interface ICardListParams {
-  id: string;
-  name: string;
-  images: {
-    small: string;
-    large: string;
-  };
-}
-
-export interface ICardParams {
+export interface CardParams {
   id: string;
   name: string;
   supertype: string;
@@ -37,9 +30,9 @@ export interface ICardParams {
     printedTotal: number;
     total: number;
     legalities: {
-        unlimited?: string,
-        expanded?: string
-        standard?:string
+      unlimited?: string;
+      expanded?: string;
+      standard?: string;
     };
     ptcgoCode: string;
     releaseDate: string;
@@ -55,7 +48,7 @@ export interface ICardParams {
   legalities: {
     unlimited?: string;
     expanded?: string;
-    standard?:string
+    standard?: string;
   };
   images: {
     small: string;
@@ -63,7 +56,10 @@ export interface ICardParams {
   };
 }
 
-export interface ICardRepository {
-  getList: () => Promise<TEither<TApplicationError, ICardListParams[]>>;
-  get: (cardId:string) => Promise<TEither<TApplicationError, ICardParams>>;
+export class GetCardUsecase implements IUsecase {
+  constructor(private readonly cardRepository: CardRepository) {}
+
+  execute(params: string): Promise<TEither<TApplicationError, CardParams>> {
+    return this.cardRepository.get(params);
+  }
 }

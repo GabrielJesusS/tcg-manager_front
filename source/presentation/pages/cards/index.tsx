@@ -12,15 +12,6 @@ import { useRecoilState } from "recoil";
 
 const getCardListUsecase = createGetCardListUsecase();
 
-interface ICardListParams {
-  id: string;
-  name: string;
-  images: {
-    small: string;
-    large: string;
-  };
-}
-
 const Cards = ({}) => {
   const [modalIsOpen, toggleModal] = useRecoilState(cardFilterAtom);
 
