@@ -1,9 +1,4 @@
-import { TEither } from "@/core/Either";
-import { TApplicationError } from "@/core/Errors";
-import { IUsecase } from "@/core/Usecase";
-import { CardRepository } from "@/data/remote/CardRepository";
-
-export interface CardParams {
+export interface IPokemonCard {
   id: string;
   name: string;
   supertype: string;
@@ -64,12 +59,4 @@ export interface CardParams {
     text: string;
     type: string;
   }[];
-}
-
-export class GetCardUsecase implements IUsecase {
-  constructor(private readonly cardRepository: CardRepository) {}
-
-  execute(params: string): Promise<TEither<TApplicationError, CardParams>> {
-    return this.cardRepository.get(params);
-  }
 }

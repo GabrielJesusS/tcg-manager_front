@@ -19,7 +19,7 @@ export const PokemonCard = ({
   url
 }: PokemonCardProps) => {
   return (
-    <Tilty>
+    <Tilty className="w-fit">
       <Link href={url ?? ""}>
       {src ? (
         <img

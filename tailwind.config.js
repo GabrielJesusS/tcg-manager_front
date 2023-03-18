@@ -14,6 +14,7 @@ module.exports = {
         "safe" : "1.5rem"
       },
       colors: {
+        background: "#E7E7E7",
         primary: {
           dark: "#950014",
           DEFAULT: "#cd3b3b",

@@ -15,7 +15,7 @@ export class CardRepository implements ICardRepository {
 
   //    routes
   private static readonly getListRoute: string = "/cards";
-  private static readonly getRoute: string = "/cards";
+  private static readonly getRoute: string = "/cards/";
 
   constructor(client: IHttpClient) {
     this.client = client;
@@ -40,6 +40,7 @@ export class CardRepository implements ICardRepository {
   }
 
   async get(cardId: string): Promise<TEither<TApplicationError, CardResponse>> {
+    console.log(cardId);
     try {
       const {
         body: { data },
@@ -48,9 +49,8 @@ export class CardRepository implements ICardRepository {
         undefined,
         string
       >({
-        url: CardRepository.getRoute,
+        url: CardRepository.getRoute + cardId,
         method: HttpMethod.GET,
-        params: cardId,
       });
 
       return right(data);

@@ -20,7 +20,7 @@
     "emitDecoratorMetadata": true,
     "paths": {
       "@/*": ["./*"]
-    }
+    },
   },
   "include": ["next-env.d.ts", "source/**/*.ts", "source/**/*.tsx"],
   "exclude": ["node_modules"]

@@ -18,7 +18,7 @@ export function useFetch<Data = any>({
   swr,
 }: IUseFetchParams<Data>): SWRResponse<Data, TApplicationError> {
   return useSWR(
-    shouldFetch ? name : null,
+    shouldFetch ? name : name ? name : null,
 
     async () => {
       const response = await useCase();
