@@ -53,6 +53,9 @@ module.exports = {
       fontFamily: {
         poppins: ["var(--font-poppins)", "sans"],
       },
+      aspectRatio:{
+        "card": "7 / 9.77"
+      }
     },
   },
   variants: {
