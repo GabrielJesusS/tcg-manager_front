@@ -9,11 +9,13 @@ import { generateHttpErrorResponse } from "../modules/generateHttpErrorResponse"
 import { IApiResponse } from "../modules/IApiResponse";
 import { CardListResponse } from "./responses/CardListResponse";
 import { CardResponse } from "./responses/CardResponse";
+import { IRandomCardResponse } from "./responses/RandomCardResponse";
 
 export class CardRepository implements ICardRepository {
   private readonly client: IHttpClient;
 
   //    routes
+  private static readonly getRandomRoute: string = "/cards/randomCard/";
   private static readonly getListRoute: string = "/cards";
   private static readonly getRoute: string = "/cards/";
 
@@ -57,5 +59,23 @@ export class CardRepository implements ICardRepository {
     } catch (error) {
       return left(generateHttpErrorResponse(error));
     }
+  }
+
+  async getRandom():Promise<TEither<TApplicationError, IRandomCardResponse>>{
+
+    try {
+      
+      const {body} = await this.client.request<IApiResponse<IRandomCardResponse>, undefined>({
+        method: HttpMethod.GET,
+        url: CardRepository.getRandomRoute,
+      })
+      
+      return right(body.data)
+    } catch (error) {
+      return left(generateHttpErrorResponse(error))
+    }
+
+
+
   }
 }

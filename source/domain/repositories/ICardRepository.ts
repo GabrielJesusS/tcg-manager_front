@@ -63,7 +63,12 @@ export interface ICardParams {
   };
 }
 
+interface IRandomCardResponse{
+  id: string
+}
+
 export interface ICardRepository {
   getList: () => Promise<TEither<TApplicationError, ICardListParams[]>>;
   get: (cardId:string) => Promise<TEither<TApplicationError, ICardParams>>;
+  getRandom: ()=> Promise<TEither<TApplicationError, IRandomCardResponse>>
 }
