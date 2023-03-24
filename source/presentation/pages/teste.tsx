@@ -3,6 +3,7 @@ import { Comment } from "../components/common/Comment";
 import { Dropdown } from "../components/common/Dropdown";
 import { PaginationBlock } from "../components/common/Pagination";
 import { Radioinput } from "../components/common/Radioinput";
+import { CardSkeleton } from "../components/common/skeletons/CardSkeleton";
 import { CommentItems } from "../data/mocks/commentMock";
 import { cardPaginationAtom } from "../store/paginations";
 
@@ -32,6 +33,13 @@ export default function x() {
         ))}
       </ol>
       <PaginationBlock backPage={()=> navPages(false)} nextPage={()=> navPages(true)} />
+        
+        <div className="flex p-safe space-x-6">
+          <CardSkeleton/>
+          <CardSkeleton/>
+          <CardSkeleton/>
+          <CardSkeleton/>
+        </div>
     </>
   );
 }
