@@ -1,0 +1,15 @@
+.spin{
+    
+    animation: spin 1s ease-in-out infinite;
+}
+
+
+@keyframes spin{
+    from{
+        transform: rotateZ(0deg);
+    }
+    to{
+        transform: rotateZ(360deg);
+    }
+
+}
