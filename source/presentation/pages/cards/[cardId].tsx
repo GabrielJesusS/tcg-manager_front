@@ -1,16 +1,20 @@
 import { PokemonCard } from "@/presentation/components/common/PokemonCard";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
-import { checkCardExists } from "@/presentation/utils/checkCardExists";
 import { IconComponent } from "@/presentation/public/images/icons/types";
 import { Fragment } from "react";
 import { CardAttacks } from "@/presentation/components/common/CardViewer/CardAttacks";
 import { CardAbilities } from "@/presentation/components/common/CardViewer/CardAbilities";
 import { CardSubTypes } from "@/presentation/enums/CardSubtypes";
+import { checkCardExists } from "@/presentation/middlewares/checkCardExists";
+import { useGetCard } from "@/presentation/hooks/useGetCard";
+import { useRecoilValue } from "recoil";
+import { pokemonCardIdAtom } from "@/presentation/store/cardAtom";
 
 const CardViewer = () => {
   const defaultIconClass: string = "h-5";
 
-  const data = checkCardExists();
+  const cardId = useRecoilValue(pokemonCardIdAtom);
+  const { data, error, isLoading } = useGetCard(cardId);
 
   return (
     <DefaultLayout>
@@ -42,9 +46,7 @@ const CardViewer = () => {
                           </div>
                         </div>
                       )}
-                      {
-                        
-                      }
+                      {}
                       {!data.subtypes.includes(
                         CardSubTypes.SUPPORTER || CardSubTypes.TOOL
                       ) && (
@@ -168,4 +170,4 @@ const CardViewer = () => {
   );
 };
 
-export default CardViewer;
+export default checkCardExists(CardViewer);

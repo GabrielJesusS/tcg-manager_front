@@ -2,15 +2,18 @@ import { createGetCardListUsecase } from "@/factories/createGetCardListUsecase";
 import { Header } from "@/presentation/components/common/Header";
 import { CardFilterModal } from "@/presentation/components/common/modals/CardFilterModal";
 import { PokemonCard } from "@/presentation/components/common/PokemonCard";
+import { CardSkeleton } from "@/presentation/components/common/skeletons/CardSkeleton";
 import { Textinput } from "@/presentation/components/common/Textinput";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
 import { Cardsitems } from "@/presentation/data/mocks/cardMocks";
 import { useFetch } from "@/presentation/hooks/useFetch";
 import { cardFilterAtom } from "@/presentation/store/modal";
+import { generateArray } from "@/presentation/utils/generateArray";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 
 const getCardListUsecase = createGetCardListUsecase();
+const skeletonArray = generateArray(20);
 
 const Cards = ({}) => {
   const [modalIsOpen, toggleModal] = useRecoilState(cardFilterAtom);
@@ -46,9 +49,9 @@ const Cards = ({}) => {
           </button>
         </div>
         <div>
-          {Cards && (
-            <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5  gap-8">
-              {Cards.map((card) => (
+          <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5  gap-8">
+            {Cards &&
+              Cards.map((card) => (
                 <li key={card.id}>
                   <PokemonCard
                     url={`cards/${card.id}`}
@@ -56,9 +59,8 @@ const Cards = ({}) => {
                   />
                 </li>
               ))}
-            </ul>
-          )}
-          {!Cards && <p>Carregando...</p>}
+            {!Cards && skeletonArray.map((item) => <CardSkeleton key={item} />)}
+          </ul>
         </div>
       </section>
       <CardFilterModal />
