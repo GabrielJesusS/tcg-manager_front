@@ -10,6 +10,8 @@ import BackgroundImage from "@/presentation/public/images/rsc/bgs/formbg-1.gif";
 import { loginSchema } from "../schemas/loginSchema";
 import { PokemonCard } from "../components/common/PokemonCard";
 import { createAuthUserUsecase } from "@/factories/createAuthUserUsecase";
+import { useGetRandomCard } from "../hooks/useGetRandomCard";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface LoginProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -28,21 +30,19 @@ const Login = ({}: LoginProps) => {
   } = useForm<LoginParams>({
     resolver: yupResolver(loginSchema),
   });
+  const { data, error, isLoading } = useGetRandomCard();
+
+  console.log(data);
 
   const submitData: SubmitHandler<LoginParams> = async (data) => {
-
     try {
-      
-      console.log(data)
+      console.log(data);
       const response = await authUserUsecase.execute(data);
 
       console.log(response);
-
     } catch (error) {
       console.log(error);
     }
-
-
   };
 
   return (
@@ -94,7 +94,18 @@ const Login = ({}: LoginProps) => {
           </p>
         </div>
         <div className="hidden md:block">
-          <PokemonCard src="https://images.pokemontcg.io/xy1/1.png"></PokemonCard>
+          <AnimatePresence>
+            {isLoading && (
+              <motion.div initial={{ rotateY: 0 }} exit={{ rotateY: 360 }}>
+                <PokemonCard/>
+              </motion.div>
+            )}
+            {!isLoading && data && (
+              <motion.div initial={{ rotateY: 0 }} animate={{ rotateY: 360 }}>
+                <PokemonCard src={data.images.small} url={`cards/${data.id}`}/>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
       <Footer className="relative z-10"></Footer>

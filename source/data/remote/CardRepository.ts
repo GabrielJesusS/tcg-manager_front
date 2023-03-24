@@ -15,7 +15,7 @@ export class CardRepository implements ICardRepository {
   private readonly client: IHttpClient;
 
   //    routes
-  private static readonly getRandomRoute: string = "/cards/randomCard/";
+  private static readonly getRandomRoute: string = "/cards/randomCard";
   private static readonly getListRoute: string = "/cards";
   private static readonly getRoute: string = "/cards/";
 
@@ -69,6 +69,7 @@ export class CardRepository implements ICardRepository {
         method: HttpMethod.GET,
         url: CardRepository.getRandomRoute,
       })
+      
       
       return right(body.data)
     } catch (error) {

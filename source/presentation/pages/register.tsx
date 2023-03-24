@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Footer } from "../components/common/Footer";
 import { Textinput } from "../components/common/Textinput";
@@ -11,6 +11,8 @@ import BackgroundImage from "@/presentation/public/images/rsc/bgs/formbg-1.gif";
 import CardBackplate from "@/presentation/public/images/rsc/mocks/card-back.png";
 import { PokemonCard } from "../components/common/PokemonCard";
 import { createRegisterUserUsecase } from "@/factories/createRegisterUserUsecase";
+import { AnimatePresence, motion } from "framer-motion";
+import { useGetRandomCard } from "../hooks/useGetRandomCard";
 
 interface RegisterProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -23,6 +25,7 @@ interface RegisterParams {
 
 const Register = ({}: RegisterProps) => {
   const registerUserUsecase = createRegisterUserUsecase();
+  const { data, error, isLoading, update } = useGetRandomCard();
 
   const {
     register,
@@ -59,7 +62,21 @@ const Register = ({}: RegisterProps) => {
         <div className="relative h-full flex-col flex">
           <section className="min-h-screen grow shrink-0 px-safe flex justify-around max-w-7xl mx-auto w-full items-center">
             <div className="hidden lg:block">
-              <PokemonCard></PokemonCard>
+              <AnimatePresence>
+                {isLoading && (
+                  <motion.div initial={{ rotateY: 0 }} exit={{ rotateY: 360 }}>
+                    <PokemonCard />
+                  </motion.div>
+                )}
+                {!isLoading && data && (
+                  <motion.div
+                    initial={{ rotateY: 0 }}
+                    animate={{ rotateY: 360 }}
+                  >
+                    <PokemonCard src={data.images.small} url={`cards/${data.id}`}/>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             <div className="bg-white h-fit w-fit my-safe px-6 md:px-12 py-8 rounded-2xl space-y-6">
               <Link href="/">
