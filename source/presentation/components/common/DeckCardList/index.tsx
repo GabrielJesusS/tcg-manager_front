@@ -42,7 +42,7 @@ export const DeckCardList = ({
     <div className="space-y-6">
       {deckComposeIds.length > 0 && (
         <div className="shadow bg-system p-3 border rounded-lg border-system-600">
-          <ul className="space-y-3">
+          <ul className="space-y-3 md:space-y-0 md:gap-3 md:grid md:grid-cols-2">
             {deckComposeIds.map((card, index) => {
               return (
                 <li key={card}>

@@ -35,9 +35,9 @@ export const DeckCardItem = ({ cardId }: CardItemProps) => {
   }
 
   return (
-    <div className="flex justify-between relative">
+    <div className="flex justify-between border-2 border-system-200 p-3 rounded-lg">
       <p className="dft-link peer">{cardInfos.name}</p>
-      <div className="bg-system max-w-xs space-y-6 shadow-2xl border border-system-200 peer-hover:bottom-5 hover:bottom-5 opacity-0 hover:opacity-100 peer-hover:opacity-100 transition-all -z-40 duration-150 peer-hover:z-20 hover:z-20 bottom-10 p-safe w-fit rounded-lg absolute">
+      <div className="bg-system  max-w-xs space-y-6 shadow-2xl border border-system-200 peer-hover:bottom-5 hover:bottom-5 opacity-0 hover:opacity-100 peer-hover:opacity-100 transition-all -z-40 duration-150 peer-hover:z-20 hover:z-20 bottom-10 p-safe w-fit rounded-lg absolute">
         <picture className="w-fit">
           <img src={cardInfos.image} alt="" className="" />
         </picture>

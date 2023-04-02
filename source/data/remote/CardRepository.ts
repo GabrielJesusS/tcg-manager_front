@@ -70,7 +70,6 @@ export class CardRepository implements ICardRepository {
         url: CardRepository.getRandomRoute,
       })
       
-      
       return right(body.data)
     } catch (error) {
       return left(generateHttpErrorResponse(error))

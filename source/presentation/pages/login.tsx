@@ -32,7 +32,7 @@ const Login = ({}: LoginProps) => {
   });
   const { data, error, isLoading } = useGetRandomCard();
 
-  console.log(data);
+  console.log(isLoading);
 
   const submitData: SubmitHandler<LoginParams> = async (data) => {
     try {

@@ -8,18 +8,26 @@ interface IUserDataAtomProps {
   level: number;
 }
 
-interface IDeckComposeProps {
+interface IDeckObjProps {
   cardId: string;
   name: string;
-  image: string;
   quantity: number;
+  subtypes: string[];
+  supertype: string;
 }
 
-interface IDeckSendObjProps {
-  cardId: string;
-  name: string;
-  quantity: number;
+interface IDeckComposeProps extends IDeckObjProps {
+  image: string;
 }
+
+const emptyCard: IDeckComposeProps = {
+  cardId: "",
+  name: "",
+  image: "",
+  subtypes: [],
+  supertype: "",
+  quantity: 0,
+};
 
 export const userDataAtom = atom<IUserDataAtomProps | null>({
   key: "UserDataAtom",
@@ -28,20 +36,15 @@ export const userDataAtom = atom<IUserDataAtomProps | null>({
 
 export const deckComposeAtom = atomFamily<IDeckComposeProps, string>({
   key: "DeckComposeAtom",
-  default: {
-    cardId: "",
-    name: "",
-    image: "",
-    quantity: 0,
-  },
+  default: emptyCard,
 });
 
-export const deckComposeArrayAtom = selector<Array<IDeckSendObjProps>>({
+export const deckComposeArrayAtom = selector<Array<IDeckObjProps>>({
   key: "DeckComposeArrayAtom",
   get: ({ get }) => {
     const cardsIds = get(deckComposeIdsAtom);
 
-    return cardsIds.reduce((total, cards) => {
+    return cardsIds.reduce((total, cards): Array<IDeckObjProps> => {
       const cardsOnCompose: IDeckComposeProps = get(deckComposeAtom(cards));
 
       return [
@@ -50,6 +53,8 @@ export const deckComposeArrayAtom = selector<Array<IDeckSendObjProps>>({
           cardId: cardsOnCompose.cardId,
           name: cardsOnCompose.name,
           quantity: cardsOnCompose.quantity,
+          subtypes: cardsOnCompose.subtypes,
+          supertype: cardsOnCompose.supertype,
         },
       ];
     }, []);
@@ -58,12 +63,7 @@ export const deckComposeArrayAtom = selector<Array<IDeckSendObjProps>>({
 
 export const actualCardOnComposeAtom = atom<IDeckComposeProps>({
   key: "ActualCardOnComposeAtom",
-  default: {
-    cardId: "",
-    name: "",
-    image: "",
-    quantity: 0,
-  },
+  default: emptyCard,
 });
 
 export const deckComposeIdsAtom = atom<string[]>({

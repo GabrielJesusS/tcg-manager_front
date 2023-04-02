@@ -59,16 +59,16 @@ const NewDeck = ({}) => {
             <h1 className="text-2xl font-bold text-center">Novo deck</h1>
             <section className="bg-system w-full p-3 rounded-lg ">
               <form action="" className="space-y-3">
-                <div className="space-y-3 md:space-y-0 ">
+                <div className="space-y-3 md:space-y-0  md:grid md:grid-cols-2 md:gap-safe">
                   <Textinput
                     placeholder="Titulo..."
-                    label="Titulo do artigo:"
+                    label="Titulo do deck:"
                     type="text"
                     inputProps={{ ...register("deckName") }}
                   />
                   <Textinput
                     placeholder="Descrição..."
-                    label="Descrição do artigo:"
+                    label="Descrição do deck:"
                     type="text"
                     inputProps={{ ...register("deckDescription") }}
                   />

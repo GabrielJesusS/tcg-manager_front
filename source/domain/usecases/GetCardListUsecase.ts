@@ -6,6 +6,8 @@ import { ICardRepository } from "../repositories/ICardRepository";
 interface ICardListParams {
   id: string;
   name: string;
+  subtypes: string[];
+  supertype: string;
   images: {
     small: string;
     large: string;

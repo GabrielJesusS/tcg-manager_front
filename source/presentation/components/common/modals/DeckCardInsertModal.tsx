@@ -1,5 +1,11 @@
-import { actualCardOnComposeAtom, deckComposeAtom, deckComposeIdsAtom } from "@/presentation/store/genericAtoms";
+import { createGetCardListUsecase } from "@/factories/createGetCardListUsecase";
+import {
+  actualCardOnComposeAtom,
+  deckComposeAtom,
+  deckComposeIdsAtom,
+} from "@/presentation/store/genericAtoms";
 import { deckCardInsertAtom, deckFilterAtom } from "@/presentation/store/modal";
+import { useEffect, useState } from "react";
 import {
   useForm,
   FieldArray,
@@ -16,63 +22,82 @@ interface ISearchCardParams {
   params: string;
 }
 
+interface ICardListParams {
+  id: string;
+  name: string;
+  subtypes: string[];
+  supertype: string;
+  images: {
+    small: string;
+    large: string;
+  };
+}
+
 interface ICardParams {
   pokemonCards: {
     cardId: string;
     name: string;
     image: string;
+    subtypes: string[];
+    supertype: string;
   }[];
 }
+
+const getCardList = createGetCardListUsecase();
 
 export const DeckCardInsertModal = ({}: DeckCardInsertModalProps) => {
   const [isOpen, setOpen] = useRecoilState(deckCardInsertAtom);
   const [composeIds, insertOnCompose] = useRecoilState(deckComposeIdsAtom);
   const setActualCards = useSetRecoilState(actualCardOnComposeAtom);
+  const [pokemonCardList, setPokemonCardList] = useState<ICardListParams[]>([]);
 
   function toggleOpen() {
     setOpen(!isOpen);
   }
 
-  const { control, register, handleSubmit } = useForm<ICardParams>({
-    defaultValues: {
-      pokemonCards: [
-        {
-          cardId: "1",
-          name: "Venusaur",
-          image: "https://images.pokemontcg.io/xy1/1.png",
-        },
-        {
-          cardId: "2",
-          name: "Beedrill",
-          image: "https://images.pokemontcg.io/xy1/5.png",
-        },
-        {
-          cardId: "3",
-          name: "Ledyba",
-          image: "https://images.pokemontcg.io/xy1/6.png",
-        },
-      ],
-    },
-  });
+  async function searchCard(name?: string) {
+    const response = await getCardList.execute();
 
-  const { fields } = useFieldArray<ICardParams>({
+    if (response.isLeft()) {
+      console.log(response.value);
+      return;
+    }
+
+    if (response.isRight()) {
+      setPokemonCardList(response.value);
+    }
+  }
+
+  useEffect(() => {
+    searchCard();
+  }, []);
+
+  const { control, register, handleSubmit } = useForm<ICardParams>();
+
+  const { fields, append } = useFieldArray<ICardParams>({
     control,
     name: "pokemonCards",
   });
 
+  useEffect(() => {
+    pokemonCardList.forEach((e) => {
+      append({
+        cardId: e.id,
+        name: e.name,
+        image: e.images.small,
+        subtypes: e.subtypes,
+        supertype: e.supertype,
+      });
+    });
+  }, [pokemonCardList]);
+
   const insertCard: SubmitHandler<ICardParams> = async (data) => {
-    const newCard = await JSON.parse(data.pokemonCards.toString())
+    const newCard = await JSON.parse(data.pokemonCards.toString());
+    insertOnCompose([...composeIds, newCard.cardId]);
+    setActualCards({ ...newCard, quantity: 1 });
 
-  
-    console.log(newCard)
-    insertOnCompose([...composeIds, newCard.cardId])
-    setActualCards({...newCard, quantity: 1})
-
-    
-   
     toggleOpen();
   };
-  console.log(composeIds)
 
   return (
     <Modal close={toggleOpen} isOpen={isOpen}>
@@ -86,28 +111,27 @@ export const DeckCardInsertModal = ({}: DeckCardInsertModalProps) => {
           <div>
             {/*  <p className="font-semibold text-lg">Desculpe, não encontrei :(</p> */}
             <fieldset className="overflow-scroll max-h-60">
-              <ul className="grid grid-cols-2 gap-4 grid-flow-row">
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 grid-flow-row">
                 {fields.map((field, index) => {
                   return (
-                    <li key={field.id}>
-                      <label>
-                        <input
-                          {...register(`pokemonCards`)}
-                          type="radio"
-                          value={JSON.stringify(field)}
-                        />
-                        <img
-                          alt=""
-                          width={160}
-                          height={222}
-                          src={field.image}
-                          className="w-full"
-                        ></img>
-                      </label>
-                    </li>
+                    <div key={field.id} className="relative">
+                      <input
+                        {...register(`pokemonCards`)}
+                        type="radio"
+                        value={JSON.stringify(field)}
+                        className={"absolute w-full h-full opacity-0 peer"}
+                      />
+                      <img
+                        alt=""
+                        width={160}
+                        height={222}
+                        src={field.image}
+                        className="w-full peer-checked:border-4 peer-checked:opacity-75 peer-checked:border-secondary peer-checked:rounded-lg"
+                      ></img>
+                    </div>
                   );
                 })}
-              </ul>
+              </div>
             </fieldset>
           </div>
         </div>

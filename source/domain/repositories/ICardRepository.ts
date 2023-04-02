@@ -4,11 +4,25 @@ import { TApplicationError } from "@/core/Errors";
 interface ICardItemParams {
   id: string;
   name: string;
+  subtypes: string[];
+  supertype: string;
   images: {
     small: string;
     large: string;
   };
 }
+
+
+interface ICardRandomParams {
+  id: string;
+  name: string;
+  images: {
+    small: string;
+    large: string;
+  };
+}
+
+
 
 export interface ICardParams {
   id: string;
@@ -66,5 +80,5 @@ export interface ICardParams {
 export interface ICardRepository {
   getList: () => Promise<TEither<TApplicationError, ICardItemParams[]>>;
   get: (cardId:string) => Promise<TEither<TApplicationError, ICardParams>>;
-  getRandom: ()=> Promise<TEither<TApplicationError, ICardItemParams>>
+  getRandom: ()=> Promise<TEither<TApplicationError, ICardRandomParams>>
 }
