@@ -16,9 +16,13 @@ interface INewDeckParams {
   deckDescription: string;
   deckCover: string;
   deckDiff: number;
+  deckCardQuantity: number;
   deckCards: {
-    cardId: string
+    cardId: string;
+    name: string;
     quantity: number;
+    subtypes: string[];
+    supertype: string;
   }[];
 }
 

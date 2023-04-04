@@ -12,6 +12,7 @@ import {
 } from "@/presentation/store/genericAtoms";
 import { deckCardInsertAtom } from "@/presentation/store/modal";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect } from "react";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { useRecoilValue } from "recoil";
 
@@ -20,9 +21,13 @@ interface INewDeckParams {
   deckDescription: string;
   deckCover: string;
   deckDiff: number;
+  deckCardQuantity: number;
   deckCards: {
     cardId: string;
+    name: string;
     quantity: number;
+    subtypes: string[];
+    supertype: string;
   }[];
 }
 
@@ -31,16 +36,16 @@ const NewDeck = ({}) => {
   const totalCards = useRecoilValue(totalDeckCardsAtom);
   const deck = useRecoilValue(deckComposeArrayAtom);
 
-  const { register, handleSubmit, control, setValue, getValues } =
-    useForm<INewDeckParams>({
-      resolver: yupResolver(deckComposeSchema),
-    });
-
-  const checkData = async () => {
-    console.log(deck)
-    await setValue("deckCards", [...deck])
-    console.log(getValues())
-  };
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm<INewDeckParams>({
+    resolver: yupResolver(deckComposeSchema),
+  });
 
   const { fields, append } = useFieldArray({
     control,
@@ -50,6 +55,15 @@ const NewDeck = ({}) => {
   const submitData: SubmitHandler<INewDeckParams> = (data) => {
     console.log(data);
   };
+
+  const checkData = async () => {
+    await setValue("deckCards", [...deck]);
+    await setValue("deckCardQuantity", totalCards);
+  };
+
+  useEffect(() => {
+    checkData();
+  }, [deck]);
 
   return (
     <>
@@ -93,16 +107,18 @@ const NewDeck = ({}) => {
                 </div>
                 <button
                   type="button"
-                  onClick={checkData}
+                  onClick={handleSubmit(submitData)}
                   className="btn btn-primary w-full"
                 >
                   Publicar
                 </button>
+                <p>{errors.deckCardQuantity?.message}</p>
+                <p>{errors.deckCards?.message}</p>
               </form>
             </section>
           </div>
         </main>
-        <DeckCardRemoveModal/>
+        <DeckCardRemoveModal />
         <DeckCardInsertModal />
       </DefaultLayout>
     </>
