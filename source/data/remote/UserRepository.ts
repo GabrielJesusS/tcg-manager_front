@@ -19,6 +19,10 @@ interface AuthParams {
   password: string;
 }
 
+interface IAuthToken{
+  token: string;
+}
+
 export class UserRepository implements IUserRepository {
   private readonly client: IHttpClient;
 
@@ -61,14 +65,14 @@ export class UserRepository implements IUserRepository {
 
       const payload = {...params}
 
-      const {body} = await this.client.request<IApiResponse<undefined>, IAuthUserPayload>({
+      const {body} = await this.client.request<IApiResponse<IAuthToken>, IAuthUserPayload>({
         method: HttpMethod.POST,
         url: UserRepository.authRoute,
         payload: payload,
       })
       //TODO:change data response to a response pattern
 
-      this.cookieService.setCookie(process.env.NEXT_PUBLIC_COOKIE_NAME as string, body)
+      this.cookieService.setCookie(process.env.NEXT_PUBLIC_COOKIE_NAME as string, body.data.token)
 
       return right(undefined);
     } catch (error) {

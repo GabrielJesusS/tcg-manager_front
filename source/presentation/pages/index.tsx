@@ -8,8 +8,9 @@ import { Deckitems } from "../data/mocks/deckMocks";
 import { Setitems } from "../data/mocks/setMocks";
 import { HomeCaroussel } from "../components/common/Caroussel/HomeCaroussel";
 import { Banners } from "../data/local/banners";
+import { verifyToken } from "../middlewares/verifyToken";
 
-export default function Home(): JSX.Element {
+function Home(): JSX.Element {
   return (
     <>
       <Navbar></Navbar>
@@ -36,3 +37,6 @@ export default function Home(): JSX.Element {
     </>
   );
 }
+
+
+export default verifyToken(Home)

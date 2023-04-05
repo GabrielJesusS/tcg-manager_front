@@ -1,7 +1,15 @@
 import { TEither } from "@/core/Either";
 import { TApplicationError } from "@/core/Errors";
 
-interface ICardItemParams {
+interface ICardListProps {
+  data: ICardItem[]
+  page: number
+  pageSize: number;
+  count: number;
+  totalCount: number;
+}
+
+interface ICardItem{
   id: string;
   name: string;
   subtypes: string[];
@@ -13,7 +21,7 @@ interface ICardItemParams {
 }
 
 
-interface ICardRandomParams {
+interface ICardRandomProps  {
   id: string;
   name: string;
   images: {
@@ -78,7 +86,7 @@ export interface ICardParams {
 }
 
 export interface ICardRepository {
-  getList: () => Promise<TEither<TApplicationError, ICardItemParams[]>>;
+  getList: () => Promise<TEither<TApplicationError, ICardListProps>>;
   get: (cardId:string) => Promise<TEither<TApplicationError, ICardParams>>;
-  getRandom: ()=> Promise<TEither<TApplicationError, ICardRandomParams>>
+  getRandom: ()=> Promise<TEither<TApplicationError, ICardRandomProps>>
 }

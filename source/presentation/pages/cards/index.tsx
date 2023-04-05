@@ -22,10 +22,13 @@ const Cards = ({}) => {
     toggleModal(!modalIsOpen);
   }
 
-  const { data: Cards } = useFetch({
+  
+  const { data }  = useFetch({
     name: "pokemonCardList",
     useCase: async () => await getCardListUsecase.execute(),
   });
+  
+  
 
   return (
     <DefaultLayout>
@@ -50,8 +53,8 @@ const Cards = ({}) => {
         </div>
         <div>
           <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5  gap-8">
-            {Cards &&
-              Cards.map((card) => (
+            {data &&
+              data.data.map((card) => (
                 <li key={card.id}>
                   <PokemonCard
                     url={`cards/${card.id}`}

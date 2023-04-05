@@ -7,7 +7,7 @@ import {
 import { HttpMethod, IHttpClient } from "@/services/http";
 import { generateHttpErrorResponse } from "../modules/generateHttpErrorResponse";
 import { IApiResponse } from "../modules/IApiResponse";
-import { CardListResponse } from "./responses/CardListResponse";
+import { ICardListResponse } from "./responses/CardListResponse";
 import { CardResponse } from "./responses/CardResponse";
 import { IRandomCardResponse } from "./responses/RandomCardResponse";
 
@@ -23,12 +23,12 @@ export class CardRepository implements ICardRepository {
     this.client = client;
   }
 
-  async getList(): Promise<TEither<TApplicationError, CardListResponse[]>> {
+  async getList(): Promise<TEither<TApplicationError, ICardListResponse>> {
     try {
       const {
         body: { data },
       } = await this.client.request<
-        IApiResponse<CardListResponse[]>,
+        IApiResponse<ICardListResponse>,
         undefined
       >({
         method: HttpMethod.GET,

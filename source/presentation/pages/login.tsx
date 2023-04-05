@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Footer } from "../components/common/Footer";
 import { Textinput } from "../components/common/Textinput";
@@ -12,6 +12,7 @@ import { PokemonCard } from "../components/common/PokemonCard";
 import { createAuthUserUsecase } from "@/factories/createAuthUserUsecase";
 import { useGetRandomCard } from "../hooks/useGetRandomCard";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 interface LoginProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -22,7 +23,9 @@ interface LoginParams {
 
 const authUserUsecase = createAuthUserUsecase();
 
+
 const Login = ({}: LoginProps) => {
+  const { push } = useRouter();
   const {
     register,
     formState: { errors },
@@ -30,19 +33,19 @@ const Login = ({}: LoginProps) => {
   } = useForm<LoginParams>({
     resolver: yupResolver(loginSchema),
   });
+  const [loading, setLoading] = useState<boolean>(false)
   const { data, error, isLoading } = useGetRandomCard();
 
-  console.log(isLoading);
-
   const submitData: SubmitHandler<LoginParams> = async (data) => {
-    try {
-      console.log(data);
-      const response = await authUserUsecase.execute(data);
+    setLoading(true)
+    const response = await authUserUsecase.execute(data);
 
-      console.log(response);
-    } catch (error) {
-      console.log(error);
+    if (response.isLeft()) {
+      setLoading(false);
+      return;
     }
+
+    await push("./");
   };
 
   return (
@@ -82,7 +85,7 @@ const Login = ({}: LoginProps) => {
               <span className="text-error">{errors.password.message}</span>
             )}
 
-            <button className="btn btn-primary uppercase w-full">
+            <button disabled={loading} className="btn btn-primary uppercase w-full">
               Autenticar-se
             </button>
           </form>
@@ -97,12 +100,12 @@ const Login = ({}: LoginProps) => {
           <AnimatePresence>
             {isLoading && (
               <motion.div initial={{ rotateY: 0 }} exit={{ rotateY: 360 }}>
-                <PokemonCard/>
+                <PokemonCard />
               </motion.div>
             )}
             {!isLoading && data && (
               <motion.div initial={{ rotateY: 0 }} animate={{ rotateY: 360 }}>
-                <PokemonCard src={data.images.small} url={`cards/${data.id}`}/>
+                <PokemonCard src={data.images.small} url={`cards/${data.id}`} />
               </motion.div>
             )}
           </AnimatePresence>

@@ -10,7 +10,9 @@ import ProfilePicture from "@/presentation/public/images/rsc/mocks/profile-pictu
 import { useRecoilValue } from "recoil";
 import { userDataAtom } from "@/presentation/store/genericAtoms";
 
-interface NavbarProps extends HTMLAttributes<HTMLHeadingElement> {}
+interface NavbarProps extends HTMLAttributes<HTMLHeadingElement> {
+  
+}
 
 export const Navbar = ({}: NavbarProps) => {
   const [isHideMenu, setHideMenu] = useState<boolean>(false);
