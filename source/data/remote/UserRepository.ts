@@ -19,7 +19,7 @@ interface AuthParams {
   password: string;
 }
 
-interface IAuthToken{
+interface IAuthToken {
   token: string;
 }
 
@@ -31,11 +31,9 @@ export class UserRepository implements IUserRepository {
   //Routes
   private static readonly createRoute: string = "/user/register";
   private static readonly authRoute: string = "/user/login";
+  private static readonly getPtofile: string = "/user/getProfile";
 
-  constructor(
-    client: IHttpClient,
-    cookieService: ICookieService
-  ) {
+  constructor(client: IHttpClient, cookieService: ICookieService) {
     this.client = client;
     this.cookieService = cookieService;
   }
@@ -62,19 +60,39 @@ export class UserRepository implements IUserRepository {
     params: AuthParams
   ): Promise<TEither<TApplicationError, undefined>> {
     try {
+      const payload = { ...params };
 
-      const payload = {...params}
-
-      const {body} = await this.client.request<IApiResponse<IAuthToken>, IAuthUserPayload>({
+      const { body } = await this.client.request<
+        IApiResponse<IAuthToken>,
+        IAuthUserPayload
+      >({
         method: HttpMethod.POST,
         url: UserRepository.authRoute,
         payload: payload,
-      })
+      });
       //TODO:change data response to a response pattern
 
-      this.cookieService.setCookie(process.env.NEXT_PUBLIC_COOKIE_NAME as string, body.data.token)
+      this.cookieService.setCookie(
+        process.env.NEXT_PUBLIC_COOKIE_NAME as string,
+        body.data.token
+      );
 
       return right(undefined);
+    } catch (error) {
+      return left(generateHttpErrorResponse(error));
+    }
+  }
+
+  async getProfile(): Promise<TEither<TApplicationError, IGetProfileResponse>> {
+    try {
+      const { body } = await this.client.request<
+        IApiResponse<IGetProfileResponse>
+      >({
+        method: HttpMethod.GET,
+        url: UserRepository.getPtofile,
+      });
+
+      return right(body.data);
     } catch (error) {
       return left(generateHttpErrorResponse(error));
     }

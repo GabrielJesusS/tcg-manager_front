@@ -1,11 +1,11 @@
 import { atom, atomFamily, selector } from "recoil";
 
 interface IUserDataAtomProps {
-  publicId: string;
+  id: number | string;
+  user_name: string;
   name: string;
   email: string;
-  picture: string;
-  level: number;
+  experience_level: number;
 }
 
 interface IDeckObjProps {

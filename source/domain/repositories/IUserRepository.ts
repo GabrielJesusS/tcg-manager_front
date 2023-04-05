@@ -12,6 +12,14 @@ interface IUserAuthParams {
   password: string;
 }
 
+interface IUserData {
+  id: number | string;
+  user_name: string;
+  name: string;
+  email: string;
+  experience_level: number;
+}
+
 export interface IUserRepository {
   create: (
     params: IUserCreateParams
@@ -19,4 +27,5 @@ export interface IUserRepository {
   auth: (
     params: IUserAuthParams
   ) => Promise<TEither<TApplicationError, undefined>>;
+  getProfile: () => Promise<TEither<TApplicationError, IUserData>>;
 }

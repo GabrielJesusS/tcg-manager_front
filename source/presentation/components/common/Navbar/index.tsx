@@ -11,7 +11,7 @@ import { useRecoilValue } from "recoil";
 import { userDataAtom } from "@/presentation/store/genericAtoms";
 
 interface NavbarProps extends HTMLAttributes<HTMLHeadingElement> {
-  
+
 }
 
 export const Navbar = ({}: NavbarProps) => {
@@ -60,9 +60,9 @@ export const Navbar = ({}: NavbarProps) => {
               <nav>
                 {userData && (
                   <Userdata
-                    userId={userData.publicId}
-                    userLevel={userData.level}
-                    userPicture={userData.picture}
+                    userId={userData.user_name}
+                    userLevel={userData.experience_level}
+                    userPicture={""}
                     username={userData.name}
                   />
                 )}
