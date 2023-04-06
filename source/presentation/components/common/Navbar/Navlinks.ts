@@ -7,6 +7,7 @@ interface INavlinks {
 interface ILinks {
   name: string;
   url: string;
+  isPrivate: boolean;
 }
 
 export const NavLinks: INavlinks[] = [
@@ -17,10 +18,12 @@ export const NavLinks: INavlinks[] = [
       {
         name: "Listagem",
         url: "/decks",
+        isPrivate: false
       },
       {
         name: "Criar novo deck",
         url: "/decks/new",
+        isPrivate: true
       },
     ],
   },
@@ -31,10 +34,12 @@ export const NavLinks: INavlinks[] = [
       {
         name: "Listagem",
         url: "/articles",
+        isPrivate: false
       },
       {
         name: "Publicar novo artigo",
         url: "/articles/new",
+        isPrivate: true
       },
     ],
   },
@@ -45,10 +50,12 @@ export const NavLinks: INavlinks[] = [
       {
         name: "Listagem",
         url: "/cards/",
+        isPrivate: false
       },
       {
         name: "Carta surpresa",
-        url: "/cards/1"
+        url: "/cards/1",
+        isPrivate: false
       }
     ],
   },
@@ -59,6 +66,7 @@ export const NavLinks: INavlinks[] = [
       {
         name: "Listagem",
         url: "/sets",
+        isPrivate: false
       },
     ],
   },
@@ -69,6 +77,7 @@ export const NavLinks: INavlinks[] = [
       {
         name: "Listagem",
         url: "/user",
+        isPrivate: false
       },
     ],
   },

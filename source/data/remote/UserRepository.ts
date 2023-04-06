@@ -97,4 +97,16 @@ export class UserRepository implements IUserRepository {
       return left(generateHttpErrorResponse(error));
     }
   }
+
+  async signOut(): Promise<TEither<TApplicationError, undefined>> {
+    try {
+      await this.cookieService.removeCookie(
+        process.env.NEXT_PUBLIC_COOKIE_NAME as string
+      );
+
+      return right(undefined);
+    } catch (error) {
+      return left(generateHttpErrorResponse(error));
+    }
+  }
 }

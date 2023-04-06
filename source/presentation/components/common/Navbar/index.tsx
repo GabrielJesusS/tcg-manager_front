@@ -9,18 +9,30 @@ import { Userdata } from "../Userdata";
 import ProfilePicture from "@/presentation/public/images/rsc/mocks/profile-picture.png";
 import { useRecoilValue } from "recoil";
 import { userDataAtom } from "@/presentation/store/genericAtoms";
+import { createSignOutUsecase } from "@/factories/createSignOutUsecase";
+import { useRouter } from "next/router";
 
-interface NavbarProps extends HTMLAttributes<HTMLHeadingElement> {
+interface NavbarProps extends HTMLAttributes<HTMLHeadingElement> {}
 
-}
+const signOutUsecase = createSignOutUsecase();
 
 export const Navbar = ({}: NavbarProps) => {
   const [isHideMenu, setHideMenu] = useState<boolean>(false);
-
+  const { reload } = useRouter();
   const userData = useRecoilValue(userDataAtom);
 
   function toggleMenu() {
     setHideMenu(!isHideMenu);
+  }
+
+  async function logOutUser() {
+    const response = await signOutUsecase.execute();
+
+    if (response.isLeft()) {
+      return;
+    }
+
+    await reload();
   }
 
   const animateSettings: MotionProps = {
@@ -29,10 +41,6 @@ export const Navbar = ({}: NavbarProps) => {
     exit: { y: "-100%" },
     transition: { duration: 0.3, type: "keyframes", ease: "easeInOut" },
   };
-
-  function logOut(){
-
-  }
 
   return (
     <header className={classNames("bg-primary w-full sticky z-20 top-0")}>
@@ -76,12 +84,19 @@ export const Navbar = ({}: NavbarProps) => {
                     />
                   ))}
                 </ul>
-                {!userData && <Link className="btn btn-primary w-full" href="/login">
-                  Realizar login
-                </Link>}
-                {userData && <button onClick={logOut} className="btn btn-error-outline w-full">
-                  Sair
-                </button>}
+                {!userData && (
+                  <Link className="btn btn-primary w-full" href="/login">
+                    Realizar login
+                  </Link>
+                )}
+                {userData && (
+                  <button
+                    onClick={logOutUser}
+                    className="btn btn-error-outline w-full"
+                  >
+                    Sair
+                  </button>
+                )}
               </nav>
             </motion.div>
           )}

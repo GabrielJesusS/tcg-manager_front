@@ -4,6 +4,7 @@ import { DeckCardInsertModal } from "@/presentation/components/common/modals/Dec
 import { DeckCardRemoveModal } from "@/presentation/components/common/modals/DeckCardRemoveModal";
 import { Textinput } from "@/presentation/components/common/Textinput";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
+import { verifyToken } from "@/presentation/middlewares/verifyToken";
 import { deckComposeSchema } from "@/presentation/schemas/deckComposeSchema";
 import {
   deckComposeArrayAtom,
@@ -125,4 +126,4 @@ const NewDeck = ({}) => {
   );
 };
 
-export default NewDeck;
+export default verifyToken(NewDeck);

@@ -2,6 +2,8 @@ import Link from "next/link";
 import ChevronIcon from "@/presentation/public/images/icons/chevron.svg";
 import { AnimatePresence, motion, MotionProps } from "framer-motion";
 import { useState } from "react";
+import { userDataAtom } from "@/presentation/store/genericAtoms";
+import { useRecoilValue } from "recoil";
 
 interface INavitem {
   id: number;
@@ -12,10 +14,12 @@ interface INavitem {
 interface ILinks {
   name: string;
   url: string;
+  isPrivate: boolean;
 }
 
 export const Navitem = ({ id, subitem, title }: INavitem) => {
   const [isHide, setHide] = useState<boolean>(false);
+  const userData = useRecoilValue(userDataAtom);
 
   function toggleHide() {
     setHide(!isHide);
@@ -50,17 +54,20 @@ export const Navitem = ({ id, subitem, title }: INavitem) => {
               {title}
             </button>
             <ul className="space-y-6">
-              {subitem.map((item) => (
-                <li key={id + item.name}>
-                  <Link
-                    className="text-lg flex justify-between border-b border-system-800"
-                    href={item.url}
-                  >
-                    {item.name}{" "}
-                    <ChevronIcon className="fill-secondary w-6 inline" />
-                  </Link>
-                </li>
-              ))}
+              {subitem.map(
+                (item) =>
+                  ((item.isPrivate && userData) || !item.isPrivate) && (
+                    <li key={id + item.name}>
+                      <Link
+                        className="text-lg flex justify-between border-b border-system-800"
+                        href={item.url}
+                      >
+                        {item.name}{" "}
+                        <ChevronIcon className="fill-secondary w-6 inline" />
+                      </Link>
+                    </li>
+                  )
+              )}
             </ul>
           </motion.div>
         )}
