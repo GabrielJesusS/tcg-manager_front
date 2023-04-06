@@ -28,6 +28,11 @@ const Cards = ({}) => {
     useCase: async () => await getCardListUsecase.execute(),
   });
   
+  console.log(data)
+
+  if(data){
+    console.log(Math.floor((data.totalCount /data.pageSize)))
+  }
   
 
   return (
@@ -62,7 +67,7 @@ const Cards = ({}) => {
                   />
                 </li>
               ))}
-            {!Cards && skeletonArray.map((item) => <CardSkeleton key={item} />)}
+            {!data && skeletonArray.map((item) => <CardSkeleton key={item} />)}
           </ul>
         </div>
       </section>

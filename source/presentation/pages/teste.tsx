@@ -8,17 +8,10 @@ import { CommentItems } from "../data/mocks/commentMock";
 import { cardPaginationAtom } from "../store/paginations";
 
 export default function x() {
-
-  const [page, setPage ] = useRecoilState(cardPaginationAtom)
-
-  function navPages(next:boolean){
-    next ? setPage(page+1) : setPage(page-1)
-
-  }
+ 
 
   return (
     <>
-    {page}
       <Dropdown
         label="dwda"
         selectPlaceholder="Selecione 1"
@@ -32,14 +25,16 @@ export default function x() {
           </li>
         ))}
       </ol>
-      <PaginationBlock backPage={()=> navPages(false)} nextPage={()=> navPages(true)} />
-        
-        <div className="flex p-safe space-x-6">
-          <CardSkeleton/>
-          <CardSkeleton/>
-          <CardSkeleton/>
-          <CardSkeleton/>
-        </div>
+      <PaginationBlock
+        maxPages={605}
+      />
+
+      <div className="flex p-safe space-x-6">
+        <CardSkeleton />
+        <CardSkeleton />
+        <CardSkeleton />
+        <CardSkeleton />
+      </div>
     </>
   );
 }
