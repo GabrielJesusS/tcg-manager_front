@@ -1,45 +1,73 @@
 import ChevronIcon from "@/presentation/public/images/icons/chevron.svg";
-import { cardPaginationAtom } from "@/presentation/store/paginations";
+import {
+  cardListOffsetAtom,
+  cardPaginationAtom,
+} from "@/presentation/store/paginations";
 import classNames from "classnames";
 import { useEffect, useMemo, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
-interface PaginationBlockProps {
-  backPage: Function;
-  nextPage: Function;
-  actualPage?: number;
-  maxPages?: number;
-}
+interface PaginationBlockProps {}
 
-export const PaginationBlock = ({
-  actualPage,
-  maxPages,
-  backPage,
-  nextPage
-}: PaginationBlockProps) => {
-  const [page, setPage] = useRecoilState(cardPaginationAtom);
+const maxItems = 5;
+const maxLeftItems = (maxItems - 1) / 2;
 
-  const pages = useMemo(()=>{
-    
-  },[page])
+export const PaginationBlock = ({}: PaginationBlockProps) => {
+  const page = useRecoilValue(cardPaginationAtom);
+  const [offset, setOffset] = useRecoilState(cardListOffsetAtom);
+  const [internalOffset, setInternalOffset] = useState<number>(0);
 
-  function ranges(init, end){
-    
-  }
+  const current = Math.round(
+    internalOffset ? internalOffset / page.pageSize + 1 : 1
+  );
+  const pages = Math.ceil(page.totalCount / page.pageSize);
+  const firstPage = Math.max(current - maxLeftItems, 1);
 
+  const changePage = (pageNumber: number) => {
+    setInternalOffset((pageNumber - 1) * page.pageSize);
+  };
+
+  useEffect(() => {
+    setOffset(current);
+  }, [internalOffset]);
+
+  console.log();
 
   return (
-    <div className="h-fit flex">
-      <button onClick={()=> backPage()} className="pg-block-dft pg-block-navigate pg-block-back">
+    <div className="h-fit w-fit flex">
+      <button
+        onClick={() => changePage(current - 1)}
+        className="pg-block-dft pg-block-navigate pg-block-back"
+        disabled={current === 1}
+      >
         <ChevronIcon className="pg-arrow-icon rotate-180" />
       </button>
 
-
-        <button className={classNames("pg-block-dft pg-num-navigate")}>
-          <span className="block">...</span>
-        </button>
-   
-      <button onClick={()=> nextPage()} className="pg-block-dft pg-block-navigate pg-block-next">
+      <ul className="h-fit flex">
+        {Array.from({ length: Math.min(maxItems, pages) })
+          .map((_, index) => index + firstPage)
+          .map(
+            (pageNum) =>
+              pageNum <= pages && (
+                <li key={pageNum}>
+                  <button
+                    onClick={() => changePage(pageNum)}
+                    className={classNames(
+                      "pg-block-dft pg-num-navigate",
+                      pageNum === current && "pg-num-navigate-active"
+                    )}
+                  >
+                    <span className="block">{pageNum}</span>
+                  </button>
+                </li>
+              )
+          )}
+      </ul>
+      <button
+        onClick={() => changePage(current + 1)}
+        className="pg-block-dft pg-block-navigate pg-block-next"
+        disabled={current === pages}
+      >
         <ChevronIcon className="pg-arrow-icon" />
       </button>
     </div>

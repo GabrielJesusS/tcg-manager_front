@@ -1,17 +1,17 @@
 .pg-block-dft{
-    @apply p-1 block
+    @apply p-1 block font-bold
 }
 
 .pg-block-navigate{
-    @apply bg-system-800 hover:bg-secondary-dark
+    @apply bg-system-800 hover:bg-secondary-dark disabled:bg-system-200
 }
 
 .pg-num-navigate{
-    @apply bg-system w-8
+    @apply bg-system w-8 hover:bg-secondary-light hover:text-system active:bg-secondary-dark
 }
 
 .pg-num-navigate-active{
-    @apply bg-secondary
+    @apply bg-secondary text-system
 }
 
 .pg-block-back{

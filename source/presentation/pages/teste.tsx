@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { Comment } from "../components/common/Comment";
 import { Dropdown } from "../components/common/Dropdown";
@@ -8,7 +9,11 @@ import { CommentItems } from "../data/mocks/commentMock";
 import { cardPaginationAtom } from "../store/paginations";
 
 export default function x() {
+
+
+  const {query} = useRouter();
  
+  console.log(query.q)
 
   return (
     <>
@@ -18,16 +23,8 @@ export default function x() {
         options={[{ text: "opt1", value: "222" }]}
       ></Dropdown>
       <Radioinput radioName="Nota do deck" optionsQtd={5}></Radioinput>
-      <ol>
-        {CommentItems.map((cm) => (
-          <li id={cm.id}>
-            <Comment {...cm} />
-          </li>
-        ))}
-      </ol>
-      <PaginationBlock
-        maxPages={605}
-      />
+     
+     
 
       <div className="flex p-safe space-x-6">
         <CardSkeleton />

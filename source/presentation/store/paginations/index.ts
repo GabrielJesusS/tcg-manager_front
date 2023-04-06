@@ -1,14 +1,19 @@
 import { atom } from "recoil";
 
 interface IPaginationContent{
-    actualPage: number;
-    maxPages: number;
+    pageSize: number
+    totalCount:number
 }
 
 export const cardPaginationAtom = atom<IPaginationContent>({
     key: "CardPaginationAtom",
     default: {
-        actualPage:1,
-        maxPages: 1
+        pageSize: 20,
+        totalCount: 80
     }
+})
+
+export const cardListOffsetAtom = atom<number>({
+    key: "CardListOffsetAtom",
+    default: 1
 })

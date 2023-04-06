@@ -11,6 +11,15 @@ import { ICardListResponse } from "./responses/CardListResponse";
 import { CardResponse } from "./responses/CardResponse";
 import { IRandomCardResponse } from "./responses/RandomCardResponse";
 
+
+
+interface ISearchOnListParams{
+  nameQuery?: string,
+  page?: number,
+  pageSize?: number
+}
+
+
 export class CardRepository implements ICardRepository {
   private readonly client: IHttpClient;
 
@@ -23,7 +32,8 @@ export class CardRepository implements ICardRepository {
     this.client = client;
   }
 
-  async getList(): Promise<TEither<TApplicationError, ICardListResponse>> {
+  async getList(params:ISearchOnListParams): Promise<TEither<TApplicationError, ICardListResponse>> {
+    console.log(params)
     try {
       const {
         body: { data },
@@ -32,7 +42,7 @@ export class CardRepository implements ICardRepository {
         undefined
       >({
         method: HttpMethod.GET,
-        url: CardRepository.getListRoute,
+        url: `${CardRepository.getListRoute}?page=${params.page}`
       });
 
       return right(data);

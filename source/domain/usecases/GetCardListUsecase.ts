@@ -22,9 +22,15 @@ interface ICardItem{
   };
 }
 
+interface ISearchOnList{
+  nameQuery?: string,
+  page?: number,
+  pageSize?: number
+}
+
 export class GetCardListUsecase implements IUsecase {
   constructor(private readonly cardRepository: ICardRepository) {}
-  execute(): Promise<TEither<TApplicationError, ICardListProps>> {
-    return this.cardRepository.getList();
+  execute(params:ISearchOnList): Promise<TEither<TApplicationError, ICardListProps>> {
+    return this.cardRepository.getList(params);
   }
 }

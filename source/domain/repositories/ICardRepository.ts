@@ -85,8 +85,14 @@ export interface ICardParams {
   };
 }
 
+interface ISearchOnList{
+  nameQuery?: string,
+  page?: number,
+  pageSize?: number
+}
+
 export interface ICardRepository {
-  getList: () => Promise<TEither<TApplicationError, ICardListProps>>;
+  getList:(params:ISearchOnList) => Promise<TEither<TApplicationError, ICardListProps>>;
   get: (cardId:string) => Promise<TEither<TApplicationError, ICardParams>>;
   getRandom: ()=> Promise<TEither<TApplicationError, ICardRandomProps>>
 }
