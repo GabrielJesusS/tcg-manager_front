@@ -45,27 +45,25 @@ export const PokemonCardList = ({ filters }: IPokemonCardListProps) => {
   }, [offsetPage, filters]);
 
   return (
-
-      <div className="flex flex-col items-center space-y-6">
-        {data && <>
-        <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 w-full">
-          {data &&
-            data.count > 0 &&
-            !isValidating &&
-            data.data.map((card) => (
-              <li key={card.id}>
-                <PokemonCard url={`cards/${card.id}`} src={card.images.small} />
-              </li>
-            ))}
-          {isValidating &&
-            skeletonArray.map((item) => <CardSkeleton key={item} />)}
-        </ul>
-        {data && data.count > 0 && <PaginationBlock />}
-        {data && data.count === 0 && (
-          <p className="text-center">
-            Desculpe, não encontrei nada com este nome =(
-          </p>
-        )}</>}
-      </div>
+    <div className="flex flex-col items-center space-y-6">
+      <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 w-full">
+        {data &&
+          data.count > 0 &&
+          !isValidating &&
+          data.data.map((card) => (
+            <li key={card.id}>
+              <PokemonCard url={`cards/${card.id}`} src={card.images.small} />
+            </li>
+          ))}
+        {isValidating &&
+          skeletonArray.map((item) => <CardSkeleton key={item} />)}
+      </ul>
+      {data && data.count > 0 && <PaginationBlock />}
+      {data && data.count === 0 && (
+        <p className="text-center">
+          Desculpe, não encontrei nada com este nome =(
+        </p>
+      )}
+    </div>
   );
 };

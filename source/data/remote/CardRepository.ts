@@ -11,14 +11,11 @@ import { ICardListResponse } from "./responses/CardListResponse";
 import { CardResponse } from "./responses/CardResponse";
 import { IRandomCardResponse } from "./responses/RandomCardResponse";
 
-
-
-interface ISearchOnListParams{
-  searchParams?: string
-  page?: number,
-  pageSize?: number
+interface ISearchOnListParams {
+  searchParams?: string;
+  page?: number;
+  pageSize?: number;
 }
-
 
 export class CardRepository implements ICardRepository {
   private readonly client: IHttpClient;
@@ -32,18 +29,19 @@ export class CardRepository implements ICardRepository {
     this.client = client;
   }
 
-  async getList(params:ISearchOnListParams): Promise<TEither<TApplicationError, ICardListResponse>> {
-    console.log(params)
+  async getList(
+    params: ISearchOnListParams
+  ): Promise<TEither<TApplicationError, ICardListResponse>> {
     try {
       const {
         body: { data },
-      } = await this.client.request<
-        IApiResponse<ICardListResponse>,
-        undefined
-      >({
-        method: HttpMethod.GET,
-        url: `${CardRepository.getListRoute}?page=${params.page}&searchParams=${params.searchParams}`
-      });
+      } = await this.client.request<IApiResponse<ICardListResponse>, undefined, ISearchOnListParams>(
+        {
+          method: HttpMethod.GET,
+          url: CardRepository.getListRoute,
+          params
+        }
+      );
 
       return right(data);
     } catch (error) {
@@ -71,21 +69,19 @@ export class CardRepository implements ICardRepository {
     }
   }
 
-  async getRandom():Promise<TEither<TApplicationError, IRandomCardResponse>>{
-
+  async getRandom(): Promise<TEither<TApplicationError, IRandomCardResponse>> {
     try {
-      
-      const {body} = await this.client.request<IApiResponse<IRandomCardResponse>, undefined>({
+      const { body } = await this.client.request<
+        IApiResponse<IRandomCardResponse>,
+        undefined
+      >({
         method: HttpMethod.GET,
         url: CardRepository.getRandomRoute,
-      })
-      
-      return right(body.data)
+      });
+
+      return right(body.data);
     } catch (error) {
-      return left(generateHttpErrorResponse(error))
+      return left(generateHttpErrorResponse(error));
     }
-
-
-
   }
 }

@@ -1,5 +1,5 @@
 .btn{
-    @apply text-center block w-fit text-lg border-2 md:text-xl font-medium disabled:bg-system-200 hover:disabled:bg-system-200 disabled:border-system-200 px-4 py-0.5 rounded-full drop-shadow-md
+    @apply text-center block w-fit text-lg border-2 md:text-xl font-medium disabled:bg-system-200 hover:disabled:bg-system-200 disabled:border-system-200 px-4 py-0.5 rounded-full drop-shadow-md uppercase
 }
 
 .btn-primary{

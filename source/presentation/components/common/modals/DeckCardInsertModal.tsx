@@ -56,7 +56,7 @@ export const DeckCardInsertModal = ({}: DeckCardInsertModalProps) => {
   }
 
   async function searchCard(name?: string) {
-    const response = await getCardList.execute();
+    const response = await getCardList.execute({});
 
     if (response.isLeft()) {
       console.log(response.value);
@@ -64,7 +64,7 @@ export const DeckCardInsertModal = ({}: DeckCardInsertModalProps) => {
     }
 
     if (response.isRight()) {
-      setPokemonCardList(response.value);
+      setPokemonCardList(response.value.data);
     }
   }
 

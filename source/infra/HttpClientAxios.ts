@@ -53,7 +53,7 @@ export class HttpClientAxios implements IHttpClient {
 
     console.log(params)
     const sanitizedParams = sanitizeParams<Params | undefined>(params);
-
+    console.log(sanitizedParams)
     const response = await client.request({
       url,
       method,
