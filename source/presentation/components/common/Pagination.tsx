@@ -24,6 +24,7 @@ export const PaginationBlock = ({}: PaginationBlockProps) => {
   const firstPage = Math.max(current - maxLeftItems, 1);
 
   const changePage = (pageNumber: number) => {
+    window.scrollTo({ top: 0 });
     setInternalOffset((pageNumber - 1) * page.pageSize);
   };
 
@@ -31,7 +32,9 @@ export const PaginationBlock = ({}: PaginationBlockProps) => {
     setOffset(current);
   }, [internalOffset]);
 
-  console.log();
+  useEffect(() => {
+    setInternalOffset(0);
+  }, [page.totalCount]);
 
   return (
     <div className="h-fit w-fit flex">

@@ -23,7 +23,7 @@ interface ICardItem{
 }
 
 interface ISearchOnList{
-  nameQuery?: string,
+  searchParams?: string,
   page?: number,
   pageSize?: number
 }

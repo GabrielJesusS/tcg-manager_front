@@ -86,7 +86,7 @@ export interface ICardParams {
 }
 
 interface ISearchOnList{
-  nameQuery?: string,
+  searchParams?: string,
   page?: number,
   pageSize?: number
 }

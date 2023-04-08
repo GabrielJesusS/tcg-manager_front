@@ -7,13 +7,15 @@ import { CardAbilities } from "@/presentation/components/common/CardViewer/CardA
 import { CardSubTypes } from "@/presentation/enums/CardSubtypes";
 import { checkCardExists } from "@/presentation/middlewares/checkCardExists";
 import { useGetCard } from "@/presentation/hooks/useGetCard";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { pokemonCardIdAtom } from "@/presentation/store/cardAtom";
+import { cardPaginationAtom } from "@/presentation/store/paginations";
 
 const CardViewer = () => {
   const defaultIconClass: string = "h-5";
 
   const cardId = useRecoilValue(pokemonCardIdAtom);
+  const [page, setPage] = useRecoilState(cardPaginationAtom);
   const { data, error, isLoading } = useGetCard(cardId);
 
   return (

@@ -14,7 +14,7 @@ import { IRandomCardResponse } from "./responses/RandomCardResponse";
 
 
 interface ISearchOnListParams{
-  nameQuery?: string,
+  searchParams?: string
   page?: number,
   pageSize?: number
 }
@@ -42,7 +42,7 @@ export class CardRepository implements ICardRepository {
         undefined
       >({
         method: HttpMethod.GET,
-        url: `${CardRepository.getListRoute}?page=${params.page}`
+        url: `${CardRepository.getListRoute}?page=${params.page}&searchParams=${params.searchParams}`
       });
 
       return right(data);
