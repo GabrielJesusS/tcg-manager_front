@@ -39,6 +39,7 @@ export const PaginationBlock = ({}: PaginationBlockProps) => {
   return (
     <div className="h-fit w-fit flex">
       <button
+        type="button"
         onClick={() => changePage(current - 1)}
         className="pg-block-dft pg-block-navigate pg-block-back"
         disabled={current === 1}
@@ -54,6 +55,7 @@ export const PaginationBlock = ({}: PaginationBlockProps) => {
               pageNum <= pages && (
                 <li key={pageNum}>
                   <button
+                    type="button"
                     onClick={() => changePage(pageNum)}
                     className={classNames(
                       "pg-block-dft pg-num-navigate",
@@ -67,6 +69,7 @@ export const PaginationBlock = ({}: PaginationBlockProps) => {
           )}
       </ul>
       <button
+        type="button"
         onClick={() => changePage(current + 1)}
         className="pg-block-dft pg-block-navigate pg-block-next"
         disabled={current === pages}

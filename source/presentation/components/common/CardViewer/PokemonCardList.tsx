@@ -16,9 +16,12 @@ interface IPokemonCardListProps {
   filters?: Record<string, string>;
 }
 
+const getCardListUsecase = createGetCardListUsecase();
+const skeletonArray = generateArray(20);
+
 export const PokemonCardList = ({ filters }: IPokemonCardListProps) => {
-  const getCardListUsecase = createGetCardListUsecase();
-  const skeletonArray = generateArray(20);
+ 
+
   const [page, setPage] = useRecoilState(cardPaginationAtom);
   const [offsetPage, setOffsetPage] = useRecoilState(cardListOffsetAtom);
 
