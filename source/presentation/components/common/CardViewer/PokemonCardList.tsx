@@ -11,6 +11,7 @@ import { useRecoilState } from "recoil";
 import { PokemonCard } from "../PokemonCard";
 import { CardSkeleton } from "../skeletons/CardSkeleton";
 import { PaginationBlock } from "../Pagination";
+import { PAGE_ROUTES } from "@/presentation/enums/PagesEnum";
 
 interface IPokemonCardListProps {
   filters?: Record<string, string>;
@@ -55,7 +56,7 @@ export const PokemonCardList = ({ filters }: IPokemonCardListProps) => {
           !isValidating &&
           data.data.map((card) => (
             <li key={card.id}>
-              <PokemonCard url={`cards/${card.id}`} src={card.images.small} />
+              <PokemonCard url={`${PAGE_ROUTES.CARDS + card.id}`} src={card.images.small} />
             </li>
           ))}
         {isValidating &&

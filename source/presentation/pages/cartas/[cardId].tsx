@@ -10,6 +10,7 @@ import { useGetCard } from "@/presentation/hooks/useGetCard";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { pokemonCardIdAtom } from "@/presentation/store/cardAtom";
 import { cardPaginationAtom } from "@/presentation/store/paginations";
+import { Breadcrumb } from "@/presentation/components/common/Breadcrumb";
 
 const CardViewer = () => {
   const defaultIconClass: string = "h-5";
@@ -23,6 +24,7 @@ const CardViewer = () => {
       {data && (
         <div className="bg-background">
           <main className="p-safe mx-auto max-w-7xl space-y-4">
+            <Breadcrumb></Breadcrumb>
             <section className="drop-shadow-xl bg-system rounded-lg p-3 lg:p-8 text-xs sm:text-base ">
               <div className="flex space-x-5 mb-3">
                 <div className="space-y-2 w-fit">

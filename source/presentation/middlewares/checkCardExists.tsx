@@ -16,6 +16,7 @@ export function checkCardExists(Component: FC): FC {
     const [actualCard, setActualCard] = useState<string | null>(null);
     const setCard = useSetRecoilState(pokemonCardIdAtom);
     const { data, error, isLoading } = useGetCard(actualCard);
+
     useEffect(() => {
       if (cardId === undefined) {
         setActualCard(null);
