@@ -26,6 +26,7 @@
     "nextpath": "./source/presentation"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.14",
     "@hookform/resolvers": "^2.9.11",
     "@next/font": "^13.1.6",
     "axios": "1.3.2",
