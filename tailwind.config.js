@@ -34,6 +34,7 @@ module.exports = {
           "600": "#474b4f",
           "400": "#6b6e70",
           "200": "#D9D9D9",
+          "100": "#F1F1F1",
           DEFAULT: "#ffffff"
         },
         types: {
@@ -55,7 +56,7 @@ module.exports = {
       },
       aspectRatio:{
         "card": "7 / 9.77"
-      }
+      },
     },
   },
   variants: {

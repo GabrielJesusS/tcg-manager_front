@@ -7,24 +7,23 @@ import {
 import { generateArray } from "@/presentation/utils/generateArray";
 import { generateFilterString } from "@/presentation/utils/generateFilterString";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { PokemonCard } from "../PokemonCard";
 import { CardSkeleton } from "../skeletons/CardSkeleton";
 import { PaginationBlock } from "../Pagination";
 import { PAGE_ROUTES } from "@/presentation/enums/PagesEnum";
+import { filterSearchAtom } from "@/presentation/store/genericAtoms";
 
-interface IPokemonCardListProps {
-  filters?: Record<string, string>;
-}
 
 const getCardListUsecase = createGetCardListUsecase();
 const skeletonArray = generateArray(20);
 
-export const PokemonCardList = ({ filters }: IPokemonCardListProps) => {
+export const PokemonCardList = () => {
  
 
   const [page, setPage] = useRecoilState(cardPaginationAtom);
   const [offsetPage, setOffsetPage] = useRecoilState(cardListOffsetAtom);
+  const filters = useRecoilValue(filterSearchAtom)
 
   const { data, mutate, error, isValidating } = useFetch({
     name: "pokemonCardList",

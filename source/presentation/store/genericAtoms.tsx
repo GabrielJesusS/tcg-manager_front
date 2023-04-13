@@ -29,6 +29,13 @@ const emptyCard: IDeckComposeProps = {
   quantity: 0,
 };
 
+
+
+export const filterSearchAtom = atom<Record<string, string>>({
+  key: "FilterSearchAtom",
+  default: {}
+})
+
 export const userDataAtom = atom<IUserDataAtomProps | null>({
   key: "UserDataAtom",
   default: null,
