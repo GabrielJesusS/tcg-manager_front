@@ -20,7 +20,6 @@ export const DeckCardItem = ({ cardId }: CardItemProps) => {
   const setCardToRemove = useSetRecoilState(cardToRemoveAtom)
 
   useEffect(() => {
-    console.log("dispara quando?");
     if (actualCard.cardId.includes(cardId)) {
       setCardToCompose({ ...actualCard });
     }

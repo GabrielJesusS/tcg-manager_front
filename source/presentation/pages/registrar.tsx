@@ -39,9 +39,8 @@ const Register = ({}: RegisterProps) => {
     try {
       const response = await registerUserUsecase.execute(data);
 
-      console.log(response);
     } catch (error) {
-      console.log(error);
+    
     }
   };
 

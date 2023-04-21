@@ -9,7 +9,6 @@ export const loadUserData = (Component: FC): FC => {
     const [userData , setUserData ]= useRecoilState(userDataAtom);
     const { data, error, isLoading, update} = useGetProfile();
 
-    console.log(data);
 
     useEffect(()=>{
 

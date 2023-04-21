@@ -57,7 +57,6 @@ export const DeckCardRemoveModal = ({}: DeckCardInsertModalProps) => {
     toggleOpen();
   }
 
-  console.log(x);
 
   return (
     <Modal close={toggleOpen} isOpen={isOpen}>

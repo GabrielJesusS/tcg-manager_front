@@ -6,9 +6,6 @@ import { createQueryString } from "@/utils/queryString";
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL
 const NEXT_PUBLIC_COOKIE_NAME = process.env.NEXT_PUBLIC_COOKIE_NAME
 
-console.log(NEXT_PUBLIC_COOKIE_NAME )
-console.log(process.env.NEXT_PUBLIC_API_URL)
-
 const client = axios.create({
   baseURL: NEXT_PUBLIC_API_URL,
   paramsSerializer: {
@@ -50,10 +47,7 @@ export class HttpClientAxios implements IHttpClient {
   }: IHttpClientRequestParams<Payload, Params>): Promise<
     IHttpResponse<Response>
   > {
-
-    console.log(params)
     const sanitizedParams = sanitizeParams<Params | undefined>(params);
-    console.log(sanitizedParams)
     const response = await client.request({
       url,
       method,
