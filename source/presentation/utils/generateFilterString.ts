@@ -1,14 +1,26 @@
-export function generateFilterString(
-  filterProps: Record<string, string>
-): string {
-  return Object.entries(filterProps).reduce((acc, item) => {
-    return (
-      acc +
-      item
-        .flatMap((m, index) => (index > 0 ? `*${m}*` : m))
-        .toString()
-        .replace(",", ":") +
-      " "
-    );
-  }, "");
+interface ICardFilter {
+  name: string
+  types: string;
+  supertype: string;
+  subtypes: string ;
+}
+
+export function generateFilterString(filterProps: ICardFilter): string {
+  const parsedFilterName: ICardFilter = {
+    ...filterProps,
+    name: filterProps.name && `*${filterProps.name}*`,
+  };
+
+  return Object.entries(parsedFilterName)
+    .filter((item) => item[1] !== '')
+    .reduce((acc, item) => {
+      return (
+        acc +
+        item
+          .flatMap((m) => m)
+          .toString()
+          .replace(",", ":") +
+        " "
+      );
+    }, "");
 }

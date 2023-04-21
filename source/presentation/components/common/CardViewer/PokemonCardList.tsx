@@ -12,7 +12,7 @@ import { PokemonCard } from "../PokemonCard";
 import { CardSkeleton } from "../skeletons/CardSkeleton";
 import { PaginationBlock } from "../Pagination";
 import { PAGE_ROUTES } from "@/presentation/enums/PagesEnum";
-import { filterSearchAtom } from "@/presentation/store/genericAtoms";
+import { cardFilterAtom } from "@/presentation/store/filters/cardFiltersAtom";
 
 
 const getCardListUsecase = createGetCardListUsecase();
@@ -23,14 +23,16 @@ export const PokemonCardList = () => {
 
   const [page, setPage] = useRecoilState(cardPaginationAtom);
   const [offsetPage, setOffsetPage] = useRecoilState(cardListOffsetAtom);
-  const filters = useRecoilValue(filterSearchAtom)
+  const filters = useRecoilValue(cardFilterAtom)
+
+  console.log(generateFilterString(filters))
 
   const { data, mutate, error, isValidating } = useFetch({
     name: "pokemonCardList",
     useCase: async () =>
       await getCardListUsecase.execute({
         page: offsetPage,
-        searchParams: filters ? generateFilterString(filters) : "",
+        searchParams:  generateFilterString(filters),
       }),
     swr: {
       revalidateOnFocus: false,
@@ -49,7 +51,7 @@ export const PokemonCardList = () => {
 
   return (
     <div className="flex flex-col items-center space-y-6">
-      <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 w-full">
+      <ul className="grid grid-cols-2 md:grid-cols-4 gap-8 w-full">
         {data &&
           data.count > 0 &&
           !isValidating &&
