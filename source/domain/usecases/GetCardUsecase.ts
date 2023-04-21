@@ -3,7 +3,12 @@ import { TApplicationError } from "@/core/Errors";
 import { IUsecase } from "@/core/Usecase";
 import { CardRepository } from "@/data/remote/CardRepository";
 
-export interface CardParams {
+
+interface ICardParamsReturn{
+  data: ICardParams
+}
+
+export interface ICardParams {
   id: string;
   name: string;
   supertype: string;
@@ -69,7 +74,7 @@ export interface CardParams {
 export class GetCardUsecase implements IUsecase {
   constructor(private readonly cardRepository: CardRepository) {}
 
-  execute(params: string): Promise<TEither<TApplicationError, CardParams>> {
+  execute(params: string): Promise<TEither<TApplicationError, ICardParamsReturn>> {
     return this.cardRepository.get(params);
   }
 }

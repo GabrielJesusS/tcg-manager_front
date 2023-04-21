@@ -30,7 +30,9 @@ interface ICardRandomProps  {
   };
 }
 
-
+interface ICardParamsReturn{
+  data: ICardParams
+}
 
 export interface ICardParams {
   id: string;
@@ -93,6 +95,6 @@ interface ISearchOnList{
 
 export interface ICardRepository {
   getList:(params:ISearchOnList) => Promise<TEither<TApplicationError, ICardListProps>>;
-  get: (cardId:string) => Promise<TEither<TApplicationError, ICardParams>>;
+  get: (cardId:string) => Promise<TEither<TApplicationError,ICardParamsReturn>>;
   getRandom: ()=> Promise<TEither<TApplicationError, ICardRandomProps>>
 }

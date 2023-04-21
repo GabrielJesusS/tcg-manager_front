@@ -17,6 +17,10 @@ interface ISearchOnListParams {
   pageSize?: number;
 }
 
+interface ICardResp{
+  data: CardResponse 
+}
+
 export class CardRepository implements ICardRepository {
   private readonly client: IHttpClient;
 
@@ -49,13 +53,12 @@ export class CardRepository implements ICardRepository {
     }
   }
 
-  async get(cardId: string): Promise<TEither<TApplicationError, CardResponse>> {
-    console.log(cardId);
+  async get(cardId: string): Promise<TEither<TApplicationError, ICardResp>> {
     try {
       const {
         body: { data },
       } = await this.client.request<
-        IApiResponse<CardResponse>,
+        IApiResponse<ICardResp>,
         undefined,
         string
       >({
