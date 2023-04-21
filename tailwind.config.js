@@ -13,6 +13,9 @@ module.exports = {
       spacing:{
         "safe" : "1.5rem"
       },
+      backgroundImage:{
+        "bg-pattern": "url('/source/presentation/public/images/rsc/bgs/pattern-bg.png')",
+      },
       colors: {
         background: "#E7E7E7",
         primary: {
@@ -52,7 +55,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        poppins: ["var(--font-poppins)", "sans"],
+        poppins: ['Poppins', "sans"],
       },
       aspectRatio:{
         "card": "7 / 9.77"

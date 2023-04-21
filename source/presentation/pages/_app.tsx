@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <title>TCG Manager - Pokémon TCG Wiki</title>
         <link rel="shortcut icon" href={favicon.src} type="image/x-icon" />
       </Head>
-      <div className={classNames(poppins.variable, "font-poppins")}>
+      <div className={"font-poppins"}>
         <Component {...pageProps} />
       </div>
     </RecoilRoot>
