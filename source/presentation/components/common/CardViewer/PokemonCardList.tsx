@@ -1,9 +1,6 @@
 import { createGetCardListUsecase } from "@/factories/createGetCardListUsecase";
 import { useFetch } from "@/presentation/hooks/useFetch";
-import {
-  cardListOffsetAtom,
-  cardPaginationAtom,
-} from "@/presentation/store/paginations";
+import { listOffsetAtom, paginationAtom } from "@/presentation/store/paginations";
 import { generateArray } from "@/presentation/utils/generateArray";
 import { generateFilterString } from "@/presentation/utils/generateFilterString";
 import { useEffect } from "react";
@@ -21,8 +18,8 @@ const skeletonArray = generateArray(20);
 export const PokemonCardList = () => {
  
 
-  const [page, setPage] = useRecoilState(cardPaginationAtom);
-  const [offsetPage, setOffsetPage] = useRecoilState(cardListOffsetAtom);
+  const [page, setPage] = useRecoilState(paginationAtom);
+  const [offsetPage, setOffsetPage] = useRecoilState(listOffsetAtom);
   const filters = useRecoilValue(cardFilterAtom)
 
   console.log(generateFilterString(filters))

@@ -5,15 +5,15 @@ interface IPaginationContent{
     totalCount:number
 }
 
-export const cardPaginationAtom = atom<IPaginationContent>({
-    key: "CardPaginationAtom",
+export const paginationAtom = atom<IPaginationContent>({
+    key: "PaginationAtom",
     default: {
         pageSize: 20,
         totalCount: 80
     }
 })
 
-export const cardListOffsetAtom = atom<number>({
-    key: "CardListOffsetAtom",
+export const listOffsetAtom = atom<number>({
+    key: "ListOffsetAtom",
     default: 1
 })

@@ -1,7 +1,7 @@
 import ChevronIcon from "@/presentation/public/images/icons/chevron.svg";
 import {
-  cardListOffsetAtom,
-  cardPaginationAtom,
+  listOffsetAtom,
+  paginationAtom,
 } from "@/presentation/store/paginations";
 import classNames from "classnames";
 import { useEffect, useMemo, useState } from "react";
@@ -13,8 +13,8 @@ const maxItems = 5;
 const maxLeftItems = (maxItems - 1) / 2;
 
 export const PaginationBlock = ({}: PaginationBlockProps) => {
-  const page = useRecoilValue(cardPaginationAtom);
-  const [offset, setOffset] = useRecoilState(cardListOffsetAtom);
+  const page = useRecoilValue(paginationAtom);
+  const [offset, setOffset] = useRecoilState(listOffsetAtom);
   const [internalOffset, setInternalOffset] = useState<number>(0);
 
   const current = Math.round(

@@ -1,6 +1,6 @@
 export enum PAGE_ROUTES{
     CARDS = "/cartas/",
-    SETS = "/coleções/",
+    SETS = "/colecoes/",
     ARTICLES = "/artigos/",
     NEW_ARTICLE = "/artigos/novo/",
     DECKS = "/decks/",
