@@ -6,21 +6,20 @@ interface IWindowSize {
   width?: number;
 }
 
-export function useWindowSize():IWindowSize {
+export function useWindowSize(): IWindowSize {
   const [windowSize, setWindowSize] = useState<IWindowSize>({});
   function handleResize() {
-    console.log("dawdiajwodijao")
     setWindowSize({ height: window.innerHeight, width: window.innerWidth });
   }
 
-  const debouncedFunction = useDebounce(handleResize, 2000);
+  const debouncedFunction = useDebounce(handleResize, 500);
 
   useEffect(() => {
     window.addEventListener("resize", debouncedFunction);
 
-    debouncedFunction;
+    handleResize();
 
     return () => window.removeEventListener("resize", debouncedFunction);
   }, []);
-  return windowSize
+  return windowSize;
 }
