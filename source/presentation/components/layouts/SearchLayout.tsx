@@ -6,7 +6,7 @@ import { Textinput } from "../common/Textinput";
 import { DefaultLayout } from "./DefaultLayout";
 import { useDebounce } from "@/presentation/hooks/useDebounce";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { filterSearchAtom } from "@/presentation/store/genericAtoms";
+import { cardFilterAtom } from "@/presentation/store/filters/cardFiltersAtom";
 import CloseIcon from "@/presentation/public/images/icons/close.svg";
 import {
   motion,
@@ -17,11 +17,12 @@ import {
 import { useGetMobile } from "@/presentation/hooks/useGetMobile";
 
 interface ISearchLayout {
+  tilte: React.ReactNode;
   filters: React.ReactNode;
   children: React.ReactNode;
 }
 
-export const SearchLayout = ({ children, filters }: ISearchLayout) => {
+export const SearchLayout = ({ children, filters, tilte}: ISearchLayout) => {
   const filterAnimation: AnimationProps = {
     initial: { opacity: 0, translateX: "-100%" },
     animate: { opacity: 1, translateX: "0%" },
@@ -39,7 +40,7 @@ export const SearchLayout = ({ children, filters }: ISearchLayout) => {
     setFilterOpen(!isMobile);
   }, [isMobile]);
 
-  const [filterValues, setFilterParams] = useRecoilState(filterSearchAtom);
+  const [filterValues, setFilterParams] = useRecoilState(cardFilterAtom);
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
     debounce(event.target.value);
@@ -59,7 +60,7 @@ export const SearchLayout = ({ children, filters }: ISearchLayout) => {
         <div className="w-full max-w-7xl mx-auto  flex flex-col ">
           <Header>
             <div className="px-16">
-              Cartas
+              {tilte}
               <Textinput
                 type="text"
                 placeholder="Buscar por..."
