@@ -26,13 +26,17 @@ interface ISetList {
 }
 
 interface ISetResponse {
-  data: {
-    data: ISetList;
+    data: ISetList[];
     page: number;
     pageSize: number;
     count: number;
     totalCount: number;
-  };
+}
+
+interface ISearchOnList{
+  searchParams?: string,
+  page?: number,
+  pageSize?: number
 }
 
 export class SetRepository implements ISetRepository {
@@ -44,13 +48,14 @@ export class SetRepository implements ISetRepository {
 
   private static readonly getRoute: string = "/sets";
 
-  async get(): Promise<TEither<TApplicationError, ISetResponse>> {
+  async get(params:ISearchOnList): Promise<TEither<TApplicationError, ISetResponse>> {
     try {
       const {
         body: { data },
-      } = await this.client.request<IApiResponse<ISetResponse>>({
+      } = await this.client.request<IApiResponse<ISetResponse>, undefined, ISearchOnList>({
         method: HttpMethod.GET,
         url: SetRepository.getRoute,
+        params
       });
 
       return right(data);

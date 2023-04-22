@@ -24,19 +24,25 @@ interface ISetList {
 }
 
 interface ISetResponse {
-  data: {
-    data: ISetList;
-    page: number;
-    pageSize: number;
-    count: number;
-    totalCount: number;
-  };
+  data: ISetList[];
+  page: number;
+  pageSize: number;
+  count: number;
+  totalCount: number;
+}
+
+interface ISearchOnList {
+  searchParams?: string;
+  page?: number;
+  pageSize?: number;
 }
 
 export class GetSetListUsecase implements IUsecase {
   constructor(private readonly setrepository: ISetRepository) {}
 
-  execute(): Promise<TEither<TApplicationError, ISetResponse>> {
-    return this.setrepository.get();
+  execute(
+    params: ISearchOnList
+  ): Promise<TEither<TApplicationError, ISetResponse>> {
+    return this.setrepository.get(params);
   }
 }

@@ -22,15 +22,21 @@ interface ISetList {
 }
 
 interface ISetResponse {
-  data: {
-    data: ISetList;
-    page: number;
-    pageSize: number;
-    count: number;
-    totalCount: number;
-  };
+  data: ISetList[];
+  page: number;
+  pageSize: number;
+  count: number;
+  totalCount: number;
+}
+
+interface ISearchOnList {
+  searchParams?: string;
+  page?: number;
+  pageSize?: number;
 }
 
 export interface ISetRepository {
-  get: () => Promise<TEither<TApplicationError, ISetResponse>>;
+  get: (
+    params: ISearchOnList
+  ) => Promise<TEither<TApplicationError, ISetResponse>>;
 }
