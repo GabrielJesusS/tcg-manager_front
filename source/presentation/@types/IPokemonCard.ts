@@ -60,3 +60,7 @@ export interface IPokemonCard {
     type: string;
   }[];
 }
+
+export interface IPokemonCardResponse{
+  data: IPokemonCard
+}
