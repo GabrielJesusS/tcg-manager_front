@@ -28,12 +28,12 @@ export const DefaultQuestionModal = ({
 }: IDefaultQuestionModal) => {
   return (
     <Modal isOpen={isOpen}>
-      <div className={classNames("bg-system z-50 w-full  p-safe", {
-        "max-w-4xl mx-safe rounded-lg": !fullSize,
-        "h-screen" : fullSize
+      <div className={classNames("bg-system z-50 w-full", {
+        "max-w-4xl mx-safe rounded-lg p-safe": !fullSize,
+        "h-screen overflow-auto" : fullSize
       } )}>
         <div className="w-full flex justify-end">
-          <button className="bg-error p-2 rounded-full" onClick={() => close()}>
+          <button className={classNames("bg-error p-2 rounded-full",{"mt-safe mr-safe" :fullSize})}onClick={() => close()}>
             <CloseIcon className="h-5 fill-system" />
           </button>
         </div>
