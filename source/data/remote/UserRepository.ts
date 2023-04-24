@@ -31,7 +31,7 @@ export class UserRepository implements IUserRepository {
   //Routes
   private static readonly createRoute: string = "/user/register";
   private static readonly authRoute: string = "/user/login";
-  private static readonly getPtofile: string = "/user/getProfile";
+  private static readonly getPtofile: string = "/user/verifyUserToken";
 
   constructor(client: IHttpClient, cookieService: ICookieService) {
     this.client = client;
@@ -74,7 +74,7 @@ export class UserRepository implements IUserRepository {
 
       this.cookieService.setCookie(
         process.env.NEXT_PUBLIC_COOKIE_NAME as string,
-        body.data.token
+        body.data
       );
 
       return right(undefined);
