@@ -6,17 +6,19 @@ import { PaginationBlock } from "../../components/common/Pagination";
 import { Radioinput } from "../../components/common/Radioinput";
 import { CardSkeleton } from "../../components/common/skeletons/CardSkeleton";
 import { CommentItems } from "../../data/mocks/commentMock";
-import { cardPaginationAtom } from "../../store/paginations";
 import { Breadcrumb } from "../../components/common/Breadcrumb";
 import { useState } from "react";
+import { useWindowSize } from "@/presentation/hooks/useWindowSize";
+import { useGetMobile } from "@/presentation/hooks/useGetMobile";
+import { SetSkeleton } from "@/presentation/components/common/skeletons/SetSkeleton";
 
 export default function x() {
   const [data, setData] = useState("")
 
   const {query} = useRouter();
- 
-  console.log(data)
   
+  const windowSize = useWindowSize();
+  const isMobile = useGetMobile();
 
   return (
     <>
@@ -31,6 +33,12 @@ export default function x() {
      
      <Breadcrumb></Breadcrumb>
 
+      <div className="grid-cols-4 w-full grid gap-6">
+      <SetSkeleton></SetSkeleton>
+      <SetSkeleton></SetSkeleton>
+      <SetSkeleton></SetSkeleton>
+      <SetSkeleton></SetSkeleton>
+      </div>
       <div className="flex p-safe space-x-6">
         <button className="btn btn-primary" type="button">ola sou um botão</button>
       </div>

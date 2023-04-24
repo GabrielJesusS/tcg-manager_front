@@ -7,7 +7,7 @@
 }
 
 .pg-num-navigate{
-    @apply bg-system w-8 hover:bg-secondary-light hover:text-system active:bg-secondary-dark
+    @apply bg-system w-8 disabled:bg-system-100 disabled:text-system hover:bg-secondary-light hover:text-system active:bg-secondary-dark
 }
 
 .pg-num-navigate-active{

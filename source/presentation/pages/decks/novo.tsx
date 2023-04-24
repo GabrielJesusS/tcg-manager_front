@@ -1,129 +1,65 @@
-import { DeckCardList } from "@/presentation/components/common/DeckCardList";
-import { Dropdown } from "@/presentation/components/common/Dropdown";
-import { DeckCardInsertModal } from "@/presentation/components/common/modals/DeckCardInsertModal";
-import { DeckCardRemoveModal } from "@/presentation/components/common/modals/DeckCardRemoveModal";
+import { DeckBuildViewer } from "@/presentation/components/common/DeckBuilder/DeckBuildViewer";
+import { DeckBuilderAssistent } from "@/presentation/components/common/DeckBuilder/DeckBuilderAssistent";
+import { DeckStatistics } from "@/presentation/components/common/DeckBuilder/DeckStatistics";
+import { CardEdit } from "@/presentation/components/common/DeckCardList/CardEdit";
+import { ComposeCard } from "@/presentation/components/common/DeckCardList/ComposeCard";
+import { DeckInsertButton } from "@/presentation/components/common/DeckInsertButton";
 import { Textinput } from "@/presentation/components/common/Textinput";
+import { DeckCardInsertModal } from "@/presentation/components/common/modals/DeckCardInsertModal";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
-import { verifyToken } from "@/presentation/middlewares/verifyToken";
-import { deckComposeSchema } from "@/presentation/schemas/deckComposeSchema";
-import {
-  deckComposeArrayAtom,
-  deckComposeAtom,
-  totalDeckCardsAtom,
-} from "@/presentation/store/genericAtoms";
-import { deckCardInsertAtom } from "@/presentation/store/modal";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect } from "react";
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-import { useRecoilValue } from "recoil";
+import ArrowIcon from "@/presentation/public/images/icons/chevron.svg";
 
-interface INewDeckParams {
-  deckName: string;
-  deckDescription: string;
-  deckCover: string;
-  deckDiff: number;
-  deckCardQuantity: number;
-  deckCards: {
-    cardId: string;
-    name: string;
-    quantity: number;
-    subtypes: string[];
-    supertype: string;
-  }[];
-}
-
-const NewDeck = ({}) => {
-  const isOpen = useRecoilValue(deckCardInsertAtom);
-  const totalCards = useRecoilValue(totalDeckCardsAtom);
-  const deck = useRecoilValue(deckComposeArrayAtom);
-
-  const {
-    register,
-    handleSubmit,
-    control,
-    setValue,
-    getValues,
-    formState: { errors },
-  } = useForm<INewDeckParams>({
-    resolver: yupResolver(deckComposeSchema),
-  });
-
-  const { fields, append } = useFieldArray({
-    control,
-    name: "deckCards",
-  });
-
-  const submitData: SubmitHandler<INewDeckParams> = (data) => {
-    console.log(data);
-  };
-
-  const checkData = async () => {
-    await setValue("deckCards", [...deck]);
-    await setValue("deckCardQuantity", totalCards);
-  };
-
-  useEffect(() => {
-    checkData();
-  }, [deck]);
-
+const NewDeck = (): JSX.Element => {
+ 
   return (
     <>
       <DefaultLayout>
-        <main className="flex flex-col grow justify-center items-center bg-red-400 h-full">
-          <div className="w-full p-safe">
-            <h1 className="text-2xl font-bold text-center">Novo deck</h1>
-            <section className="bg-system w-full p-3 rounded-lg ">
-              <form action="" className="space-y-3">
-                <div className="space-y-3 md:space-y-0  md:grid md:grid-cols-2 md:gap-safe">
-                  <Textinput
-                    placeholder="Titulo..."
-                    label="Titulo do deck:"
-                    type="text"
-                    inputProps={{ ...register("deckName") }}
-                  />
-                  <Textinput
-                    placeholder="Descrição..."
-                    label="Descrição do deck:"
-                    type="text"
-                    inputProps={{ ...register("deckDescription") }}
-                  />
-                  <Dropdown
-                    label="Carta cover"
-                    selectPlaceholder="Selecione uma carta de capa"
-                    options={[{ text: "op1", value: "op1" }]}
-                    inputProps={{ ...register("deckCover") }}
-                  />
-                  <Dropdown
-                    label="Dificuldade"
-                    selectPlaceholder="Você considera este deck..."
-                    options={[{ text: "op1", value: 1 }]}
-                    inputProps={{ ...register("deckDiff") }}
-                  />
-                </div>
-                <div>
-                  <div className="font-semibold text-lg flex justify-between">
-                    <p>Cartas:</p> <span>{totalCards}</span>
+        <main className="bg-red-400 h-auto flex flex-1">
+          <section className="max-w-7xl h-auto space-y-5 w-full text-system-800 mx-auto bg-system-100 p-safe">
+            <div className="lg:grid-cols-3 lg:grid">
+              <button className="flex items-center">
+                <ArrowIcon className="w-8 fill-system-400 rotate-180" />
+                <span className="font-bold text-2xl text-system-400">
+                  Voltar
+                </span>
+              </button>
+              <h1 className="font-bold text-3xl mx-auto text-center">
+                Construtor de Decks
+              </h1>
+            </div>
+            <div className="flex lg:space-x-8">
+              <div className="flex flex-col space-y-8 w-full">
+                <div className="flex flex-col lg:flex-row space-y-5 lg:space-y-0 lg:space-x-5">
+                  <div className="bg-system shadow-md rounded-2xl py-5 px-6 space-y-4">
+                    <h2 className="font-bold text-2xl text-center sm:whitespace-nowrap">
+                      Informações do deck
+                    </h2>
+                    <Textinput
+                      placeholder="Nome do deck..."
+                      type="text"
+                      label="Nome do deck"
+                    />
+                    <Textinput
+                      placeholder="Descrição do deck..."
+                      type="text"
+                      label="Descrição do deck"
+                    />
+                    <button className="btn btn-primary w-full" type="button">
+                      Publicar novo deck
+                    </button>
                   </div>
-                  <DeckCardList register={register} appendFunction={append} />
+                  <DeckStatistics/>
                 </div>
-                <button
-                  type="button"
-                  onClick={handleSubmit(submitData)}
-                  className="btn btn-primary w-full"
-                >
-                  Publicar
-                </button>
-                <p>{errors.deckCardQuantity?.message}</p>
-                <p>{errors.deckCards?.message}</p>
-              </form>
-            </section>
-          </div>
+               <DeckBuildViewer/>
+              </div>
+              <CardEdit />
+            </div>
+          </section>
         </main>
-        <DeckCardRemoveModal />
-        <DeckCardInsertModal />
       </DefaultLayout>
+      <DeckCardInsertModal />
     </>
   );
 };
 
-export default verifyToken(NewDeck);
+export default NewDeck;

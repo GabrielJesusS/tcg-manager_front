@@ -7,12 +7,14 @@ import classNames from "classnames";
 import { useEffect, useMemo, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
-interface PaginationBlockProps {}
+interface PaginationBlockProps {
+  isLoading?: boolean;
+}
 
 const maxItems = 5;
 const maxLeftItems = (maxItems - 1) / 2;
 
-export const PaginationBlock = ({}: PaginationBlockProps) => {
+export const PaginationBlock = ({isLoading}: PaginationBlockProps) => {
   const page = useRecoilValue(paginationAtom);
   const [offset, setOffset] = useRecoilState(listOffsetAtom);
   const [internalOffset, setInternalOffset] = useState<number>(0);
@@ -42,7 +44,7 @@ export const PaginationBlock = ({}: PaginationBlockProps) => {
         type="button"
         onClick={() => changePage(current - 1)}
         className="pg-block-dft pg-block-navigate pg-block-back"
-        disabled={current === 1}
+        disabled={current === 1 || isLoading}
       >
         <ChevronIcon className="pg-arrow-icon rotate-180" />
       </button>
@@ -57,6 +59,7 @@ export const PaginationBlock = ({}: PaginationBlockProps) => {
                   <button
                     type="button"
                     onClick={() => changePage(pageNum)}
+                    disabled={isLoading}
                     className={classNames(
                       "pg-block-dft pg-num-navigate",
                       pageNum === current && "pg-num-navigate-active"
@@ -72,7 +75,7 @@ export const PaginationBlock = ({}: PaginationBlockProps) => {
         type="button"
         onClick={() => changePage(current + 1)}
         className="pg-block-dft pg-block-navigate pg-block-next"
-        disabled={current === pages}
+        disabled={current === pages || isLoading}
       >
         <ChevronIcon className="pg-arrow-icon" />
       </button>

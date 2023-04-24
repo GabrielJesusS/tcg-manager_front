@@ -11,26 +11,34 @@ export const CardFilter = () => {
 
   return (
     <>
-      <Dropdown
-        label="Super tipo"
-        placeholder="Selecione o tipo"
-        options={supertypeFilter}
-        selectedOption={filtersValue.supertype? filtersValue.supertype : ''}
-        setter={(e) => setFilterParams({ ...filtersValue, supertype: e , types: ''})}
-      />
-      <Dropdown
-        label="Subtipo"
-        placeholder="Selecione o tipo"
-        options={typeFilter}
-      />
-      {filtersValue.supertype === "Pokémon" && (
+      <div className="relative">
         <Dropdown
-          label="Tipo do pokémon"
+          label="Super tipo"
+          placeholder="Selecione o tipo"
+          options={supertypeFilter}
+          selectedOption={filtersValue.supertype ? filtersValue.supertype : ""}
+          setter={(e) =>
+            setFilterParams({ ...filtersValue, supertype: e, types: "" })
+          }
+        />
+      </div>
+      <div className="relative">
+        <Dropdown
+          label="Subtipo"
           placeholder="Selecione o tipo"
           options={typeFilter}
-          selectedOption={filtersValue.types? filtersValue.types : ""}
-          setter={(e) => setFilterParams({ ...filtersValue, types: e })}
         />
+      </div>
+      {filtersValue.supertype === "Pokémon" && (
+        <div className="relative">
+          <Dropdown
+            label="Tipo do pokémon"
+            placeholder="Selecione o tipo"
+            options={typeFilter}
+            selectedOption={filtersValue.types ? filtersValue.types : ""}
+            setter={(e) => setFilterParams({ ...filtersValue, types: e })}
+          />
+        </div>
       )}
     </>
   );

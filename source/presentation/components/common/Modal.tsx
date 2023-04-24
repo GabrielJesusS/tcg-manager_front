@@ -30,7 +30,7 @@ export const Modal = ({ isOpen, children }: ModalProps) => {
       {isOpen && (
         <motion.div
           {...animationsSettings}
-          className="bg-system-800/25 flex z-40 h-screen w-full fixed justify-center items-center"
+          className="bg-system-800/25 flex z-40 h-screen w-full fixed top-0 left-0 justify-center items-center"
         >
           {children}
         </motion.div>
