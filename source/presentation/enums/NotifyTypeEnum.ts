@@ -1,0 +1,6 @@
+export enum NOTIFY_TYPE_ENUM {
+  ERROR,
+  WARNING,
+  SUCCESS,
+  ALERT,
+}

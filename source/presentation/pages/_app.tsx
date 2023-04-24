@@ -2,12 +2,14 @@ import React from "react";
 import type { AppProps } from "next/app";
 import "@/presentation/styles/globals.css";
 import favicon from "@/presentation/public/images/logo/favicon.ico";
+import 'react-toastify/dist/ReactToastify.css'
 
 import { Poppins } from "@next/font/google";
 
 import classNames from "classnames";
 import Head from "next/head";
 import { RecoilRoot } from "recoil";
+import { ToastContainer } from "react-toastify";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,6 +27,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <div className={"font-poppins"}>
         <Component {...pageProps} />
       </div>
+      <ToastContainer />
     </RecoilRoot>
   );
 }
