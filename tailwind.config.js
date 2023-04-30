@@ -14,7 +14,7 @@ module.exports = {
         "safe" : "1.5rem"
       },
       backgroundImage:{
-        "bg-pattern": "url('/source/presentation/public/images/rsc/bgs/pattern-bg.png')",
+        "bg-pattern": "url(/images/rsc/bgs/pattern-bg.png)",
       },
       colors: {
         background: "#E7E7E7",
