@@ -23,7 +23,7 @@
 }
 
 .loading-effect{
-  @apply after:absolute after:w-full after:h-full after:bg-gradient-to-r after:from-white/0 after:via-white/30 after:to-white/0  shimmer  relative overflow-hidden  bg-system-200 w-full
+  @apply after:absolute after:w-full after:h-full after:bg-gradient-to-r after:from-white/0 after:via-white/30 after:to-white/0 relative overflow-hidden  bg-system-200 w-full
 }
 
 .dft-link {
