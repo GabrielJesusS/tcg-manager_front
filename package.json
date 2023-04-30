@@ -45,6 +45,8 @@
     "react-tilty": "^3.0.0",
     "react-toastify": "^9.1.1",
     "recoil": "^0.7.6",
+    "slate": "^0.94.0",
+    "slate-react": "^0.94.0",
     "swiper": "^9.0.3",
     "swr": "^2.1.0",
     "yup": "^0.32.11"
@@ -55,7 +57,7 @@
     "@commitlint/config-conventional": "17.4.2",
     "@faker-js/faker": "^7.6.0",
     "@next/bundle-analyzer": "13.1.6",
-    "@svgr/webpack": "6.5.1",
+    "@svgr/webpack": "^7.0.0",
     "@types/grecaptcha": "3.0.4",
     "@types/jest": "27.4.0",
     "@types/js-cookie": "^3.0.3",
@@ -77,12 +79,12 @@
     "husky": "7.0.4",
     "jest": "27.3.1",
     "jest-mock-extended": "2.0.4",
-    "lint-staged": "11.2.6",
+    "lint-staged": "^13.2.1",
     "postcss": "latest",
     "postcss-import": "15.1.0",
     "prettier": "2.4.1",
     "standard-version": "9.5.0",
-    "tailwindcss": "latest",
+    "tailwindcss": "^3.3.2",
     "ts-jest": "27.0.7",
     "typescript": "4.4.4"
   }
