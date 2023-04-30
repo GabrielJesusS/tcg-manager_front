@@ -2,6 +2,7 @@ import PlusIcon from "@/presentation/public/images/icons/plus.svg";
 import MinusIcon from "@/presentation/public/images/icons/minus.svg";
 
 interface IQuantityManager {
+  total: number;
   value: number;
   limit: number;
   manipulation: (value: number) => void;
@@ -10,6 +11,7 @@ interface IQuantityManager {
 export const QuantityManager = ({
   value,
   limit,
+  total,
   manipulation,
 }: IQuantityManager): JSX.Element => {
   function onDecrease() {
@@ -35,7 +37,7 @@ export const QuantityManager = ({
       </span>
       <button
         onClick={onIncrease}
-        disabled={value >= limit}
+        disabled={total >= limit}
         type="button"
         className="bg-secondary hover:bg-secondary-light focus:ring-2 focus:ring-offset-2 focus:ring-secondary disabled:bg-system-400 h-8 w-8 flex justify-center items-center rounded"
       >

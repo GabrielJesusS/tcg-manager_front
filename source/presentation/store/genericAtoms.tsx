@@ -123,6 +123,25 @@ export const totalDeckCardsAtom = selector<number>({
   },
 });
 
+export const quantityPerName = selectorFamily({
+  key: "QuantityPerNameSelector",
+  get:
+    (name) =>
+    ({ get }) => {
+      const cardsIds = get(deckComposeIdsAtom);
+      const statistics = get(deckStatisticsSelector)
+
+      return cardsIds.reduce((total, id) => {
+        const cardOnCompose: IDeckComposeProps = get(deckComposeAtom(id));
+
+        if (cardOnCompose.name === name) {
+          return total + cardOnCompose.quantity;
+        }
+        return total;
+      }, 0);
+    },
+});
+
 export const cardToRemoveAtom = atom<string>({
   key: "CardToRemoveAtom",
   default: "",

@@ -5,6 +5,7 @@ import {
   cardCoverAtom,
   cardEditOpen,
   deckComposeAtom,
+  quantityPerName,
   selectedCardAtom,
 } from "@/presentation/store/genericAtoms";
 import { AnimatePresence, AnimationProps, motion } from "framer-motion";
@@ -20,12 +21,15 @@ export const CardEdit = (): JSX.Element => {
   const [cardInfos, setCardToCompose] = useRecoilState(
     deckComposeAtom(selectedCardId)
   );
+  const sameCardsOnDeck = useRecoilValue(quantityPerName(cardInfos.name));
 
   const isCover = useMemo<boolean>(
     () => cover === cardInfos.cardId,
 
     [cover, cardInfos]
   );
+
+  console.log(sameCardsOnDeck);
 
   function defineCover(): void {
     setCover(cardInfos.cardId);
@@ -48,23 +52,11 @@ export const CardEdit = (): JSX.Element => {
   }
 
   const cardLimit = useMemo<number>(() => {
-    switch (cardInfos.supertype) {
-      case CARD_SUPERTYPE.POKEMON:
-        return 4;
-        break;
-
-      case CARD_SUPERTYPE.ENERGY:
-        return 60;
-        break;
-      case CARD_SUPERTYPE.TRAINER:
-        return 60;
-        break;
-
-      default:
-        return 0;
-        break;
+    if (cardInfos.supertype === CARD_SUPERTYPE.ENERGY) {
+      return 60;
     }
-  }, []);
+    return 4;
+  }, [sameCardsOnDeck]);
 
   const cardExists = selectedCardId !== "";
 
@@ -118,6 +110,7 @@ export const CardEdit = (): JSX.Element => {
                 />
                 <div className="mx-auto w-fit">
                   <QuantityManager
+                    total={sameCardsOnDeck}
                     value={cardInfos.quantity}
                     manipulation={manipulateQuantity}
                     limit={cardLimit}
