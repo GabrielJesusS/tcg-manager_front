@@ -1,5 +1,4 @@
 import { Listbox } from "@headlessui/react";
-import { ChangeEvent, InputHTMLAttributes, SelectHTMLAttributes, useState } from "react";
 import ArrowIcon from "@/presentation/public/images/icons/chevron.svg";
 
 interface IOption{
@@ -21,8 +20,9 @@ interface IDropdown {
 export const Dropdown = ({ placeholder, options, label, selectedOption, setter}: IDropdown) => {
 
   return (
-    <Listbox value={selectedOption} onChange={setter} >
-      <Listbox.Label className="mb-3 font-bold block">{label}</Listbox.Label>
+    <div className="relative">
+      <Listbox value={selectedOption} onChange={setter} >
+      <Listbox.Label className="font-semibold block">{label}</Listbox.Label>
       <Listbox.Button
         className={
           "text-center flex items-center justify-between w-full text-base border-2 font-medium disabled:bg-system-200 hover:disabled:bg-system-200 disabled:border-system-200 px-4 py-1 rounded-lg drop-shadow-md text-system bg-secondary border-secondary"
@@ -39,5 +39,6 @@ export const Dropdown = ({ placeholder, options, label, selectedOption, setter}:
         ))}
       </Listbox.Options>
     </Listbox>
+    </div>
   );
 };
