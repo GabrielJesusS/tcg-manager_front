@@ -18,6 +18,7 @@
     "baseUrl": "./source",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "downlevelIteration": true,
     "paths": {
       "@/*": ["./*"]
     },
