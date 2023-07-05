@@ -6,17 +6,9 @@ import { useRenderElement } from "@/presentation/hooks/useRenderElements";
 import classNames from "classnames";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
 import { LinkEditModal } from "../common/modals/LinkEditModal";
+import { withLink} from "./elements/plugins/withLink";
 
 export const RichText = ({}) => {
-
-  const withLinks = (e:Editor) => {
-    const { isInline } = e;
-    
-    e.isInline = (element) =>
-      element.type === "link" ? true : isInline(element);
-  
-    return e;
-  };
 
   const serialize = (node: Descendant) => {
     if (Text.isText(node)) {
@@ -40,7 +32,7 @@ export const RichText = ({}) => {
   }
 
 
-  const [editor] = useState(() => withLinks(withReact(createEditor())));
+  const [editor] = useState(() => withLink(withReact(createEditor())));
   const { renderElement } = useRenderElement();
   const initialValue: Descendant[] = [
     {
