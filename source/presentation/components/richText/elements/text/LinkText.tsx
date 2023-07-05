@@ -1,4 +1,4 @@
-import { useLink } from "@/presentation/hooks/richTextEditor /useLink";
+import { useLink } from "@/presentation/hooks/richTextEditor/useLink";
 import {
   linkModalAtom,
   linkURLAtom,

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import ArrowIcon from "@/presentation/public/images/icons/chevron.svg";
 import { Editor } from "slate";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
-import { useTextType } from "@/presentation/hooks/richTextEditor /useTextType";
+import { useTextType } from "@/presentation/hooks/richTextEditor/useTextType";
 
 const textTypes = [
   { label: "Small", value: ELEMENT_TYPES_ENUM.SMALL },

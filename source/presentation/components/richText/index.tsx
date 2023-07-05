@@ -4,7 +4,6 @@ import { Editable, RenderLeafProps, Slate, withReact } from "slate-react";
 import { ToolBar } from "./toolbar";
 import { useRenderElement } from "@/presentation/hooks/useRenderElements";
 import classNames from "classnames";
-import { useTextType } from "@/presentation/hooks/richTextEditor /useTextType";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
 import { LinkEditModal } from "../common/modals/LinkEditModal";
 
@@ -43,8 +42,6 @@ export const RichText = ({}) => {
 
   const [editor] = useState(() => withLinks(withReact(createEditor())));
   const { renderElement } = useRenderElement();
-  const [s, ss] = useState('')
-  const {checkWhatText} = useTextType(editor);
   const initialValue: Descendant[] = [
     {
       type: ELEMENT_TYPES_ENUM.PARAGRAPH,

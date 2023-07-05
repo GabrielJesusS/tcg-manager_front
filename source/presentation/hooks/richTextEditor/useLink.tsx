@@ -1,17 +1,10 @@
-import { CustomElement } from "@/presentation/@types/slate";
-import { LinkText } from "@/presentation/components/richText/elements/text/LinkText";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
-import { useCallback, useMemo } from "react";
 import {
   Editor,
-  Text,
   Transforms,
-  Node,
   Element,
-  Ancestor,
   Path,
   Range,
-  Location,
 } from "slate";
 import { ReactEditor } from "slate-react";
 

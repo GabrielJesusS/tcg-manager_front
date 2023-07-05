@@ -7,7 +7,7 @@ import {
 import { useSelected, useSlate } from "slate-react";
 import { useState } from "react";
 import { Transforms } from "slate";
-import { useLink } from "@/presentation/hooks/richTextEditor /useLink";
+import { useLink } from "@/presentation/hooks/richTextEditor/useLink";
 
 export const LinkEditModal = () => {
   const [open, setOpen] = useRecoilState(linkModalAtom);
