@@ -10,6 +10,7 @@ import { RenderElementProps, useSelected, useSlate } from "slate-react";
 import WebIcon from "@/presentation/public/images/icons/web.svg";
 import CloseIcon from "@/presentation/public/images/icons/close.svg";
 import { usePopper } from "react-popper";
+import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
 
 export const LinkText = ({
   attributes,
@@ -19,26 +20,30 @@ export const LinkText = ({
   const editor = useSlate();
   const selected = useSelected();
   const { removeLink } = useLink(editor);
-  const [referenceElement, setReferenceElement] = useState();
-  const [popperElement, setPopperElement] = useState();
+  const [referenceElement, setReferenceElement] = useState<HTMLAnchorElement>();
+  const [popperElement, setPopperElement] = useState<HTMLSpanElement>();
   const { styles, attributes: att } = usePopper(
     referenceElement,
-    popperElement
+    popperElement,
+    {
+      placement: "auto-start",
+    }
   );
 
-  return (
+  return element.type === ELEMENT_TYPES_ENUM.LINK ? (
     <span className="relative">
       <Link
         href={""}
         {...attributes}
-        ref={setReferenceElement}
+        ref={(e) => setReferenceElement(e ?? undefined)}
         className="dft-link"
+        title={`link to ${element.href}`}
       >
         {children}
       </Link>
       {selected && (
         <span
-          ref={setPopperElement}
+          ref={(e) => setPopperElement(e ?? undefined)}
           style={styles.popper}
           {...att.popper}
           contentEditable={false}
@@ -47,7 +52,7 @@ export const LinkText = ({
           <span className="block">
             <WebIcon className="w-6 h-6 text-system-200" />
           </span>
-          <span className="dft-link whitespace-nowrap">{element.href}</span>
+          <Link href={element.href} target="_blank" className="dft-link whitespace-nowrap">{element.href}</Link>
           <span className="block min-h-full w-0.5 bg-system-200" />
           <button title="Remover link" onClick={removeLink}>
             <CloseIcon className="w-6 h-6 fill-error" />
@@ -55,5 +60,5 @@ export const LinkText = ({
         </span>
       )}
     </span>
-  );
+  ) : null;
 };

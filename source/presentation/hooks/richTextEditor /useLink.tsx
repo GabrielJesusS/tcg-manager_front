@@ -1,7 +1,7 @@
 import { CustomElement } from "@/presentation/@types/slate";
 import { LinkText } from "@/presentation/components/richText/elements/text/LinkText";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import {
   Editor,
   Text,
@@ -11,12 +11,12 @@ import {
   Ancestor,
   Path,
   Range,
+  Location,
 } from "slate";
 import { ReactEditor } from "slate-react";
 
 interface IUseLink {
   insertLink: (editor: Editor, url: string) => void;
-  checkIsLink: () => boolean;
   removeLink: () => void;
 }
 
@@ -55,17 +55,24 @@ export function useLink(editor: Editor): IUseLink {
 
       // Remove the Link node if we're inserting a new link node inside of another
       // link.
-      if (Element.isElement(parentNode) && parentNode.type === "link") {
+      if (
+        Element.isElement(parentNode) &&
+        parentNode.type === ELEMENT_TYPES_ENUM.LINK
+      ) {
         removeLink();
       }
 
       if (editor.isVoid(parentNode as Element)) {
         // Insert the new link after the void node
         console.log(link);
-        Transforms.insertNodes(editor, createParagraphNode([link]), {
-          at: Path.next(parentPath),
-          select: true,
-        });
+        Transforms.insertNodes(
+          editor,
+          createParagraphNode([...link.children]),
+          {
+            at: Path.next(parentPath),
+            select: true,
+          }
+        );
       } else if (Range.isCollapsed(selection)) {
         // Insert the new link in our last known location
         Transforms.insertNodes(editor, link, { select: true });
@@ -79,14 +86,9 @@ export function useLink(editor: Editor): IUseLink {
       // Insert the new link node at the bottom of the Editor when selection
       // is falsey
       console.log(link);
-      Transforms.insertNodes(editor, createParagraphNode([link]));
+      Transforms.insertNodes(editor, createParagraphNode([...link.children]));
     }
   }
 
-  const checkIsLink = useCallback(() => {
-    const match = Editor.marks(editor);
-    return !!match?.isLink;
-  }, [Editor.marks(editor)]);
-
-  return { insertLink, checkIsLink, removeLink };
+  return { insertLink, removeLink };
 }
