@@ -41,7 +41,13 @@ type CustomElement =
   | SubheadingElement
   | LinkElement;
 
-type CustomText = { text: string; isBold?: boolean};
+type CustomText = {
+  text: string;
+  isBold?: boolean;
+  isItalic?: boolean;
+  isUnderline?: boolean;
+  color: string;
+};
 
 declare module "slate" {
   interface CustomTypes {
