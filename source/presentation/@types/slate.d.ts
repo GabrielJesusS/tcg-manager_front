@@ -1,6 +1,7 @@
 import { BaseEditor, Descendant } from "slate";
 import { ReactEditor } from "slate-react";
 import { ELEMENT_TYPES_ENUM } from "../enums/ElementTypes";
+import { ColorEnum } from "../enums/ColorEnum";
 
 export type ParagraphElement = {
   type: ELEMENT_TYPES_ENUM.PARAGRAPH;
@@ -46,7 +47,7 @@ type CustomText = {
   isBold?: boolean;
   isItalic?: boolean;
   isUnderline?: boolean;
-  color: string;
+  color: ColorEnum;
 };
 
 declare module "slate" {

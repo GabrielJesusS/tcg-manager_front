@@ -1,11 +1,6 @@
+import { ColorEnum } from "@/presentation/enums/ColorEnum";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
-import {
-  Editor,
-  Transforms,
-  Element,
-  Path,
-  Range,
-} from "slate";
+import { Editor, Transforms, Element, Path, Range } from "slate";
 import { ReactEditor } from "slate-react";
 
 interface IUseLink {
@@ -14,13 +9,19 @@ interface IUseLink {
 }
 
 export function useLink(editor: Editor): IUseLink {
-  const createLinkNode = (href: string, text: string): Element => ({
+  const createLinkNode = (
+    href: string,
+    text: string,
+    color: ColorEnum
+  ): Element => ({
     type: ELEMENT_TYPES_ENUM.LINK,
     href,
-    children: [{ text }],
+    children: [{ text, color }],
   });
 
-  const createParagraphNode = (children = [{ text: "" }]): Element => ({
+  const createParagraphNode = (
+    children = [{ text: "", color: ColorEnum.BASE }]
+  ): Element => ({
     type: ELEMENT_TYPES_ENUM.PARAGRAPH,
     children,
   });
@@ -36,7 +37,7 @@ export function useLink(editor: Editor): IUseLink {
     if (!url) return;
     const { selection } = editor;
 
-    const link = createLinkNode(url, "New Link");
+    const link = createLinkNode(url, "New Link", ColorEnum.BASE);
 
     ReactEditor.focus(editor);
 
@@ -68,6 +69,7 @@ export function useLink(editor: Editor): IUseLink {
         );
       } else if (Range.isCollapsed(selection)) {
         // Insert the new link in our last known location
+        console.log("ss");
         Transforms.insertNodes(editor, link, { select: true });
       } else {
         // Wrap the currently selected range of text into a Link
