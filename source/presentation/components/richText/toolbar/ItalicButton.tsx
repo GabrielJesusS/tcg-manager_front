@@ -1,17 +1,16 @@
-import { useCustomEditor } from "@/presentation/hooks/useCustomEditor";
 import ItalicIcon from "@/presentation/public/images/icons/editor/italic.svg";
 import { Editor } from "slate";
 import { ButtonBase } from "./ButtonBase";
+import { useItalic } from "@/presentation/hooks/richTextEditor/useItalic";
 
 interface IItalicButton {
   editor: Editor;
 }
 
-export const ItalicButton= ({ editor }: IItalicButton) => {
-  const { boldUtils } = useCustomEditor(editor);
-
+export const ItalicButton = ({ editor }: IItalicButton) => {
+  const { checkIsItalic, toggleItalic } = useItalic(editor);
   return (
-    <ButtonBase onClick={boldUtils.toggleBold}>
+    <ButtonBase onClick={toggleItalic} active={checkIsItalic}>
       <ItalicIcon className="h-6" />
     </ButtonBase>
   );
