@@ -11,8 +11,8 @@ export const ButtonBase = ({ active, onClick, children }: IButtonBase) => {
       type="button"
       onClick={onClick}
       className={classNames(
-        "block rounded-md hover:bg-system-200 transition-all duration-150 ease-in-out",
-        active ? "bg-secondary text-system hover:bg-secondary-dark" : "text-system-400"
+        "block rounded-md  transition-all duration-150 ease-in-out",
+        active ? "bg-secondary text-system hover:bg-secondary-dark" : "text-system-400 hover:bg-system-200"
       )}
     >
       {children}
