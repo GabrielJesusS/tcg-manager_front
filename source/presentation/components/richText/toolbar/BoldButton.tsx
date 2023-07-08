@@ -11,7 +11,7 @@ interface IBoldButton {
 export const BoldButton = ({ editor }: IBoldButton) => {
   const {checkIsBold, toggleBold } = useBold(editor)
   return (
-    <ButtonBase onClick={toggleBold} active={checkIsBold()}>
+    <ButtonBase onClick={toggleBold} active={checkIsBold}>
       <BoldIcon className="h-6" />
     </ButtonBase>
   );
