@@ -1,11 +1,11 @@
 import { useCallback } from "react";
-import { Small } from "../components/richText/elements/text/Small";
-import { Paragraph } from "../components/richText/elements/text/Paragraph";
-import { HeadingOne } from "../components/richText/elements/text/HeadingOne";
-import { HeadingTwo } from "../components/richText/elements/text/HeadingTwo";
-import { SubHeading } from "../components/richText/elements/text/SubHeading";
-import { ELEMENT_TYPES_ENUM } from "../enums/ElementTypes";
-import { LinkText } from "../components/richText/elements/text/LinkText";
+import { Small } from "../../components/richText/elements/text/Small";
+import { Paragraph } from "../../components/richText/elements/text/Paragraph";
+import { HeadingOne } from "../../components/richText/elements/text/HeadingOne";
+import { HeadingTwo } from "../../components/richText/elements/text/HeadingTwo";
+import { SubHeading } from "../../components/richText/elements/text/SubHeading";
+import { ELEMENT_TYPES_ENUM } from "../../enums/ElementTypes";
+import { LinkText } from "../../components/richText/elements/text/LinkText";
 
 
 export const useRenderElement = () => {
