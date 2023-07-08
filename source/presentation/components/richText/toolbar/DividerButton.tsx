@@ -1,4 +1,3 @@
-import { useCustomEditor } from "@/presentation/hooks/useCustomEditor";
 import DividerIcon from "@/presentation/public/images/icons/editor/divider.svg";
 import { Editor } from "slate";
 import { ButtonBase } from "./ButtonBase";
@@ -8,10 +7,9 @@ interface IDividerButton {
 }
 
 export const DividerButton = ({ editor }: IDividerButton) => {
-  const { boldUtils } = useCustomEditor(editor);
 
   return (
-    <ButtonBase onClick={boldUtils.toggleBold}>
+    <ButtonBase>
       <DividerIcon className="h-6" />
     </ButtonBase>
   );
