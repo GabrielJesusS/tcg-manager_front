@@ -4,7 +4,7 @@ import { TextLevelSelector } from "./TextLevelSelector";
 import { LinkButton } from "./LinkButton";
 import { useSetRecoilState } from "recoil";
 import { linkModalAtom } from "@/presentation/store/editor/linkModalAtom";
-import { DividerButton } from "./DividerButton";
+import { ImageButton } from "./ImageButton";
 import { ItalicButton } from "./ItalicButton";
 import { UnderlineButton } from "./UnderlineButton";
 import { QuoteButton } from "./QuoteButton";
@@ -25,7 +25,7 @@ export const ToolBar = ({}) => {
         <QuoteButton editor={editor} />
         <LinkButton editor={editor} />
         <ListButton editor={editor} />
-        <DividerButton editor={editor} />
+        <ImageButton editor={editor} />
         <ColorPicker editor={editor}/>
       </div>
     </div>

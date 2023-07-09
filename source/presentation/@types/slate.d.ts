@@ -44,10 +44,6 @@ export type ListElement = {
   children: CustomText[];
 };
 
-export type DividerElement = {
-  type: ELEMENT_TYPES_ENUM.DIVIDER;
-  children: CustomText[];
-};
 export type ImageElement = {
   type: ELEMENT_TYPES_ENUM.IMAGE;
   children: CustomText[];
@@ -62,7 +58,6 @@ type CustomElement =
   | QuoteElement
   | LinkElement
   | ListElement
-  | DividerElement
   | ImageElement
 
 type CustomText = {

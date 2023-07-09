@@ -7,6 +7,7 @@ import { SubHeading } from "../../components/richText/elements/text/SubHeading";
 import { ELEMENT_TYPES_ENUM } from "../../enums/ElementTypes";
 import { LinkText } from "../../components/richText/elements/text/LinkText";
 import { Quote } from "@/presentation/components/richText/elements/text/Quote";
+import { ImageElm } from "@/presentation/components/richText/elements/Image";
 
 
 export const useRenderElement = () => {
@@ -29,6 +30,9 @@ export const useRenderElement = () => {
       
       case ELEMENT_TYPES_ENUM.QUOTES:
         return <Quote {...props}/>
+      
+      case ELEMENT_TYPES_ENUM.IMAGE:
+      return <ImageElm {...props} />
 
       default:
         return <Paragraph {...props} />;
