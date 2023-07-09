@@ -6,6 +6,7 @@ import { HeadingTwo } from "../../components/richText/elements/text/HeadingTwo";
 import { SubHeading } from "../../components/richText/elements/text/SubHeading";
 import { ELEMENT_TYPES_ENUM } from "../../enums/ElementTypes";
 import { LinkText } from "../../components/richText/elements/text/LinkText";
+import { Quote } from "@/presentation/components/richText/elements/text/Quote";
 
 
 export const useRenderElement = () => {
@@ -26,6 +27,9 @@ export const useRenderElement = () => {
       case ELEMENT_TYPES_ENUM.LINK:
         return <LinkText {...props} />;
       
+      case ELEMENT_TYPES_ENUM.QUOTES:
+        return <Quote {...props}/>
+
       default:
         return <Paragraph {...props} />;
     }

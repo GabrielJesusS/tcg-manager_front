@@ -1,5 +1,4 @@
 import { Listbox } from "@headlessui/react";
-import { useEffect, useState } from "react";
 import ArrowIcon from "@/presentation/public/images/icons/chevron.svg";
 import { Editor } from "slate";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
@@ -18,36 +17,18 @@ interface ITextLevelSelector {
 }
 
 export const TextLevelSelector = ({ editor }: ITextLevelSelector) => {
-  const [statex, test] = useState<ELEMENT_TYPES_ENUM>(
-    ELEMENT_TYPES_ENUM.PARAGRAPH
-  );
   const { toggleText, checkWhatText } = useTextType(editor);
-
-  useEffect(() => {
-    toggleText(statex);
-    console.log("dawdawd");
-  }, [statex]);
-
-  useEffect(() => {
-    if (!editor.children) {
-      return;
-    }
-
-    const type = checkWhatText();
-    if (type !== statex) {
-      test(type as ELEMENT_TYPES_ENUM);
-    }
-  }, [editor.children]);
 
   return (
     <div className="relative z-20 text-system-600 w-36">
       <Listbox
         defaultValue={ELEMENT_TYPES_ENUM.PARAGRAPH}
-        value={statex}
-        onChange={test}
+        value={checkWhatText}
+        onChange={toggleText}
+        disabled={!textTypes.find((e) => e.value === checkWhatText)?.label}
       >
         <Listbox.Button className="flex items-center justify-between w-full">
-          {textTypes.find((e) => e.value === statex)?.label}
+          {textTypes.find((e) => e.value === checkWhatText)?.label ?? "----------"}
           <ArrowIcon className="h-6 fill-system-400 rotate-90" />
         </Listbox.Button>
         <Listbox.Options className="absolute w-full top-full bg-system-100">
