@@ -34,13 +34,36 @@ export type LinkElement = {
   href: string;
 };
 
+export type QuoteElement = {
+  type: ELEMENT_TYPES_ENUM.QUOTES;
+  children: CustomText[];
+};
+
+export type ListElement = {
+  type: ELEMENT_TYPES_ENUM.LIST;
+  children: CustomText[];
+};
+
+export type DividerElement = {
+  type: ELEMENT_TYPES_ENUM.DIVIDER;
+  children: CustomText[];
+};
+export type ImageElement = {
+  type: ELEMENT_TYPES_ENUM.IMAGE;
+  children: CustomText[];
+};
+
 type CustomElement =
   | ParagraphElement
   | SmallElement
   | HeadingTwoElement
   | HeadingTwoElement
   | SubheadingElement
-  | LinkElement;
+  | QuoteElement
+  | LinkElement
+  | ListElement
+  | DividerElement
+  | ImageElement
 
 type CustomText = {
   text: string;
