@@ -25,9 +25,9 @@ export class CardRepository implements ICardRepository {
   private readonly client: IHttpClient;
 
   //    routes
-  private static readonly getRandomRoute: string = "/cards/randomCard";
-  private static readonly getListRoute: string = "/cards";
-  private static readonly getRoute: string = "/cards/";
+  private static readonly getRandomRoute: string = "/card/randomCard";
+  private static readonly getListRoute: string = "/card";
+  private static readonly getRoute: string = "/card/";
 
   constructor(client: IHttpClient) {
     this.client = client;
