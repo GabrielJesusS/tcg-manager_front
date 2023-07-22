@@ -1,6 +1,9 @@
+import { CustomElement } from "@/presentation/@types/slate";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
 import { useMemo } from "react";
+import { Range } from "slate";
 import { Editor, Element, Transforms } from "slate";
+import { ReactEditor } from "slate-react";
 
 interface IUseTextType {
   toggleText: (type: ELEMENT_TYPES_ENUM) => void;
@@ -9,11 +12,26 @@ interface IUseTextType {
 
 export function useTextType(editor: Editor): IUseTextType {
   function toggleText(type: ELEMENT_TYPES_ENUM): void {
-    Transforms.setNodes(
-      editor,
-      { type },
-      { match: (n) => Element.isElement(n) && Editor.isBlock(editor, n) }
-    );
+    const { selection } = { ...editor };
+
+    ReactEditor.focus(editor);
+
+    if (!!selection) {
+      if (Range.isCollapsed({ ...selection })) {
+        Transforms.setNodes(editor, { type } as Partial<CustomElement>, {
+          match: (n) => Element.isElement(n) && Editor.isBlock(editor, n),
+        });
+        return;
+      }
+      Transforms.setNodes(editor, { type } as Partial<CustomElement>, {
+        match: (n) => Element.isElement(n) && Editor.isBlock(editor, n),
+        split: true,
+      });
+
+      Transforms.select(editor, Editor.end(editor, []));
+
+      Transforms.move(editor, {distance: 1, unit: "offset"})
+    }
   }
 
   const checkWhatText = useMemo((): ELEMENT_TYPES_ENUM => {
@@ -22,7 +40,7 @@ export function useTextType(editor: Editor): IUseTextType {
     return Element.isElement(parentNode)
       ? parentNode.type
       : ELEMENT_TYPES_ENUM.PARAGRAPH;
-  }, [editor.selection]);
+  }, [editor.children , editor.selection?.focus.path]);
 
   return { toggleText, checkWhatText };
 }
