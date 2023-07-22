@@ -60,8 +60,9 @@ module.exports = {
         poppins: ['Poppins', "sans"],
       },
       aspectRatio:{
-        "card": "7 / 9.77"
-      },
+        "card": "7 / 9.77",
+        "tv" : "4/3"
+       },
     },
   },
   variants: {
