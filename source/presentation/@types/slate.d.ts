@@ -47,6 +47,10 @@ export type ListElement = {
 export type ImageElement = {
   type: ELEMENT_TYPES_ENUM.IMAGE;
   children: CustomText[];
+  aspectRatio: string
+  size: string
+  behavior: string 
+  src: string
 };
 
 type CustomElement =
