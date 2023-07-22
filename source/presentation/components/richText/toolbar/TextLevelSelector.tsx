@@ -26,7 +26,7 @@ export const TextLevelSelector = ({ editor }: ITextLevelSelector) => {
         value={checkWhatText}
         onChange={toggleText}
         disabled={!textTypes.find((e) => e.value === checkWhatText)?.label}
-      >
+     >
         <Listbox.Button className="flex items-center justify-between w-full">
           {textTypes.find((e) => e.value === checkWhatText)?.label ?? "----------"}
           <ArrowIcon className="h-6 fill-system-400 rotate-90" />
