@@ -7,7 +7,7 @@ import { SubHeading } from "../../components/richText/elements/text/SubHeading";
 import { ELEMENT_TYPES_ENUM } from "../../enums/ElementTypes";
 import { LinkText } from "../../components/richText/elements/text/LinkText";
 import { Quote } from "@/presentation/components/richText/elements/text/Quote";
-import { ImageElm } from "@/presentation/components/richText/elements/Image";
+import { ImageElm } from "@/presentation/components/richText/elements/void/Image";
 
 
 export const useRenderElement = () => {

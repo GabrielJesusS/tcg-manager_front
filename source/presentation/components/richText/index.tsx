@@ -1,5 +1,13 @@
-import { useCallback, useState } from "react";
-import { Descendant, Editor, Node, Text, createEditor } from "slate";
+import { KeyboardEvent, useState } from "react";
+import {
+  Descendant,
+  Editor,
+  Element,
+  Node,
+  Text,
+  Transforms,
+  createEditor,
+} from "slate";
 import { Editable, RenderLeafProps, Slate, withReact } from "slate-react";
 import { ToolBar } from "./toolbar";
 import { useRenderElement } from "@/presentation/hooks/richTextEditor/useRenderElements";
@@ -9,6 +17,11 @@ import { LinkEditModal } from "../common/modals/LinkEditModal";
 import { withLink } from "./elements/plugins/withLink";
 import { useRenderLeafs } from "@/presentation/hooks/richTextEditor/useRenderLeafs";
 import { ColorEnum } from "@/presentation/enums/ColorEnum";
+import { withImage } from "./elements/plugins/withImage";
+import { ImageEditModal } from "./elements/modals/ImageEditModal";
+import { createParagraphNode } from "@/utils/richTextEditor/createParagraphElement";
+
+function key(evt: KeyboardEvent<HTMLDivElement>): void {}
 
 export const RichText = ({}) => {
   const serialize = (node: Descendant) => {
@@ -32,7 +45,9 @@ export const RichText = ({}) => {
     }
   };
 
-  const [editor] = useState(() => withLink(withReact(createEditor())));
+  const [editor] = useState(() =>
+    withImage(withLink(withReact(createEditor())))
+  );
   const { renderElement } = useRenderElement();
   const { renderLeafs } = useRenderLeafs();
   const initialValue: Descendant[] = [
@@ -43,7 +58,7 @@ export const RichText = ({}) => {
   ];
 
   return (
-    <div className="border-2 border-system-100 flex-1 w-full">
+    <div className="border-2 border-system-100 flex-1 w-full h-full flex flex-col">
       <Slate editor={editor} value={initialValue}>
         <ToolBar />
         <Editable
@@ -51,13 +66,30 @@ export const RichText = ({}) => {
           renderElement={renderElement}
           className="max-w-full flex-1 p-2"
           placeholder="Um grande artigo..."
+          onKeyDown={(e) => {
+            if (e.key === "Backspace") {
+              const prev = Editor.previous(editor, {
+                at: editor.selection?.focus,
+              });
+
+              if (!prev) return;
+
+              const [prevNode] = prev;
+
+              if (Element.isElementType(prevNode, ELEMENT_TYPES_ENUM.IMAGE)) {
+                e.preventDefault();
+                return;
+              }
+
+              return;
+            }
+          }}
         />
         <LinkEditModal />
+        <ImageEditModal />
       </Slate>
       <div>
-        <button onClick={() => console.log(editor.children.flatMap(serialize))}>
-          teste
-        </button>
+        <button onClick={() => console.log(editor.children)}>teste</button>
       </div>
     </div>
   );

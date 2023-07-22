@@ -14,7 +14,6 @@ export const LinkButton = ({ editor }: ILinkButton) => {
   const [open, setOpen] = useRecoilState(linkModalAtom);
 
   const isLink = useMemo(() => {
-    console.log(!editor.selection?.focus.path);
     if (!editor.selection?.focus.path) return false;
     const [parentNode] = Editor.parent(editor, editor.selection?.focus.path);
     return Element.isElementType(parentNode, ELEMENT_TYPES_ENUM.LINK);
