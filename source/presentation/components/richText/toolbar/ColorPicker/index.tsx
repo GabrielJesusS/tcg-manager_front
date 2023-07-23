@@ -28,10 +28,10 @@ export const ColorPicker = ({ editor }: IColorPicker): JSX.Element => {
   }
 
   return (
-    <div className="relative">
+    <div className="relative mx-auto">
       <ColorViewer color={checkColor ?? ColorEnum.BASE} onClick={toggleSelector} />
       {colorSelectorOpen ? (
-        <div className="absolute z-20 left-0 top-full bg-system-100 rounded-2xl drop-shadow-lg p-3 w-44">
+        <div className="absolute z-20 right-0 md:left-0 top-full bg-system-100 rounded-2xl drop-shadow-lg  p-3 w-44">
           <ul className="grid grid-cols-5 w-fit gap-2 mx-auto">
             {COLOR_LIST.map((e) => (
               <li className="block" key={e.name}>

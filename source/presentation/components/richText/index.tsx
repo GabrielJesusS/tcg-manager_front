@@ -50,12 +50,7 @@ export const RichText = ({}) => {
   );
   const { renderElement } = useRenderElement();
   const { renderLeafs } = useRenderLeafs();
-  const initialValue: Descendant[] = [
-    {
-      type: ELEMENT_TYPES_ENUM.PARAGRAPH,
-      children: [{ text: "", isBold: false, color: ColorEnum.BASE }],
-    },
-  ];
+  const initialValue: Descendant[] = [createParagraphNode()];
 
   return (
     <div className="border-2 border-system-100 flex-1 w-full h-full flex flex-col">
@@ -78,10 +73,10 @@ export const RichText = ({}) => {
 
               if (Element.isElementType(prevNode, ELEMENT_TYPES_ENUM.IMAGE)) {
                 e.preventDefault();
-                return;
+                
               }
 
-              return;
+              
             }
           }}
         />

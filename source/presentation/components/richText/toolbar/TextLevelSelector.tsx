@@ -20,7 +20,7 @@ export const TextLevelSelector = ({ editor }: ITextLevelSelector) => {
   const { toggleText, checkWhatText } = useTextType(editor);
 
   return (
-    <div className="relative z-20 text-system-600 w-36">
+    <div className="relative z-20 text-system-600 md:w-36">
       <Listbox
         defaultValue={ELEMENT_TYPES_ENUM.PARAGRAPH}
         value={checkWhatText}

@@ -14,6 +14,7 @@ import { ImageBehaviorEnum } from "@/presentation/enums/ImageBehaviorEnum";
 import { useSetRecoilState } from "recoil";
 import { imageModalAtom } from "@/presentation/store/editor/imageModalAtom";
 import { createParagraphNode } from "@/utils/richTextEditor/createParagraphElement";
+import { ALIGNMENT_BLOCK_CLASS_MAP } from "@/presentation/enums/AlignmentEnum";
 
 const ASPECT_RATIO_MAP = {
   [AspectRatioEnum.WIDE]: "aspect-video",
@@ -144,12 +145,11 @@ export const ImageElm = (props: RenderElementProps) => {
   }
 
   return (
-    <div {...props.attributes} contentEditable={false} className={classNames()} onDragStart={handleDrag} onDragEnd={handleDrag}>
+    <div {...props.attributes} contentEditable={false} className={classNames("flex w-full", ALIGNMENT_BLOCK_CLASS_MAP[props.element.alignment])} onDragStart={handleDrag} onDragEnd={handleDrag}>
       {props.children} 
-
       <img
         className={classNames(
-          "mx-auto cursor-pointer transition-all duration-150",
+          "cursor-pointer transition-all duration-150",
           {
             "outline outline-4 outline-secondary outline-offset-4": selected,
           },

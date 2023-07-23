@@ -1,4 +1,5 @@
 import { ImageElement } from "@/presentation/@types/slate";
+import { AlignmentEnum } from "@/presentation/enums/AlignmentEnum";
 import { AspectRatioEnum } from "@/presentation/enums/AspectRatioEnum";
 import { ColorEnum } from "@/presentation/enums/ColorEnum";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
@@ -9,6 +10,7 @@ export function createImageElement(src: string): ImageElement {
   return {
     children: [{ text: "", color: ColorEnum.BASE }],
     type: ELEMENT_TYPES_ENUM.IMAGE,
+    alignment: AlignmentEnum.CENTER,
     aspectRatio: AspectRatioEnum.WIDE,
     behavior: ImageBehaviorEnum.AUTO,
     size: ImageSizeEnum.FULL,

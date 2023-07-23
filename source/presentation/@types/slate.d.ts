@@ -2,56 +2,66 @@ import { BaseEditor, Descendant } from "slate";
 import { ReactEditor } from "slate-react";
 import { ELEMENT_TYPES_ENUM } from "../enums/ElementTypes";
 import { ColorEnum } from "../enums/ColorEnum";
+import { AlignmentEnum } from "../enums/AlignmentEnum";
 
-export type ParagraphElement = {
+export interface ParagraphElement {
   type: ELEMENT_TYPES_ENUM.PARAGRAPH;
   children: CustomText[];
-};
+  alignment: AlignmentEnum;
+}
 
-export type SmallElement = {
+export interface SmallElement {
   type: ELEMENT_TYPES_ENUM.SMALL;
   children: CustomText[];
-};
+  alignment: AlignmentEnum;
+}
 
-export type HeadingOneElement = {
+export interface HeadingOneElement {
   type: ELEMENT_TYPES_ENUM.HEADING_TWO;
   children: CustomText[];
-};
+  alignment: AlignmentEnum;
+}
 
-export type HeadingTwoElement = {
+export interface HeadingTwoElement {
   type: ELEMENT_TYPES_ENUM.HEADING_ONE;
   children: CustomText[];
-};
+  alignment: AlignmentEnum;
+}
 
-export type SubheadingElement = {
+export interface SubheadingElement {
   type: ELEMENT_TYPES_ENUM.SUBHEADING;
   children: CustomText[];
-};
+  alignment: AlignmentEnum;
+}
 
-export type LinkElement = {
+export interface LinkElement {
   type: ELEMENT_TYPES_ENUM.LINK;
   children: CustomText[];
   href: string;
-};
+  alignment: AlignmentEnum;
+}
 
-export type QuoteElement = {
+export interface QuoteElement {
   type: ELEMENT_TYPES_ENUM.QUOTES;
   children: CustomText[];
-};
+  alignment: AlignmentEnum;
+}
 
-export type ListElement = {
+export interface ListElement {
   type: ELEMENT_TYPES_ENUM.LIST;
   children: CustomText[];
-};
+  alignment: AlignmentEnum;
+}
 
-export type ImageElement = {
+export interface ImageElement {
   type: ELEMENT_TYPES_ENUM.IMAGE;
   children: CustomText[];
-  aspectRatio: string
-  size: string
-  behavior: string 
-  src: string
-};
+  alignment: AlignmentEnum;
+  aspectRatio: string;
+  size: string;
+  behavior: string;
+  src: string;
+}
 
 type CustomElement =
   | ParagraphElement
@@ -62,15 +72,15 @@ type CustomElement =
   | QuoteElement
   | LinkElement
   | ListElement
-  | ImageElement
+  | ImageElement;
 
-type CustomText = {
+interface CustomText {
   text: string;
   isBold?: boolean;
   isItalic?: boolean;
   isUnderline?: boolean;
   color: ColorEnum;
-};
+}
 
 declare module "slate" {
   interface CustomTypes {
