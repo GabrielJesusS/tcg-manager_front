@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ColorViewer } from "./ColorViewer";
 import { COLOR_BG_MAP, ColorEnum } from "@/presentation/enums/ColorEnum";
 import { Editor } from "slate";
 import { useColor } from "@/presentation/hooks/richTextEditor/useColor";
+import { useFocused } from "slate-react";
 
 function generateColorList(e: Record<ColorEnum, string>) {
   return Object.keys(e).map((i) => ({ value: e[i], name: i }));
@@ -17,6 +18,7 @@ interface IColorPicker {
 export const ColorPicker = ({ editor }: IColorPicker): JSX.Element => {
   const [colorSelectorOpen, setColorSelectorOpen] = useState<boolean>(false);
   const { checkColor, toggleColor } = useColor(editor);
+  const editorFocus = useFocused()
 
   function toggleSelector(): void {
     setColorSelectorOpen((i) => !i);
@@ -26,6 +28,12 @@ export const ColorPicker = ({ editor }: IColorPicker): JSX.Element => {
     toggleSelector();
     toggleColor(e);
   }
+
+  useEffect(()=> {
+    if(editorFocus && colorSelectorOpen){
+      setColorSelectorOpen(false)
+    }
+  }, [editorFocus])
 
   return (
     <div className="relative mx-auto">

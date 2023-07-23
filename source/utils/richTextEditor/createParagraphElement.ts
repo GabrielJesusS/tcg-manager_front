@@ -5,11 +5,12 @@ import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
 
 export function createParagraphNode(
   children = [
-    { text: "", color: ColorEnum.BASE, alignment: AlignmentEnum.LEFT },
+    { text: "", color: ColorEnum.BASE},
   ]
 ): ParagraphElement {
   return {
     type: ELEMENT_TYPES_ENUM.PARAGRAPH,
+    alignment: AlignmentEnum.LEFT,
     children,
   };
 }

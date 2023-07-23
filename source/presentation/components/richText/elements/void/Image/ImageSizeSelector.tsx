@@ -7,10 +7,10 @@ interface IImageSizeSelector {
 }
 
 const SIZE_LABELS = {
-    [ImageSizeEnum.FULL]: "100%",
-    [ImageSizeEnum.SEVENTY_FIVE]: "75%",
-    [ImageSizeEnum.HALF]: "50%",
-    [ImageSizeEnum.TWENTY_FIVE]: "25%",
+  [ImageSizeEnum.FULL]: "100%",
+  [ImageSizeEnum.SEVENTY_FIVE]: "75%",
+  [ImageSizeEnum.HALF]: "50%",
+  [ImageSizeEnum.TWENTY_FIVE]: "25%",
 };
 
 export const ImageSizeSelector = ({
@@ -18,16 +18,16 @@ export const ImageSizeSelector = ({
   value,
 }: IImageSizeSelector): JSX.Element => {
   return (
-    <span className="flex space-x-2">
-      {Object.values(ImageSizeEnum).map((size) => (
-        <ButtonBase
-          active={value === size}
-          onClick={() => onChange(size)}
-          key={size}
-        >
-          {SIZE_LABELS[size]}
-        </ButtonBase>
-      ))}
+    <span>
+      <ol className="flex space-x-2">
+        {Object.values(ImageSizeEnum).map((size) => (
+          <li key={size}>
+            <ButtonBase active={value === size} onClick={() => onChange(size)}>
+              {SIZE_LABELS[size]}
+            </ButtonBase>
+          </li>
+        ))}
+      </ol>
     </span>
   );
 };

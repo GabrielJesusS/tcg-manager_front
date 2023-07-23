@@ -11,10 +11,10 @@ interface IAspectRatioSelectorProps {
 }
 
 const ASPECT_RATIO_LABEL = {
-    [AspectRatioEnum.WIDE]: <AspectRatioWide />,
-    [AspectRatioEnum.TV]: <AspectRatioTV />,
-    [AspectRatioEnum.SQUARE]: <AspectRatioSquare />,
-    [AspectRatioEnum.CARD]: <AspectRatioCard />,
+  [AspectRatioEnum.WIDE]: <AspectRatioWide />,
+  [AspectRatioEnum.TV]: <AspectRatioTV />,
+  [AspectRatioEnum.SQUARE]: <AspectRatioSquare />,
+  [AspectRatioEnum.CARD]: <AspectRatioCard />,
 };
 
 export const AspectRatioSelector = ({
@@ -22,16 +22,19 @@ export const AspectRatioSelector = ({
   value,
 }: IAspectRatioSelectorProps): JSX.Element => {
   return (
-    <span className="flex space-x-2">
-      {Object.values(AspectRatioEnum).map((aspect) => (
-        <ButtonBase
-          active={value === aspect}
-          onClick={() => onChange(aspect)}
-          key={aspect}
-        >
-          {ASPECT_RATIO_LABEL[aspect]}
-        </ButtonBase>
-      ))}
+    <span>
+      <ol className="flex space-x-2">
+        {Object.values(AspectRatioEnum).map((aspect) => (
+          <li key={aspect}>
+            <ButtonBase
+              active={value === aspect}
+              onClick={() => onChange(aspect)}
+            >
+              {ASPECT_RATIO_LABEL[aspect]}
+            </ButtonBase>
+          </li>
+        ))}
+      </ol>
     </span>
   );
 };

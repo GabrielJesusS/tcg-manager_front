@@ -18,16 +18,19 @@ export const BehaviorSelector = ({
   value,
 }: IBehaviorSelector): JSX.Element => {
   return (
-    <span className="flex space-x-2">
-      {Object.values(ImageBehaviorEnum).map((behavior) => (
-        <ButtonBase
-          active={value === behavior}
-          onClick={() => onChange(behavior)}
-          key={behavior}
-        >
-          {SIZE_LABELS[behavior]}
-        </ButtonBase>
-      ))}
+    <span>
+      <ol className="flex space-x-2">
+        {Object.values(ImageBehaviorEnum).map((behavior) => (
+          <li key={behavior}>
+            <ButtonBase
+              active={value === behavior}
+              onClick={() => onChange(behavior)}
+            >
+              {SIZE_LABELS[behavior]}
+            </ButtonBase>
+          </li>
+        ))}
+      </ol>
     </span>
   );
 };
