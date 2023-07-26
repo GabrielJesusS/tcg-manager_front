@@ -1,3 +1,4 @@
+import { AlignmentEnum } from "@/presentation/enums/AlignmentEnum";
 import { ColorEnum } from "@/presentation/enums/ColorEnum";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
 import { Editor, Transforms, Element, Path, Range } from "slate";
@@ -16,7 +17,8 @@ export function useLink(editor: Editor): IUseLink {
   ): Element => ({
     type: ELEMENT_TYPES_ENUM.LINK,
     href,
-    children: [{ text, color }],
+    children: [{ text, color, isLink: true }],
+    alignment: AlignmentEnum.LEFT,
   });
 
   const createParagraphNode = (
@@ -24,9 +26,11 @@ export function useLink(editor: Editor): IUseLink {
   ): Element => ({
     type: ELEMENT_TYPES_ENUM.PARAGRAPH,
     children,
+    alignment: AlignmentEnum.LEFT,
   });
 
-  function removeLink() {
+  function removeLink(): void {
+    Editor.removeMark(editor, "isLink");
     Transforms.unwrapNodes(editor, {
       match: (n) =>
         !Editor.isEditor(n) && Element.isElement(n) && n.type === "link",
@@ -41,7 +45,9 @@ export function useLink(editor: Editor): IUseLink {
 
     ReactEditor.focus(editor);
 
-    if (!!selection) {
+    Editor.addMark(editor, "isLink", true);
+
+    if (selection) {
       const [parentNode, parentPath] = Editor.parent(
         editor,
         selection.focus?.path
@@ -69,7 +75,6 @@ export function useLink(editor: Editor): IUseLink {
         );
       } else if (Range.isCollapsed(selection)) {
         // Insert the new link in our last known location
-        console.log("ss");
         Transforms.insertNodes(editor, link, { select: true });
       } else {
         // Wrap the currently selected range of text into a Link
@@ -80,7 +85,6 @@ export function useLink(editor: Editor): IUseLink {
     } else {
       // Insert the new link node at the bottom of the Editor when selection
       // is falsey
-      console.log(link);
       Transforms.insertNodes(editor, createParagraphNode([...link.children]));
     }
   }
