@@ -8,7 +8,9 @@ import { ELEMENT_TYPES_ENUM } from "../../enums/ElementTypes";
 import { LinkText } from "../../components/richText/elements/text/LinkText";
 import { Quote } from "@/presentation/components/richText/elements/text/Quote";
 import { ImageElm } from "@/presentation/components/richText/elements/void/Image";
-
+import { NumberedList } from "@/presentation/components/richText/elements/text/NumberedList";
+import { ListItem } from "@/presentation/components/richText/elements/text/ListItem";
+import { List } from "@/presentation/components/richText/elements/text/List";
 
 export const useRenderElement = () => {
   const renderElement = useCallback((props) => {
@@ -24,15 +26,24 @@ export const useRenderElement = () => {
 
       case ELEMENT_TYPES_ENUM.SUBHEADING:
         return <SubHeading {...props} />;
-      
+
       case ELEMENT_TYPES_ENUM.LINK:
         return <LinkText {...props} />;
-      
+
       case ELEMENT_TYPES_ENUM.QUOTES:
-        return <Quote {...props}/>
-      
+        return <Quote {...props} />;
+
+      case ELEMENT_TYPES_ENUM.LIST:
+        return <List {...props} />;
+
+      case ELEMENT_TYPES_ENUM.LIST_ITEM:
+        return <ListItem {...props} />;
+
+      case ELEMENT_TYPES_ENUM.NUMBERED_LIST:
+        return <NumberedList {...props} />;
+
       case ELEMENT_TYPES_ENUM.IMAGE:
-      return <ImageElm {...props} />
+        return <ImageElm {...props} />;
 
       default:
         return <Paragraph {...props} />;
