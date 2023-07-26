@@ -1,17 +1,21 @@
-
 import BoldIcon from "@/presentation/public/images/icons/editor/bold.svg";
-import { Editor } from "slate";
 import { ButtonBase } from "./ButtonBase";
-import { useBold } from "@/presentation/hooks/richTextEditor/useBold";
+import { useSlateStatic } from "slate-react";
+import { toggleMarks } from "@/presentation/utils/editor/toggleMarks";
+import { checkMarkIsActive } from "@/presentation/utils/editor/checkMarkIsActive";
 
-interface IBoldButton {
-  editor: Editor;
-}
+export const BoldButton = (): JSX.Element => {
+  const editor = useSlateStatic();
 
-export const BoldButton = ({ editor }: IBoldButton) => {
-  const {checkIsBold, toggleBold } = useBold(editor)
+  function handleClick(): void {
+    toggleMarks(editor, "isBold");
+  }
+
   return (
-    <ButtonBase onClick={toggleBold} active={checkIsBold}>
+    <ButtonBase
+      onClick={handleClick}
+      active={checkMarkIsActive(editor, "isBold")}
+    >
       <BoldIcon className="h-6" />
     </ButtonBase>
   );
