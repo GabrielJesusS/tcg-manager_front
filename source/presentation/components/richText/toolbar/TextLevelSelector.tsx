@@ -1,8 +1,8 @@
 import { Listbox } from "@headlessui/react";
 import ArrowIcon from "@/presentation/public/images/icons/chevron.svg";
-import { Editor } from "slate";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
 import { useTextType } from "@/presentation/hooks/richTextEditor/useTextType";
+import { useSlateStatic } from "slate-react";
 
 const textTypes = [
   { label: "Small", value: ELEMENT_TYPES_ENUM.SMALL },
@@ -12,11 +12,10 @@ const textTypes = [
   { label: "SubHeading", value: ELEMENT_TYPES_ENUM.SUBHEADING },
 ];
 
-interface ITextLevelSelector {
-  editor: Editor;
-}
+export const TextLevelSelector = ():JSX.Element => {
 
-export const TextLevelSelector = ({ editor }: ITextLevelSelector) => {
+  const editor = useSlateStatic();
+
   const { toggleText, checkWhatText } = useTextType(editor);
 
   return (
