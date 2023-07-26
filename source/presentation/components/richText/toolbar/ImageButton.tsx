@@ -5,13 +5,10 @@ import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
 import { useSetRecoilState } from "recoil";
 import { imageModalAtom } from "@/presentation/store/editor/imageModalAtom";
 import { useMemo } from "react";
+import { useSlateStatic } from "slate-react";
 
-interface IImageButton {
-  editor: Editor;
-}
-
-
-export const ImageButton = ({ editor }: IImageButton) => {
+export const ImageButton = ():JSX.Element => {
+  const editor = useSlateStatic();
   const setModalOpen = useSetRecoilState(imageModalAtom);
   const isImage = useMemo(() => {
     if (!editor.selection?.focus.path) return false;
