@@ -1,11 +1,11 @@
 import classNames from "classnames";
-import { HTMLAttributes, MouseEventHandler } from "react";
+import { HTMLAttributes } from "react";
 
 interface IButtonBase extends HTMLAttributes<HTMLButtonElement> {
   active?: boolean;
 }
 
-export const ButtonBase = ({ active, onClick, children }: IButtonBase) => {
+export const ButtonBase = ({ active, onClick, children }: IButtonBase):JSX.Element => {
   return (
     <button
       type="button"

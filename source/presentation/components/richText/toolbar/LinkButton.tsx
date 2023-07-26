@@ -1,31 +1,22 @@
 import LinkIcon from "@/presentation/public/images/icons/editor/link.svg";
-import { Editor, Element } from "slate";
 import { ButtonBase } from "./ButtonBase";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { linkModalAtom } from "@/presentation/store/editor/linkModalAtom";
-import { useMemo } from "react";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
+import { useSlateStatic } from "slate-react";
+import { checkElementIsActive } from "@/presentation/utils/editor/checkElementIsActive";
 
-interface ILinkButton {
-  editor: Editor;
-}
+export const LinkButton = (): JSX.Element => {
+  const editor = useSlateStatic();
 
-export const LinkButton = ({ editor }: ILinkButton) => {
-  const [open, setOpen] = useRecoilState(linkModalAtom);
+  const setOpen = useSetRecoilState(linkModalAtom);
 
-  const isLink = useMemo(() => {
-    if (!editor.selection?.focus.path) return false;
-    const [parentNode] = Editor.parent(editor, editor.selection?.focus.path);
-    return Element.isElementType(parentNode, ELEMENT_TYPES_ENUM.LINK);
-  }, [editor.selection?.focus.path]);
-
-  function handleClick() {
-    
+  function handleClick(): void {
     setOpen(true);
   }
 
   return (
-    <ButtonBase onClick={handleClick} active={isLink}>
+    <ButtonBase onClick={handleClick} active={checkElementIsActive(editor, ELEMENT_TYPES_ENUM.LINK)}>
       <LinkIcon className="h-6" />
     </ButtonBase>
   );
