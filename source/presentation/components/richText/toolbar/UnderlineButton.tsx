@@ -1,16 +1,22 @@
-import UnderlineIcon from "@/presentation/public/images/icons/editor/underline.svg"
-import { Editor } from "slate";
+import UnderlineIcon from "@/presentation/public/images/icons/editor/underline.svg";
 import { ButtonBase } from "./ButtonBase";
-import { useUnderline } from "@/presentation/hooks/richTextEditor/useUnderline";
+import { useSlateStatic } from "slate-react";
+import { toggleMarks } from "@/presentation/utils/editor/toggleMarks";
+import { checkMarkIsActive } from "@/presentation/utils/editor/checkMarkIsActive";
 
-interface IUnderlineButton {
-  editor: Editor;
-}
 
-export const UnderlineButton = ({ editor }: IUnderlineButton) => {
-  const {checkIsUnderline, toggleUnderline} = useUnderline(editor)
-    return (
-    <ButtonBase onClick={toggleUnderline} active={checkIsUnderline}>
+export const UnderlineButton = (): JSX.Element => {
+  const editor = useSlateStatic();
+
+  function handleClick(): void {
+    toggleMarks(editor, "isUnderline");
+  }
+
+  return (
+    <ButtonBase
+      onClick={handleClick}
+      active={checkMarkIsActive(editor, "isUnderline")}
+    >
       <UnderlineIcon className="h-6" />
     </ButtonBase>
   );
