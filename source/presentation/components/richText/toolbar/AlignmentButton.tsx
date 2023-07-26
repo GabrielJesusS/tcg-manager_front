@@ -2,11 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 import { ButtonBase } from "./ButtonBase";
 import { AlignmentEnum } from "@/presentation/enums/AlignmentEnum";
 import { useFocused, useSlateStatic } from "slate-react";
-import { Editor, Element, Text, Transforms } from "slate";
+import { Editor, Element, Transforms } from "slate";
 import AlignRight from "@/presentation/public/images/icons/editor/align-right.svg";
 import AlignLeft from "@/presentation/public/images/icons/editor/align-left.svg";
 import AlignCenter from "@/presentation/public/images/icons/editor/align-center.svg";
 import AlignJustify from "@/presentation/public/images/icons/editor/align-justify.svg";
+import { CustomElement } from "@/presentation/@types/slate";
 
 const ALIGNMENT_LABELS_MAP = {
   [AlignmentEnum.CENTER]: <AlignCenter className="w-6 h-6" />,
@@ -34,10 +35,20 @@ export const AlignmentButton = (): JSX.Element => {
     const { selection } = editor;
 
     if (!selection) return AlignmentEnum.LEFT;
-    const [parentNode] = Editor.parent(editor, selection);
-    return Element.isElement(parentNode)
-      ? parentNode.alignment
-      : AlignmentEnum.LEFT;
+
+    const [match] = Array.from(
+      Editor.nodes<CustomElement>(editor, {
+        at: Editor.unhangRange(editor, selection),
+        match: (n) => !Editor.isEditor(n) && Element.isElement(n),
+      })
+    );
+
+    if (match) {
+      const node: CustomElement = match[0];
+      return node.alignment;
+    }
+
+    return AlignmentEnum.LEFT;
   }, [editor.selection?.anchor, openOptions]);
 
   useEffect(() => {
