@@ -1,4 +1,4 @@
-import { COLOR_BG_MAP, ColorEnum } from "@/presentation/enums/ColorEnum";
+import { COLOR_BG_MAP } from "@/presentation/enums/ColorEnum";
 import classNames from "classnames";
 
 interface IColorViewer {
