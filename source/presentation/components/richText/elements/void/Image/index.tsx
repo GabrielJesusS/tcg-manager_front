@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import classNames from "classnames";
 import { useState } from "react";
 import { usePopper } from "react-popper";
@@ -16,21 +17,21 @@ import { imageModalAtom } from "@/presentation/store/editor/imageModalAtom";
 import { createParagraphNode } from "@/utils/richTextEditor/createParagraphElement";
 import { ALIGNMENT_BLOCK_CLASS_MAP } from "@/presentation/enums/AlignmentEnum";
 
-const ASPECT_RATIO_MAP = {
+export const ASPECT_RATIO_MAP = {
   [AspectRatioEnum.WIDE]: "aspect-video",
   [AspectRatioEnum.SQUARE]: "aspect-square",
   [AspectRatioEnum.TV]: "aspect-tv",
   [AspectRatioEnum.CARD]: "aspect-card",
 };
 
-const SIZE_MAP = {
+export const SIZE_MAP = {
   [ImageSizeEnum.FULL]: "w-full",
   [ImageSizeEnum.SEVENTY_FIVE]: "w-3/4",
   [ImageSizeEnum.HALF]: "w-1/2",
   [ImageSizeEnum.TWENTY_FIVE]: "w-1/4",
 };
 
-const BEHAVIOR_MAP = {
+export const BEHAVIOR_MAP = {
   [ImageBehaviorEnum.FIT]: "object-contain",
   [ImageBehaviorEnum.FILL]: "object-fill",
   [ImageBehaviorEnum.COVER]: "object-cover",
