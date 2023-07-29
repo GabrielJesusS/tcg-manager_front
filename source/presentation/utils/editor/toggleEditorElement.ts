@@ -6,11 +6,14 @@ import { Editor, Element, Transforms } from "slate";
 import { checkElementIsActive } from "./checkElementIsActive";
 import { CustomElement } from "@/presentation/@types/slate";
 import { AlignmentEnum } from "@/presentation/enums/AlignmentEnum";
+import { ReactEditor } from "slate-react";
 
 export function toggleEditorElement(
   editor: Editor,
   block: ELEMENT_TYPES_ENUM
 ): void {
+  ReactEditor.focus(editor)
+
   const isActive = checkElementIsActive(editor, block);
 
   const isList = LIST_ELEMENTS.includes(block);

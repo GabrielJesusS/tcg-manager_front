@@ -3,10 +3,10 @@ import { ButtonBase } from "./ButtonBase";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
 import { checkElementIsActive } from "@/presentation/utils/editor/checkElementIsActive";
 import { toggleEditorElement } from "@/presentation/utils/editor/toggleEditorElement";
-import { useSlateStatic } from "slate-react";
+import { useSlate } from "slate-react";
 
 export const QuoteButton = (): JSX.Element => {
-  const editor = useSlateStatic();
+  const editor = useSlate();
 
   function handleClick(): void {
     toggleEditorElement(editor, ELEMENT_TYPES_ENUM.QUOTES);

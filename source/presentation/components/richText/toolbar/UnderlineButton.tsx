@@ -1,12 +1,12 @@
 import UnderlineIcon from "@/presentation/public/images/icons/editor/underline.svg";
 import { ButtonBase } from "./ButtonBase";
-import { useSlateStatic } from "slate-react";
+import { useSlate} from "slate-react";
 import { toggleMarks } from "@/presentation/utils/editor/toggleMarks";
 import { checkMarkIsActive } from "@/presentation/utils/editor/checkMarkIsActive";
 
 
 export const UnderlineButton = (): JSX.Element => {
-  const editor = useSlateStatic();
+  const editor = useSlate();
 
   function handleClick(): void {
     toggleMarks(editor, "isUnderline");

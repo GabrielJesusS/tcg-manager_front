@@ -3,11 +3,11 @@ import { ButtonBase } from "./ButtonBase";
 import { useSetRecoilState } from "recoil";
 import { linkModalAtom } from "@/presentation/store/editor/linkModalAtom";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
-import { useSlateStatic } from "slate-react";
+import { useSlate} from "slate-react";
 import { checkElementIsActive } from "@/presentation/utils/editor/checkElementIsActive";
 
 export const LinkButton = (): JSX.Element => {
-  const editor = useSlateStatic();
+  const editor = useSlate();
 
   const setOpen = useSetRecoilState(linkModalAtom);
 
