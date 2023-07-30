@@ -1,5 +1,6 @@
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
 import { checkImageUrl } from "@/presentation/utils/checkImageUrl";
+import { uploadImages } from "@/presentation/utils/uploadImages";
 import { createImageElement } from "@/utils/richTextEditor/createImageElement";
 import { Editor, Transforms } from "slate";
 
@@ -8,7 +9,7 @@ function insertImage(editor: Editor, url: string): void {
 }
 
 export function withImage(e: Editor): Editor {
-  const { isVoid, insertData} = e;
+  const { isVoid, insertData } = e;
   e.isVoid = (element) =>
     element.type === ELEMENT_TYPES_ENUM.IMAGE ? true : isVoid(element);
 
@@ -23,19 +24,7 @@ export function withImage(e: Editor): Editor {
     }
 
     if (files && files.length > 0) {
-      Array.from(files).forEach((file) => {
-        const reader = new FileReader();
-        const [mime] = file.type.split("/");
-
-        if (mime === "image") {
-          reader.addEventListener("load", () => {
-            const url = reader.result;
-            insertImage(e, url as string);
-          });
-
-          reader.readAsDataURL(file);
-        }
-      });
+      uploadImages(files, (url) => insertImage(e, url));
       e.insertBreak();
       return;
     }
