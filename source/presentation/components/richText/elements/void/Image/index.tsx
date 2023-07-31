@@ -3,40 +3,31 @@ import classNames from "classnames";
 import { useState } from "react";
 import { usePopper } from "react-popper";
 import { Editor, Element, Node, Transforms } from "slate";
-import { ReactEditor, RenderElementProps, useSelected, useSlate } from "slate-react";
+import {
+  ReactEditor,
+  RenderElementProps,
+  useSelected,
+  useSlate,
+} from "slate-react";
 import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
-import { AspectRatioEnum } from "@/presentation/enums/AspectRatioEnum";
+import {
+  ASPECT_RATIO_MAP,
+  AspectRatioEnum,
+} from "@/presentation/enums/AspectRatioEnum";
 import { CustomElement } from "@/presentation/@types/slate";
 import { AspectRatioSelector } from "./AspectRatioSelector";
-import { ImageSizeEnum } from "@/presentation/enums/ImageSizeEnum";
+import { ImageSizeEnum, SIZE_MAP } from "@/presentation/enums/ImageSizeEnum";
 import { ImageSizeSelector } from "./ImageSizeSelector";
 import { BehaviorSelector } from "./BehaviorSelector";
-import { ImageBehaviorEnum } from "@/presentation/enums/ImageBehaviorEnum";
+import {
+  BEHAVIOR_MAP,
+  ImageBehaviorEnum,
+} from "@/presentation/enums/ImageBehaviorEnum";
 import { useSetRecoilState } from "recoil";
 import { imageModalAtom } from "@/presentation/store/editor/imageModalAtom";
 import { createParagraphNode } from "@/utils/richTextEditor/createParagraphElement";
 import { ALIGNMENT_BLOCK_CLASS_MAP } from "@/presentation/enums/AlignmentEnum";
-
-export const ASPECT_RATIO_MAP = {
-  [AspectRatioEnum.WIDE]: "aspect-video",
-  [AspectRatioEnum.SQUARE]: "aspect-square",
-  [AspectRatioEnum.TV]: "aspect-tv",
-  [AspectRatioEnum.CARD]: "aspect-card",
-};
-
-export const SIZE_MAP = {
-  [ImageSizeEnum.FULL]: "w-full",
-  [ImageSizeEnum.SEVENTY_FIVE]: "w-3/4",
-  [ImageSizeEnum.HALF]: "w-1/2",
-  [ImageSizeEnum.TWENTY_FIVE]: "w-1/4",
-};
-
-export const BEHAVIOR_MAP = {
-  [ImageBehaviorEnum.FIT]: "object-contain",
-  [ImageBehaviorEnum.FILL]: "object-fill",
-  [ImageBehaviorEnum.COVER]: "object-cover",
-  [ImageBehaviorEnum.AUTO]: "object-none",
-};
+import { useLockBody } from "@/presentation/hooks/useLockBody";
 
 function getImageAspectRatio(element: CustomElement): AspectRatioEnum {
   return element.type === ELEMENT_TYPES_ENUM.IMAGE
@@ -59,8 +50,9 @@ function getImageBehavior(element: CustomElement): ImageBehaviorEnum {
 export const ImageElm = (props: RenderElementProps) => {
   const selected = useSelected();
   const editor = useSlate();
+  const [lock] = useLockBody();
   const setOpen = useSetRecoilState(imageModalAtom);
-  const [isDraging, setDrag] = useState(false)
+  const [isDraging, setDrag] = useState(false);
   const { element } = props;
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement>();
   const [popperElement, setPopperElement] = useState<HTMLSpanElement>();
@@ -138,16 +130,30 @@ export const ImageElm = (props: RenderElementProps) => {
 
     Transforms.setNodes(editor, createParagraphNode(), { at: selection });
 
-    ReactEditor.focus(editor)
+    ReactEditor.focus(editor);
   }
 
-  function handleDrag():void{
-    setDrag((e)=> !e)
+  function handleDrag(): void {
+    setDrag((e) => !e);
+  }
+
+  function handleModalOpen(): void {
+    setOpen(true);
+    lock();
   }
 
   return (
-    <div {...props.attributes} contentEditable={false} className={classNames("flex w-full", ALIGNMENT_BLOCK_CLASS_MAP[props.element.alignment])} onDragStart={handleDrag} onDragEnd={handleDrag}>
-      {props.children} 
+    <div
+      {...props.attributes}
+      contentEditable={false}
+      className={classNames(
+        "flex w-full",
+        ALIGNMENT_BLOCK_CLASS_MAP[props.element.alignment]
+      )}
+      onDragStart={handleDrag}
+      onDragEnd={handleDrag}
+    >
+      {props.children}
       <img
         className={classNames(
           "cursor-pointer transition-all duration-150",
@@ -196,7 +202,7 @@ export const ImageElm = (props: RenderElementProps) => {
           </span>
           <hr />
           <span className="flex space-x-4">
-            <button className="btn btn-primary " onClick={() => setOpen(true)}>
+            <button className="btn btn-primary " onClick={handleModalOpen}>
               Trocar imagem
             </button>
             <button className="btn btn-error " onClick={removeImage}>
