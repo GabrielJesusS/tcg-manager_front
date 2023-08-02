@@ -2,7 +2,8 @@ import { TApplicationError } from "@/core/Errors";
 import { TEither } from "@/core/Either";
 
 interface IUserCreateParams {
-  userName: string;
+  user_name: string;
+  name: string;
   email: string;
   password: string;
 }

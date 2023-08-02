@@ -9,9 +9,10 @@ import { ICookieService } from "@/services/ICookieService";
 import { IAuthUserPayload } from "./models/AuthUserPayload";
 
 interface CreateParams {
-  userName: string;
+  name: string;
   email: string;
   password: string;
+  user_name: string;
 }
 
 interface AuthParams {
@@ -42,7 +43,7 @@ export class UserRepository implements IUserRepository {
     params: CreateParams
   ): Promise<TEither<TApplicationError, undefined>> {
     try {
-      const payload: IUserCreatePayload = { ...params, name: params.userName };
+      const payload: IUserCreatePayload = { ...params};
 
       await this.client.request<IApiResponse<undefined>, IUserCreatePayload>({
         method: HttpMethod.POST,
