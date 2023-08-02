@@ -11,7 +11,7 @@ import {
 import { AnimatePresence, AnimationProps, motion } from "framer-motion";
 import { useGetMobile } from "@/presentation/hooks/useGetMobile";
 import CloseIcon from "@/presentation/public/images/icons/close.svg";
-import { CARD_SUPERTYPE } from "@/presentation/enums/CardSupertype";
+import { CardSupertypeEnum } from "@/presentation/enums/CardSupertype";
 
 export const CardEdit = (): JSX.Element => {
   const isMobile = useGetMobile();
@@ -52,7 +52,7 @@ export const CardEdit = (): JSX.Element => {
   }
 
   const cardLimit = useMemo<number>(() => {
-    if (cardInfos.supertype === CARD_SUPERTYPE.ENERGY) {
+    if (cardInfos.supertype === CardSupertypeEnum.ENERGY) {
       return 60;
     }
     return 4;

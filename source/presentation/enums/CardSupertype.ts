@@ -1,4 +1,4 @@
-export enum CARD_SUPERTYPE{
+export enum CardSupertypeEnum{
     POKEMON = "Pokémon",
     TRAINER = "Trainer",
     ENERGY = "Energy"
