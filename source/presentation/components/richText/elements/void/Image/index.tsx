@@ -146,10 +146,7 @@ export const ImageElm = (props: RenderElementProps) => {
     <div
       {...props.attributes}
       contentEditable={false}
-      className={classNames(
-        "flex w-full",
-        ALIGNMENT_BLOCK_CLASS_MAP[props.element.alignment]
-      )}
+      className="flex w-full"
       onDragStart={handleDrag}
       onDragEnd={handleDrag}
     >
@@ -162,7 +159,8 @@ export const ImageElm = (props: RenderElementProps) => {
           },
           ASPECT_RATIO_MAP[getImageAspectRatio(element)],
           SIZE_MAP[getImageSize(element)],
-          BEHAVIOR_MAP[getImageBehavior(element)]
+          BEHAVIOR_MAP[getImageBehavior(element)],
+          ALIGNMENT_BLOCK_CLASS_MAP[props.element.alignment]
         )}
         src={element.type === ELEMENT_TYPES_ENUM.IMAGE ? element.src : ""}
         alt=""

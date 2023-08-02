@@ -13,8 +13,8 @@ export const ALIGNMENT_TEXT_CLASS_MAP = {
 };
 
 export const ALIGNMENT_BLOCK_CLASS_MAP = {
-  [AlignmentEnum.CENTER]: "justify-center",
-  [AlignmentEnum.LEFT]: "justify-start",
-  [AlignmentEnum.JUSTIFY]: "justify-around",
-  [AlignmentEnum.RIGHT]: "justify-end",
+  [AlignmentEnum.CENTER]: "m-auto",
+  [AlignmentEnum.LEFT]: "mr-auto",
+  [AlignmentEnum.JUSTIFY]: "",
+  [AlignmentEnum.RIGHT]: "ml-auto",
 };
