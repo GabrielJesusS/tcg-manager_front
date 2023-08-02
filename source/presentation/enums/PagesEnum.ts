@@ -1,4 +1,4 @@
-export enum PAGE_ROUTES{
+export enum PageRoutesEnum{
     CARDS = "/cartas/",
     SETS = "/colecoes/",
     ARTICLES = "/artigos/",

@@ -1,4 +1,4 @@
-import { PAGE_ROUTES } from "@/presentation/enums/PagesEnum";
+import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import HomeIcon from "@/presentation/public/images/icons/home.svg";
@@ -31,7 +31,7 @@ export const Breadcrumb = () => {
       <ol className="fill-system-400 font-bold text-system-400 flex items-end">
         <li>
           <Link
-            href={PAGE_ROUTES.HOME}
+            href={PageRoutesEnum.HOME}
             className="flex w-fit items-end space-x-1 hover:text-secondary hover:fill-secondary transition-all duration-150 ease-in-out"
           >
             <HomeIcon className="h-6 w-6 fill-inherit" />

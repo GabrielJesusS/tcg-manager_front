@@ -11,7 +11,7 @@ import BackgroundImage from "@/presentation/public/images/rsc/bgs/formbg-1.gif";
 import { PokemonCard } from "../components/common/PokemonCard";
 import { createRegisterUserUsecase } from "@/factories/createRegisterUserUsecase";
 import { useGetRandomCard } from "../hooks/useGetRandomCard";
-import { PAGE_ROUTES } from "../enums/PagesEnum";
+import { PageRoutesEnum } from "../enums/PagesEnum";
 
 interface RegisterProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -114,7 +114,7 @@ const Register = ({}: RegisterProps) => {
               </form>
               <p className="text-center">
                 Já possui registro? Autentique-se{" "}
-                <Link href={PAGE_ROUTES.LOGIN} className="dft-link">
+                <Link href={PageRoutesEnum.LOGIN} className="dft-link">
                   aqui!
                 </Link>
               </p>

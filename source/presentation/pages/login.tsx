@@ -12,7 +12,7 @@ import { PokemonCard } from "../components/common/PokemonCard";
 import { createAuthUserUsecase } from "@/factories/createAuthUserUsecase";
 import { useGetRandomCard } from "../hooks/useGetRandomCard";
 import { useRouter } from "next/router";
-import { PAGE_ROUTES } from "../enums/PagesEnum";
+import { PageRoutesEnum } from "../enums/PagesEnum";
 
 interface LoginProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -44,7 +44,7 @@ const Login = ({}: LoginProps) => {
       return;
     }
 
-    await push(PAGE_ROUTES.HOME);
+    await push(PageRoutesEnum.HOME);
   };
 
   return (
@@ -93,7 +93,7 @@ const Login = ({}: LoginProps) => {
               </form>
               <p className="text-center text-sm md:text-base">
                 Não possui registro? Registre-se{" "}
-                <Link href={PAGE_ROUTES.REGISTER} className="dft-link">
+                <Link href={PageRoutesEnum.REGISTER} className="dft-link">
                   aqui!
                 </Link>
               </p>

@@ -1,4 +1,4 @@
-import { PAGE_ROUTES } from "@/presentation/enums/PagesEnum";
+import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
 import Link from "next/link";
 import { HTMLAttributes } from "react";
 
@@ -27,7 +27,7 @@ export const Setitem = ({
 }: Setitem) => {
   return (
     <Link
-      href={`${PAGE_ROUTES.SETS}${id}`}
+      href={`${PageRoutesEnum.SETS}${id}`}
       className="bg-system rounded-2xl p-3 shadow-xl h-full block"
     >
       <span className="space-y-3 block">

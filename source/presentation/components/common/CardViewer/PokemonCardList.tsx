@@ -8,7 +8,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { PokemonCard } from "../PokemonCard";
 import { CardSkeleton } from "../skeletons/CardSkeleton";
 import { PaginationBlock } from "../Pagination";
-import { PAGE_ROUTES } from "@/presentation/enums/PagesEnum";
+import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
 import { cardFilterAtom } from "@/presentation/store/filters/cardFiltersAtom";
 
 
@@ -54,7 +54,7 @@ export const PokemonCardList = () => {
           !isValidating &&
           data.data.map((card) => (
             <li key={card.id}>
-              <PokemonCard url={`${PAGE_ROUTES.CARDS + card.id}`} src={card.images.small} />
+              <PokemonCard url={`${PageRoutesEnum.CARDS + card.id}`} src={card.images.small} />
             </li>
           ))}
         {isValidating &&
