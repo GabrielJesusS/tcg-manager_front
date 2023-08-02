@@ -2,8 +2,12 @@ import Tilty from "react-tilty";
 import CardBackplate from "@/presentation/public/images/rsc/mocks/card-back.png";
 import classNames from "classnames";
 import Link from "next/link";
+import { SyntheticEvent, useState } from "react";
+import Image from "next/image";
 
 interface PokemonCardProps {
+  decorative?: boolean;
+  animate?: boolean;
   height?: number;
   width?: number;
   src?: string;
@@ -16,28 +20,34 @@ export const PokemonCard = ({
   width,
   className,
   src,
-  url
+  url,
+  decorative,
+  animate
 }: PokemonCardProps) => {
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
+
+  function handleImageLoad(e: SyntheticEvent<HTMLImageElement>): void {
+    if (e.currentTarget.src.includes("pokemontcg")) {
+      setImageLoaded(true);
+    }
+  }
+
   return (
     <Tilty className="w-fit">
-      <Link href={url ?? ""}>
-      {src ? (
-        <img
-          className={className}
+      <Link href={!url || decorative ? "" : url} aria-disabled={decorative}>
+        <Image
+          src={src ?? CardBackplate.src}
+          alt=""
+          onLoad={handleImageLoad}
           width={width ?? 320}
           height={height ?? 444}
-          src={src}
+          className={classNames(
+            "select-none pointer-events-none",
+            { "flip-card": animate && imageLoaded },
+            className
+          )}
           loading="lazy"
-        ></img>
-      ) : (
-        <img
-          className={className}
-          width={width ?? 320}
-          height={height ?? 444}
-          src={CardBackplate.src}
-          loading="lazy"
-        ></img>
-      )}
+        />
       </Link>
     </Tilty>
   );
