@@ -6,7 +6,14 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const config = {
   trailingSlash: true,
-  
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.pokemontcg.io',
+      },
+    ],
+  },
   webpack: (config, { defaultLoaders }) => {
     config.module.rules.push({
       test: /\.(ts|tsx)$/,
