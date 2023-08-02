@@ -1,14 +1,23 @@
-import { CustomText } from "@/presentation/@types/slate";
+import { CustomElement, CustomText } from "@/presentation/@types/slate";
 import { BLOCK_ELEMENTS } from "@/presentation/enums/ElementNameEnum";
 import { jsx } from "slate-hyperscript";
 import { returnElementMarks } from "./returnElementMarks";
 
-function deserialize(el: Node, markAttributes = {} as Partial<CustomText>) {
+type TDeserializationReturn =
+  | Partial<CustomElement>
+  | Partial<CustomText>
+  | null
+  | TDeserializationReturn[];
+
+function deserialize(
+  el: Node,
+  markAttributes = {} as Partial<CustomText>
+): TDeserializationReturn {
   if (el.nodeType === Node.TEXT_NODE) {
     return jsx("text", markAttributes, el.textContent);
-  }else if (el.nodeType !== Node.ELEMENT_NODE) return null;
+  } else if (el.nodeType !== Node.ELEMENT_NODE) return null;
 
-  let elmMarkAttributes = { ...markAttributes ,...returnElementMarks(el)};
+  let elmMarkAttributes = { ...markAttributes, ...returnElementMarks(el) };
 
   const children = Array.from(el.childNodes)
     .map((node) => deserialize(node, elmMarkAttributes))
@@ -19,13 +28,13 @@ function deserialize(el: Node, markAttributes = {} as Partial<CustomText>) {
   }
 
   if (BLOCK_ELEMENTS[el.nodeName]) {
-    return BLOCK_ELEMENTS[el.nodeName](children, el);
+    return BLOCK_ELEMENTS[el.nodeName](children as CustomText[], el);
   }
 
   return children;
 }
 
-export function deserializeArticle(article: string): void {
+export function deserializeArticle(article: string): CustomElement[] {
   const document = new DOMParser().parseFromString(article, "text/html");
-  return deserialize(document.body);
+  return deserialize(document.body) as CustomElement[];
 }
