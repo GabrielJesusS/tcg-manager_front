@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { SwiperOptions } from "swiper";
+import { EffectFade, SwiperOptions } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper";
+import { Pagination, Autoplay } from "swiper";
 
 interface SwiperProps {
   banners: Array<Banner>;
@@ -17,9 +17,13 @@ interface Banner {
 
 export const HomeCaroussel = ({ banners }: SwiperProps) => {
   const carousselSettings: SwiperOptions = {
-    pagination:{
+    pagination: {},
+    modules: [Pagination, EffectFade, Autoplay],
+    effect: "fade",
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
     },
-    modules: [ Pagination],
   };
 
   return (
