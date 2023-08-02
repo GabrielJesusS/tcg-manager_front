@@ -1,4 +1,4 @@
-import { HTMLAttributes, useState } from "react";
+import { EventHandler, HTMLAttributes, SyntheticEvent, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Footer } from "../components/common/Footer";
 import { Textinput } from "../components/common/Textinput";
@@ -11,8 +11,8 @@ import { loginSchema } from "../schemas/loginSchema";
 import { PokemonCard } from "../components/common/PokemonCard";
 import { createAuthUserUsecase } from "@/factories/createAuthUserUsecase";
 import { useGetRandomCard } from "../hooks/useGetRandomCard";
-import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
+import { PAGE_ROUTES } from "../enums/PagesEnum";
 
 interface LoginProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -23,7 +23,6 @@ interface LoginParams {
 
 const authUserUsecase = createAuthUserUsecase();
 
-
 const Login = ({}: LoginProps) => {
   const { push } = useRouter();
   const {
@@ -33,11 +32,11 @@ const Login = ({}: LoginProps) => {
   } = useForm<LoginParams>({
     resolver: yupResolver(loginSchema),
   });
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
   const { data, error, isLoading } = useGetRandomCard();
 
   const submitData: SubmitHandler<LoginParams> = async (data) => {
-    setLoading(true)
+    setLoading(true);
     const response = await authUserUsecase.execute(data);
 
     if (response.isLeft()) {
@@ -45,74 +44,71 @@ const Login = ({}: LoginProps) => {
       return;
     }
 
-    await push("./");
+    await push(PAGE_ROUTES.HOME);
   };
 
   return (
     <div className="h-screen flex flex-col ">
-      <div className="absolute h-full w-full z-0">
+      <div className="fixed -z-10 h-screen w-screen">
         <Image
-          className="h-full object-cover w-full"
+          className="h-full object-cover object-center w-full"
           src={BackgroundImage.src}
-          height={608}
-          width={296}
           alt={""}
+          fill
         />
       </div>
-      <section className="h-full px-safe relative z-10 flex justify-around max-w-7xl mx-auto w-full items-center">
-        <div className="bg-white h-fit w-fit px-6 md:px-12 py-8 rounded-2xl space-y-6">
-          <Link href="/">
-            <TCGManagerLogo className={"h-28 mx-auto"} />
-          </Link>
-          <h1 className="uppercase text-center text-2xl font-bold">
-            Autenticação
-          </h1>
-          <form className="space-y-6" onSubmit={handleSubmit(submitData)}>
-            <Textinput
-              label="E-mail..."
-              type="email"
-              inputProps={{ ...register("email"), placeholder: "Email" }}
-            />
-            {errors.email && (
-              <span className="text-error">{errors.email.message}</span>
-            )}
-            <Textinput
-              label="Senha..."
-              type="password"
-              inputProps={{ ...register("password"), placeholder: "Senha" }}
-            />
-            {errors.password && (
-              <span className="text-error">{errors.password.message}</span>
-            )}
+        <div className="relative h-full flex-col flex">
+          <section className=" px-safe grow relative z-10 flex justify-around max-w-7xl mx-auto w-full items-center">
+            <div className="bg-white h-fit w-fit px-6 md:px-12 py-8 rounded-2xl space-y-6">
+              <Link href="/">
+                <TCGManagerLogo className={"h-28 mx-auto"} />
+              </Link>
+              <h1 className="uppercase text-center text-2xl font-bold">
+                Autenticação
+              </h1>
+              <form className="space-y-6" onSubmit={handleSubmit(submitData)}>
+                <Textinput
+                  label="E-mail..."
+                  type="email"
+                  inputProps={{ ...register("email"), placeholder: "Email" }}
+                />
+                {errors.email && (
+                  <span className="text-error">{errors.email.message}</span>
+                )}
+                <Textinput
+                  label="Senha..."
+                  type="password"
+                  inputProps={{ ...register("password"), placeholder: "Senha" }}
+                />
+                {errors.password && (
+                  <span className="text-error">{errors.password.message}</span>
+                )}
 
-            <button disabled={loading} className="btn btn-primary uppercase w-full">
-              Autenticar-se
-            </button>
-          </form>
-          <p className="text-center text-sm md:text-base">
-            Não possui registro? Registre-se{" "}
-            <Link href="/register" className="dft-link">
-              aqui!
-            </Link>
-          </p>
+                <button
+                  disabled={loading}
+                  className="btn btn-primary uppercase w-full"
+                >
+                  Autenticar-se
+                </button>
+              </form>
+              <p className="text-center text-sm md:text-base">
+                Não possui registro? Registre-se{" "}
+                <Link href={PAGE_ROUTES.REGISTER} className="dft-link">
+                  aqui!
+                </Link>
+              </p>
+            </div>
+            <div className="hidden md:block">
+              <PokemonCard
+                animate
+                src={data?.images.small}
+                url={data ? `cartas/${data?.id}` : ""}
+              />
+            </div>
+          </section>
+          <Footer className="relative z-10"></Footer>
         </div>
-        <div className="hidden md:block">
-          <AnimatePresence>
-            {isLoading && (
-              <motion.div initial={{ rotateY: 0 }} exit={{ rotateY: 360 }}>
-                <PokemonCard />
-              </motion.div>
-            )}
-            {!isLoading && data && (
-              <motion.div initial={{ rotateY: 0 }} animate={{ rotateY: 360 }}>
-                <PokemonCard src={data.images.small} url={`cards/${data.id}`} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </section>
-      <Footer className="relative z-10"></Footer>
-    </div>
+      </div>
   );
 };
 
