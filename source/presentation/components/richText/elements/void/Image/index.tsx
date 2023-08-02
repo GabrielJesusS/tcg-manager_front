@@ -9,7 +9,7 @@ import {
   useSelected,
   useSlate,
 } from "slate-react";
-import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
+import { ElementTypesEnum } from "@/presentation/enums/ElementTypes";
 import {
   ASPECT_RATIO_MAP,
   AspectRatioEnum,
@@ -30,19 +30,19 @@ import { ALIGNMENT_BLOCK_CLASS_MAP } from "@/presentation/enums/AlignmentEnum";
 import { useLockBody } from "@/presentation/hooks/useLockBody";
 
 function getImageAspectRatio(element: CustomElement): AspectRatioEnum {
-  return element.type === ELEMENT_TYPES_ENUM.IMAGE
+  return element.type === ElementTypesEnum.IMAGE
     ? (element.aspectRatio as AspectRatioEnum)
     : AspectRatioEnum.WIDE;
 }
 
 function getImageSize(element: CustomElement): ImageSizeEnum {
-  return element.type === ELEMENT_TYPES_ENUM.IMAGE
+  return element.type === ElementTypesEnum.IMAGE
     ? (element.size as ImageSizeEnum)
     : ImageSizeEnum.FULL;
 }
 
 function getImageBehavior(element: CustomElement): ImageBehaviorEnum {
-  return element.type === ELEMENT_TYPES_ENUM.IMAGE
+  return element.type === ElementTypesEnum.IMAGE
     ? (element.behavior as ImageBehaviorEnum)
     : ImageBehaviorEnum.AUTO;
 }
@@ -73,7 +73,7 @@ export const ImageElm = (props: RenderElementProps) => {
 
       if (
         Element.isElement(parentNode) &&
-        Element.isElementType(parentNode, ELEMENT_TYPES_ENUM.IMAGE)
+        Element.isElementType(parentNode, ElementTypesEnum.IMAGE)
       ) {
         Transforms.setNodes(editor, {
           aspectRatio: newAspectRatio,
@@ -90,7 +90,7 @@ export const ImageElm = (props: RenderElementProps) => {
 
       if (
         Element.isElement(parentNode) &&
-        Element.isElementType(parentNode, ELEMENT_TYPES_ENUM.IMAGE)
+        Element.isElementType(parentNode, ElementTypesEnum.IMAGE)
       ) {
         Transforms.setNodes(editor, {
           behavior: newBehavior,
@@ -107,7 +107,7 @@ export const ImageElm = (props: RenderElementProps) => {
 
       if (
         Element.isElement(parentNode) &&
-        Element.isElementType(parentNode, ELEMENT_TYPES_ENUM.IMAGE)
+        Element.isElementType(parentNode, ElementTypesEnum.IMAGE)
       ) {
         Transforms.setNodes(editor, {
           size: newSize,
@@ -162,7 +162,7 @@ export const ImageElm = (props: RenderElementProps) => {
           BEHAVIOR_MAP[getImageBehavior(element)],
           ALIGNMENT_BLOCK_CLASS_MAP[props.element.alignment]
         )}
-        src={element.type === ELEMENT_TYPES_ENUM.IMAGE ? element.src : ""}
+        src={element.type === ElementTypesEnum.IMAGE ? element.src : ""}
         alt=""
         ref={(e) => setReferenceElement(e ?? undefined)}
       />

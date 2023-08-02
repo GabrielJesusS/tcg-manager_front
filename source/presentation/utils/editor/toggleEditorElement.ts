@@ -1,5 +1,5 @@
 import {
-  ELEMENT_TYPES_ENUM,
+  ElementTypesEnum,
   LIST_ELEMENTS,
 } from "@/presentation/enums/ElementTypes";
 import { Editor, Element, Transforms } from "slate";
@@ -10,7 +10,7 @@ import { ReactEditor } from "slate-react";
 
 export function toggleEditorElement(
   editor: Editor,
-  block: ELEMENT_TYPES_ENUM
+  block: ElementTypesEnum
 ): void {
   ReactEditor.focus(editor)
 
@@ -27,9 +27,9 @@ export function toggleEditorElement(
   });
 
   const newType = isActive
-    ? ELEMENT_TYPES_ENUM.PARAGRAPH
+    ? ElementTypesEnum.PARAGRAPH
     : isList
-    ? ELEMENT_TYPES_ENUM.LIST_ITEM
+    ? ElementTypesEnum.LIST_ITEM
     : block;
 
   Transforms.setNodes(editor, { type: newType } as Partial<CustomElement>);

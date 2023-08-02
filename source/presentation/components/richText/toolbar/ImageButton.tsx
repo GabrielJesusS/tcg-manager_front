@@ -1,7 +1,7 @@
 import ImageIcon from "@/presentation/public/images/icons/editor/image.svg";
 import { Editor, Element } from "slate";
 import { ButtonBase } from "./ButtonBase";
-import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
+import { ElementTypesEnum } from "@/presentation/enums/ElementTypes";
 import { useSetRecoilState } from "recoil";
 import { imageModalAtom } from "@/presentation/store/editor/imageModalAtom";
 import { useMemo } from "react";
@@ -15,7 +15,7 @@ export const ImageButton = (): JSX.Element => {
   const isImage = useMemo(() => {
     if (!editor.selection?.focus.path) return false;
     const [parentNode] = Editor.parent(editor, editor.selection?.focus.path);
-    return Element.isElementType(parentNode, ELEMENT_TYPES_ENUM.IMAGE);
+    return Element.isElementType(parentNode, ElementTypesEnum.IMAGE);
   }, [editor.children, editor.selection?.focus.path]);
 
   function handleClick(): void {

@@ -14,7 +14,7 @@ import { ASPECT_RATIO_MAP } from "./AspectRatioEnum";
 import { SIZE_MAP } from "./ImageSizeEnum";
 import { BEHAVIOR_MAP } from "./ImageBehaviorEnum";
 
-export enum ELEMENT_TYPES_ENUM {
+export enum ElementTypesEnum {
   PARAGRAPH = "paragraph",
   SMALL = "small",
   HEADING_ONE = "headingOne",
@@ -30,60 +30,60 @@ export enum ELEMENT_TYPES_ENUM {
 }
 
 export const LIST_ELEMENTS = [
-  ELEMENT_TYPES_ENUM.NUMBERED_LIST,
-  ELEMENT_TYPES_ENUM.LIST,
+  ElementTypesEnum.NUMBERED_LIST,
+  ElementTypesEnum.LIST,
 ];
 
 export const ELEMENT_BLOCKS: Record<
   string,
   (node?: CustomElement, children?: string) => string
 > = {
-  [ELEMENT_TYPES_ENUM.PARAGRAPH]: (
+  [ElementTypesEnum.PARAGRAPH]: (
     node: ParagraphElement,
     children: string
   ): string =>
     `<p class=" break-all ${ALIGNMENT_TEXT_CLASS_MAP[node.alignment]}">${children}</p>`,
-  [ELEMENT_TYPES_ENUM.LINK]: (node: LinkElement, children: string): string =>
+  [ElementTypesEnum.LINK]: (node: LinkElement, children: string): string =>
     `<a href="${node.href}">${children}</a>`,
-  [ELEMENT_TYPES_ENUM.IMAGE]: (node: ImageElement): string =>
+  [ElementTypesEnum.IMAGE]: (node: ImageElement): string =>
     `<div class="w-full flex"><img src="${node.src}" class="${classNames(
       ASPECT_RATIO_MAP[node.aspectRatio],
       SIZE_MAP[node.size],
       BEHAVIOR_MAP[node.behavior],
       ALIGNMENT_BLOCK_CLASS_MAP[node.alignment]
     )}"/></div>`,
-  [ELEMENT_TYPES_ENUM.QUOTES]: (node: QuoteElement, children: string): string =>
+  [ElementTypesEnum.QUOTES]: (node: QuoteElement, children: string): string =>
     `<blockquote class="${
       ALIGNMENT_TEXT_CLASS_MAP[node.alignment]
     }"><cite>${children}</cite></blockquote>`,
-  [ELEMENT_TYPES_ENUM.LIST]: (_: unknown, children: string): string =>
+  [ElementTypesEnum.LIST]: (_: unknown, children: string): string =>
     `<ul class="list-disc ml-4">${children}</ul>`,
-  [ELEMENT_TYPES_ENUM.LIST_ITEM]: (_: unknown, children: string): string =>
+  [ElementTypesEnum.LIST_ITEM]: (_: unknown, children: string): string =>
     `<li>${children}</li>`,
-  [ELEMENT_TYPES_ENUM.NUMBERED_LIST]: (_: unknown, children: string): string =>
+  [ElementTypesEnum.NUMBERED_LIST]: (_: unknown, children: string): string =>
     `<ol class="list-decimal ml-4">${children}</ol>`,
-  [ELEMENT_TYPES_ENUM.SMALL]: (
+  [ElementTypesEnum.SMALL]: (
     node: ParagraphElement,
     children: string
   ): string =>
     `<small class=" break-all ${
       ALIGNMENT_TEXT_CLASS_MAP[node.alignment]
     }">${children}</small>`,
-  [ELEMENT_TYPES_ENUM.HEADING_ONE]: (
+  [ElementTypesEnum.HEADING_ONE]: (
     node: ParagraphElement,
     children: string
   ): string =>
     `<h2 class="text-3xl break-all  ${
       ALIGNMENT_TEXT_CLASS_MAP[node.alignment]
     }">${children}</h2>`,
-  [ELEMENT_TYPES_ENUM.HEADING_TWO]: (
+  [ElementTypesEnum.HEADING_TWO]: (
     node: ParagraphElement,
     children: string
   ): string =>
     `<h3 class="text-2xl break-all  ${
       ALIGNMENT_TEXT_CLASS_MAP[node.alignment]
     }">${children}</h3>`,
-  [ELEMENT_TYPES_ENUM.SUBHEADING]: (
+  [ElementTypesEnum.SUBHEADING]: (
     node: ParagraphElement,
     children: string
   ): string =>

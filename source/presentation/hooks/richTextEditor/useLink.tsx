@@ -1,6 +1,6 @@
 import { AlignmentEnum } from "@/presentation/enums/AlignmentEnum";
 import { ColorEnum } from "@/presentation/enums/ColorEnum";
-import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
+import { ElementTypesEnum } from "@/presentation/enums/ElementTypes";
 import { Editor, Transforms, Element, Path, Range } from "slate";
 import { ReactEditor } from "slate-react";
 
@@ -15,7 +15,7 @@ export function useLink(editor: Editor): IUseLink {
     text: string,
     color: ColorEnum
   ): Element => ({
-    type: ELEMENT_TYPES_ENUM.LINK,
+    type: ElementTypesEnum.LINK,
     href,
     children: [{ text, color, isLink: true }],
     alignment: AlignmentEnum.LEFT,
@@ -24,7 +24,7 @@ export function useLink(editor: Editor): IUseLink {
   const createParagraphNode = (
     children = [{ text: "", color: ColorEnum.BASE }]
   ): Element => ({
-    type: ELEMENT_TYPES_ENUM.PARAGRAPH,
+    type: ElementTypesEnum.PARAGRAPH,
     children,
     alignment: AlignmentEnum.LEFT,
   });
@@ -57,7 +57,7 @@ export function useLink(editor: Editor): IUseLink {
       // link.
       if (
         Element.isElement(parentNode) &&
-        parentNode.type === ELEMENT_TYPES_ENUM.LINK
+        parentNode.type === ElementTypesEnum.LINK
       ) {
         removeLink();
       }

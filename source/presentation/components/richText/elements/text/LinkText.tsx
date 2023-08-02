@@ -10,7 +10,7 @@ import { RenderElementProps, useSelected, useSlate } from "slate-react";
 import WebIcon from "@/presentation/public/images/icons/web.svg";
 import CloseIcon from "@/presentation/public/images/icons/close.svg";
 import { usePopper } from "react-popper";
-import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
+import { ElementTypesEnum } from "@/presentation/enums/ElementTypes";
 
 export const LinkText = ({
   attributes,
@@ -30,7 +30,7 @@ export const LinkText = ({
     }
   );
 
-  return element.type === ELEMENT_TYPES_ENUM.LINK ? (
+  return element.type === ElementTypesEnum.LINK ? (
     <span className="relative">
       <Link
         href={""}

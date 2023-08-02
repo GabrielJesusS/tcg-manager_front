@@ -1,7 +1,7 @@
 import { ImageUploader } from "@/presentation/components/common/ImageUploader";
 import { Textinput } from "@/presentation/components/common/Textinput";
 import { DefaultQuestionModal } from "@/presentation/components/common/modals/DefaultQuestionModal";
-import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
+import { ElementTypesEnum } from "@/presentation/enums/ElementTypes";
 import { useLockBody } from "@/presentation/hooks/useLockBody";
 import { imageModalAtom } from "@/presentation/store/editor/imageModalAtom";
 import { checkImageUrl } from "@/presentation/utils/checkImageUrl";
@@ -31,7 +31,7 @@ export const ImageEditModal = (): JSX.Element => {
       return "";
     }
 
-    if (!(parentNode.type === ELEMENT_TYPES_ENUM.IMAGE)) return "";
+    if (!(parentNode.type === ElementTypesEnum.IMAGE)) return "";
 
     return parentNode.src;
   }
@@ -50,7 +50,7 @@ export const ImageEditModal = (): JSX.Element => {
       setError("");
       if (
         Element.isElement(parentNode) &&
-        Element.isElementType(parentNode, ELEMENT_TYPES_ENUM.IMAGE)
+        Element.isElementType(parentNode, ElementTypesEnum.IMAGE)
       ) {
         Transforms.setNodes(editor, {
           src: url,
@@ -61,7 +61,7 @@ export const ImageEditModal = (): JSX.Element => {
 
       if (
         Element.isElement(parentNode) &&
-        !Element.isElementType(parentNode, ELEMENT_TYPES_ENUM.IMAGE) &&
+        !Element.isElementType(parentNode, ElementTypesEnum.IMAGE) &&
         Editor.hasTexts(editor, parentNode)
       ) {
         Transforms.insertNodes(editor, createImageElement(url));

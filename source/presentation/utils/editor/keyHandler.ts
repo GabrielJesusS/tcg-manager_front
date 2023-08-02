@@ -2,7 +2,7 @@ import isHotkey from "is-hotkey";
 import { toggleMarks } from "./toggleMarks";
 import { toggleEditorElement } from "./toggleEditorElement";
 import { Editor, Element } from "slate";
-import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
+import { ElementTypesEnum } from "@/presentation/enums/ElementTypes";
 import { KeyboardEvent } from "react";
 
 export function keyHandler(
@@ -22,15 +22,15 @@ export function keyHandler(
     }
 
     if (isHotkey("mod+q", e)) {
-      toggleEditorElement(editor, ELEMENT_TYPES_ENUM.QUOTES);
+      toggleEditorElement(editor, ElementTypesEnum.QUOTES);
     }
 
     if (isHotkey("mod+alt+l", e)) {
-      toggleEditorElement(editor, ELEMENT_TYPES_ENUM.LIST);
+      toggleEditorElement(editor, ElementTypesEnum.LIST);
     }
 
     if (isHotkey("mod+shift+l", e)) {
-      toggleEditorElement(editor, ELEMENT_TYPES_ENUM.NUMBERED_LIST);
+      toggleEditorElement(editor, ElementTypesEnum.NUMBERED_LIST);
     }
 
     if (e.key === "Backspace") {
@@ -42,7 +42,7 @@ export function keyHandler(
 
       const [prevNode] = prev;
 
-      if (Element.isElementType(prevNode, ELEMENT_TYPES_ENUM.IMAGE)) {
+      if (Element.isElementType(prevNode, ElementTypesEnum.IMAGE)) {
         e.preventDefault();
       }
     }

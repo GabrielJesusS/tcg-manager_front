@@ -1,17 +1,17 @@
 import { CustomElement } from "@/presentation/@types/slate";
-import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
+import { ElementTypesEnum } from "@/presentation/enums/ElementTypes";
 import { useMemo } from "react";
 import { Range } from "slate";
 import { Editor, Element, Transforms } from "slate";
 import { ReactEditor } from "slate-react";
 
 interface IUseTextType {
-  toggleText: (type: ELEMENT_TYPES_ENUM) => void;
-  checkWhatText: ELEMENT_TYPES_ENUM;
+  toggleText: (type: ElementTypesEnum) => void;
+  checkWhatText: ElementTypesEnum;
 }
 
 export function useTextType(editor: Editor): IUseTextType {
-  function toggleText(type: ELEMENT_TYPES_ENUM): void {
+  function toggleText(type: ElementTypesEnum): void {
     const { selection } = { ...editor };
 
     ReactEditor.focus(editor);
@@ -34,12 +34,12 @@ export function useTextType(editor: Editor): IUseTextType {
     }
   }
 
-  const checkWhatText = useMemo((): ELEMENT_TYPES_ENUM => {
-    if (!editor.selection?.focus.path) return ELEMENT_TYPES_ENUM.PARAGRAPH;
+  const checkWhatText = useMemo((): ElementTypesEnum => {
+    if (!editor.selection?.focus.path) return ElementTypesEnum.PARAGRAPH;
     const [parentNode] = Editor.parent(editor, editor.selection?.focus.path);
     return Element.isElement(parentNode)
       ? parentNode.type
-      : ELEMENT_TYPES_ENUM.PARAGRAPH;
+      : ElementTypesEnum.PARAGRAPH;
   }, [editor.children , editor.selection?.focus.path]);
 
   return { toggleText, checkWhatText };

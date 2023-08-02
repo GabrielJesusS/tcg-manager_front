@@ -1,72 +1,72 @@
 import { BaseEditor } from "slate";
 import { ReactEditor } from "slate-react";
-import { ELEMENT_TYPES_ENUM } from "../enums/ElementTypes";
+import { ElementTypesEnum } from "../enums/ElementTypes";
 import { ColorEnum } from "../enums/ColorEnum";
 import { AlignmentEnum } from "../enums/AlignmentEnum";
 
 export interface ParagraphElement {
-  type: ELEMENT_TYPES_ENUM.PARAGRAPH;
+  type: ElementTypesEnum.PARAGRAPH;
   children: CustomText[];
   alignment: AlignmentEnum;
 }
 
 export interface SmallElement {
-  type: ELEMENT_TYPES_ENUM.SMALL;
+  type: ElementTypesEnum.SMALL;
   children: CustomText[];
   alignment: AlignmentEnum;
 }
 
 export interface HeadingOneElement {
-  type: ELEMENT_TYPES_ENUM.HEADING_TWO;
+  type: ElementTypesEnum.HEADING_TWO;
   children: CustomText[];
   alignment: AlignmentEnum;
 }
 
 export interface HeadingTwoElement {
-  type: ELEMENT_TYPES_ENUM.HEADING_ONE;
+  type: ElementTypesEnum.HEADING_ONE;
   children: CustomText[];
   alignment: AlignmentEnum;
 }
 
 export interface SubheadingElement {
-  type: ELEMENT_TYPES_ENUM.SUBHEADING;
+  type: ElementTypesEnum.SUBHEADING;
   children: CustomText[];
   alignment: AlignmentEnum;
 }
 
 export interface LinkElement {
-  type: ELEMENT_TYPES_ENUM.LINK;
+  type: ElementTypesEnum.LINK;
   children: CustomText[];
   href: string;
   alignment: AlignmentEnum;
 }
 
 export interface QuoteElement {
-  type: ELEMENT_TYPES_ENUM.QUOTES;
+  type: ElementTypesEnum.QUOTES;
   children: CustomText[];
   alignment: AlignmentEnum;
 }
 
 export interface ListElement {
-  type: ELEMENT_TYPES_ENUM.LIST;
+  type: ElementTypesEnum.LIST;
   children: CustomText[];
   alignment: AlignmentEnum;
 }
 
 export interface NumberedListElement {
-  type: ELEMENT_TYPES_ENUM.NUMBERED_LIST;
+  type: ElementTypesEnum.NUMBERED_LIST;
   children: CustomText[];
   alignment: AlignmentEnum;
 }
 
 export interface ListItemElement {
-  type: ELEMENT_TYPES_ENUM.LIST_ITEM;
+  type: ElementTypesEnum.LIST_ITEM;
   children: CustomText[];
   alignment: AlignmentEnum;
 }
 
 export interface ImageElement {
-  type: ELEMENT_TYPES_ENUM.IMAGE;
+  type: ElementTypesEnum.IMAGE;
   children: CustomText[];
   alignment: AlignmentEnum;
   aspectRatio: string;

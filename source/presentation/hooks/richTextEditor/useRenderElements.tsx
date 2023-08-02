@@ -4,7 +4,7 @@ import { Paragraph } from "../../components/richText/elements/text/Paragraph";
 import { HeadingOne } from "../../components/richText/elements/text/HeadingOne";
 import { HeadingTwo } from "../../components/richText/elements/text/HeadingTwo";
 import { SubHeading } from "../../components/richText/elements/text/SubHeading";
-import { ELEMENT_TYPES_ENUM } from "../../enums/ElementTypes";
+import { ElementTypesEnum } from "../../enums/ElementTypes";
 import { LinkText } from "../../components/richText/elements/text/LinkText";
 import { Quote } from "@/presentation/components/richText/elements/text/Quote";
 import { ImageElm } from "@/presentation/components/richText/elements/void/Image";
@@ -15,34 +15,34 @@ import { List } from "@/presentation/components/richText/elements/text/List";
 export const useRenderElement = () => {
   const renderElement = useCallback((props) => {
     switch (props.element.type) {
-      case ELEMENT_TYPES_ENUM.SMALL:
+      case ElementTypesEnum.SMALL:
         return <Small {...props} />;
 
-      case ELEMENT_TYPES_ENUM.HEADING_ONE:
+      case ElementTypesEnum.HEADING_ONE:
         return <HeadingOne {...props} />;
 
-      case ELEMENT_TYPES_ENUM.HEADING_TWO:
+      case ElementTypesEnum.HEADING_TWO:
         return <HeadingTwo {...props} />;
 
-      case ELEMENT_TYPES_ENUM.SUBHEADING:
+      case ElementTypesEnum.SUBHEADING:
         return <SubHeading {...props} />;
 
-      case ELEMENT_TYPES_ENUM.LINK:
+      case ElementTypesEnum.LINK:
         return <LinkText {...props} />;
 
-      case ELEMENT_TYPES_ENUM.QUOTES:
+      case ElementTypesEnum.QUOTES:
         return <Quote {...props} />;
 
-      case ELEMENT_TYPES_ENUM.LIST:
+      case ElementTypesEnum.LIST:
         return <List {...props} />;
 
-      case ELEMENT_TYPES_ENUM.LIST_ITEM:
+      case ElementTypesEnum.LIST_ITEM:
         return <ListItem {...props} />;
 
-      case ELEMENT_TYPES_ENUM.NUMBERED_LIST:
+      case ElementTypesEnum.NUMBERED_LIST:
         return <NumberedList {...props} />;
 
-      case ELEMENT_TYPES_ENUM.IMAGE:
+      case ElementTypesEnum.IMAGE:
         return <ImageElm {...props} />;
 
       default:

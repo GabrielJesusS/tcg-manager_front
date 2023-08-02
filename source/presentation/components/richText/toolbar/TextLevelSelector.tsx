@@ -1,15 +1,15 @@
 import { Listbox } from "@headlessui/react";
 import ArrowIcon from "@/presentation/public/images/icons/chevron.svg";
-import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
+import { ElementTypesEnum } from "@/presentation/enums/ElementTypes";
 import { useTextType } from "@/presentation/hooks/richTextEditor/useTextType";
 import { useSlate} from "slate-react";
 
 const textTypes = [
-  { label: "Small", value: ELEMENT_TYPES_ENUM.SMALL },
-  { label: "Normal", value: ELEMENT_TYPES_ENUM.PARAGRAPH },
-  { label: "Heading 1", value: ELEMENT_TYPES_ENUM.HEADING_ONE },
-  { label: "Heading 2", value: ELEMENT_TYPES_ENUM.HEADING_TWO },
-  { label: "SubHeading", value: ELEMENT_TYPES_ENUM.SUBHEADING },
+  { label: "Small", value: ElementTypesEnum.SMALL },
+  { label: "Normal", value: ElementTypesEnum.PARAGRAPH },
+  { label: "Heading 1", value: ElementTypesEnum.HEADING_ONE },
+  { label: "Heading 2", value: ElementTypesEnum.HEADING_TWO },
+  { label: "SubHeading", value: ElementTypesEnum.SUBHEADING },
 ];
 
 export const TextLevelSelector = ():JSX.Element => {
@@ -21,7 +21,7 @@ export const TextLevelSelector = ():JSX.Element => {
   return (
     <div className="relative z-20 text-system-600 md:w-36">
       <Listbox
-        defaultValue={ELEMENT_TYPES_ENUM.PARAGRAPH}
+        defaultValue={ElementTypesEnum.PARAGRAPH}
         value={checkWhatText}
         onChange={toggleText}
         disabled={!textTypes.find((e) => e.value === checkWhatText)?.label}

@@ -1,4 +1,4 @@
-import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
+import { ElementTypesEnum } from "@/presentation/enums/ElementTypes";
 import { checkImageUrl } from "@/presentation/utils/checkImageUrl";
 import { uploadImages } from "@/presentation/utils/uploadImages";
 import { createImageElement } from "@/utils/richTextEditor/createImageElement";
@@ -11,7 +11,7 @@ function insertImage(editor: Editor, url: string): void {
 export function withImage(e: Editor): Editor {
   const { isVoid, insertData } = e;
   e.isVoid = (element) =>
-    element.type === ELEMENT_TYPES_ENUM.IMAGE ? true : isVoid(element);
+    element.type === ElementTypesEnum.IMAGE ? true : isVoid(element);
 
   e.insertData = (data) => {
     const text = data.getData("text/plain");

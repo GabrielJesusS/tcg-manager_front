@@ -1,9 +1,9 @@
-import { ELEMENT_TYPES_ENUM } from "@/presentation/enums/ElementTypes";
+import { ElementTypesEnum } from "@/presentation/enums/ElementTypes";
 import { Editor, Element } from "slate";
 
 export function checkElementIsActive(
   editor: Editor,
-  block: ELEMENT_TYPES_ENUM
+  block: ElementTypesEnum
 ): boolean {
   const { selection } = editor;
 
