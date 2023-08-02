@@ -1,4 +1,4 @@
-export enum NOTIFY_TYPE_ENUM {
+export enum NotifyTypeEnum {
   ERROR,
   WARNING,
   SUCCESS,

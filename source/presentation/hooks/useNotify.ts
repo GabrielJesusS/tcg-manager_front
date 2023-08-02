@@ -1,20 +1,20 @@
 import { toast } from "react-toastify";
-import { NOTIFY_TYPE_ENUM } from "../enums/NotifyTypeEnum";
+import { NotifyTypeEnum } from "../enums/NotifyTypeEnum";
 
 interface IUseNotify {
-  notify: (message: string, type: NOTIFY_TYPE_ENUM) => void;
+  notify: (message: string, type: NotifyTypeEnum) => void;
 }
 
 export const useNotify = (): IUseNotify => {
-  function notify(message: string, type: NOTIFY_TYPE_ENUM) {
+  function notify(message: string, type: NotifyTypeEnum) {
     switch (type) {
-      case NOTIFY_TYPE_ENUM.ERROR:
+      case NotifyTypeEnum.ERROR:
         toast(message, { type: "error" });
         break;
-      case NOTIFY_TYPE_ENUM.SUCCESS:
+      case NotifyTypeEnum.SUCCESS:
         toast(message, { type: "success" });
         break;
-      case NOTIFY_TYPE_ENUM.WARNING:
+      case NotifyTypeEnum.WARNING:
         toast(message, { type: "error" });
         break;
 

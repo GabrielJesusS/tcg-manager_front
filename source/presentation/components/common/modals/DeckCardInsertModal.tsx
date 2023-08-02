@@ -30,7 +30,7 @@ import { CardFilter } from "../Filters/CardFilter";
 import { cardFilterAtom } from "@/presentation/store/filters/cardFiltersAtom";
 import { useGetCards } from "@/presentation/hooks/useGetCards";
 import { useNotify } from "@/presentation/hooks/useNotify";
-import { NOTIFY_TYPE_ENUM } from "@/presentation/enums/NotifyTypeEnum";
+import { NotifyTypeEnum } from "@/presentation/enums/NotifyTypeEnum";
 
 interface DeckCardInsertModalProps {}
 
