@@ -4,11 +4,11 @@ import { RenderElementProps } from "slate-react";
 
 export const SubHeading = (props: RenderElementProps) => {
   return (
-    <h3
+    <h4
       {...props}
       className={classNames("break-all", ALIGNMENT_TEXT_CLASS_MAP[props.element.alignment])}
     >
       {props.children}
-    </h3>
+    </h4>
   );
 };

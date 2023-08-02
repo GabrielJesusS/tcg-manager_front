@@ -4,7 +4,7 @@ import { RenderElementProps } from "slate-react";
 
 export const HeadingTwo = (props: RenderElementProps) => {
   return (
-    <h2
+    <h3
       className={classNames(
         "text-2xl break-all",
         ALIGNMENT_TEXT_CLASS_MAP[props.element.alignment]
@@ -12,6 +12,6 @@ export const HeadingTwo = (props: RenderElementProps) => {
       {...props}
     >
       {props.children}
-    </h2>
+    </h3>
   );
 };
