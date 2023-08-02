@@ -1,4 +1,4 @@
-import { HTMLAttributes, useEffect, useState } from "react";
+import { HTMLAttributes } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Footer } from "../components/common/Footer";
 import { Textinput } from "../components/common/Textinput";
@@ -8,11 +8,10 @@ import TCGManagerLogo from "@/presentation/public/images/logo/logo-variation.svg
 import Link from "next/link";
 import Image from "next/image";
 import BackgroundImage from "@/presentation/public/images/rsc/bgs/formbg-1.gif";
-import CardBackplate from "@/presentation/public/images/rsc/mocks/card-back.png";
 import { PokemonCard } from "../components/common/PokemonCard";
 import { createRegisterUserUsecase } from "@/factories/createRegisterUserUsecase";
-import { AnimatePresence, motion } from "framer-motion";
 import { useGetRandomCard } from "../hooks/useGetRandomCard";
+import { PAGE_ROUTES } from "../enums/PagesEnum";
 
 interface RegisterProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -38,44 +37,28 @@ const Register = ({}: RegisterProps) => {
   const submitData: SubmitHandler<RegisterParams> = async (data) => {
     try {
       const response = await registerUserUsecase.execute(data);
-
-    } catch (error) {
-    
-    }
+    } catch (error) {}
   };
 
   return (
-    <div>
-      <div className="absolute w-full h-full z-0 bg-red-300">
-        <picture>
-          <img
-            className="object-cover w-full h-full"
-            src={BackgroundImage.src}
-            alt=""
-            height={608}
-            width={296}
-          />
-        </picture>
+    <div className="h-screen flex flex-col">
+      <div className="fixed -z-10 h-screen w-screen">
+        <Image
+          className="h-full object-cover object-center w-full"
+          src={BackgroundImage.src}
+          alt={""}
+          fill
+        />
       </div>
-      <main className="relative z-10 flex flex-col">
+      <main className="relative z-10 flex flex-col h-full">
         <div className="relative h-full flex-col flex">
-          <section className="min-h-screen grow shrink-0 px-safe flex justify-around max-w-7xl mx-auto w-full items-center">
-            <div className="hidden lg:block">
-              <AnimatePresence>
-                {isLoading && (
-                  <motion.div initial={{ rotateY: 0 }} exit={{ rotateY: 360 }}>
-                    <PokemonCard />
-                  </motion.div>
-                )}
-                {!isLoading && data && (
-                  <motion.div
-                    initial={{ rotateY: 0 }}
-                    animate={{ rotateY: 360 }}
-                  >
-                    <PokemonCard src={data.images.small} url={`cards/${data.id}`}/>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+          <section className=" grow shrink-0 px-safe flex justify-around max-w-7xl mx-auto w-full items-center">
+            <div className="hidden md:block">
+              <PokemonCard
+                animate
+                src={data?.images.small}
+                url={data ? `cartas/${data?.id}` : ""}
+              />
             </div>
             <div className="bg-white h-fit w-fit my-safe px-6 md:px-12 py-8 rounded-2xl space-y-6">
               <Link href="/">
@@ -131,13 +114,13 @@ const Register = ({}: RegisterProps) => {
               </form>
               <p className="text-center">
                 Já possui registro? Autentique-se{" "}
-                <Link href="/login" className="dft-link">
+                <Link href={PAGE_ROUTES.LOGIN} className="dft-link">
                   aqui!
                 </Link>
               </p>
             </div>
           </section>
-          <Footer></Footer>
+          <Footer />
         </div>
       </main>
     </div>
