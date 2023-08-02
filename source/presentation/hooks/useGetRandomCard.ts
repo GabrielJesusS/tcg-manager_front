@@ -19,6 +19,10 @@ export function useGetRandomCard(): IFetch<IRandomCard> {
   const { data, error, mutate } = useFetch<IRandomCard>({
     name: "randomCard",
     useCase: async () => await getCardUsecase.execute(),
+    swr: {
+      revalidateOnFocus:false,
+      revalidateIfStale: false,
+    }
   });
 
   function update(cleanCache: boolean) {
