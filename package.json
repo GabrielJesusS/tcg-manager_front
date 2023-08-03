@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --passWithNoTests --no-cache --runInBand --bail",
     "test:watch": "npm test -- --watch",
-    "lint": "eslint source --fix",
+    "lint": "eslint source/**/*.ts",
     "prepare": "husky install",
     "release": "standard-version",
     "cypress:open": "cypresse open",
@@ -17,7 +17,7 @@
   "author": "Gabriel Jesus",
   "license": "ISC",
   "lint-staged": {
-    "*.{ts,tsx,js,jsx}": "eslint --fix --quiet",
+    "*.{ts,tsx,js,jsx}": "eslint --quiet",
     "*.{ts,tsx,js,jsx,css,md}": "prettier --write",
     "*.{spec,test}.{ts,tsx,js,jsx}": "npm run test"
   },
@@ -54,7 +54,7 @@
     "slate-react": "^0.94.0",
     "swiper": "^9.0.3",
     "swr": "^2.1.0",
-    "typescript": "^5.1.6",
+    "typescript": "^4.9.4",
     "yup": "^0.32.11"
   },
   "devDependencies": {
@@ -63,6 +63,7 @@
     "@commitlint/config-conventional": "17.4.2",
     "@faker-js/faker": "^7.6.0",
     "@next/bundle-analyzer": "13.1.6",
+    "@next/eslint-plugin-next": "^13.4.12",
     "@svgr/webpack": "^7.0.0",
     "@types/grecaptcha": "3.0.4",
     "@types/jest": "27.4.0",
