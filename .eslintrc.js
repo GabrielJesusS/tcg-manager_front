@@ -35,6 +35,14 @@ module.exports = {
 
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@next/next/no-html-link-for-pages": ["error", "source/presentation"],
+    "@typescript-eslint/no-unused-vars": [
+      "warn", // or "error"
+      { 
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
   },
   ignorePatterns: [".eslintrc.js"],
 };
