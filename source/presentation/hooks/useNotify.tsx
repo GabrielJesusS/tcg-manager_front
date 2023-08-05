@@ -1,15 +1,15 @@
 import { ToastOptions, toast } from "react-toastify";
-import { NotifyTypeEnum } from "../enums/NotifyTypeEnum";
+import { StatusEnum } from "../enums/NotifyTypeEnum";
 import LoadingIcon from "@/presentation/public/images/icons/loading.svg";
 
 interface IUseNotify {
-  notify: (message: string, type: NotifyTypeEnum) => void;
+  notify: (message: string, type: StatusEnum) => void;
 }
 
 export const useNotify = (): IUseNotify => {
   function notify(
     message: string,
-    type: NotifyTypeEnum,
+    type: StatusEnum,
     config?: ToastOptions
   ) {
     toast(
