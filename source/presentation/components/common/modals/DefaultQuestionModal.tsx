@@ -7,13 +7,13 @@ interface IDefaultQuestionModal {
   isOpen: boolean;
   action?: {
     actionText: string;
-    actionClick: Function;
+    actionClick: () => void;
   };
   secondAction?: {
     secondActionText: string;
-    secondActionClick: Function;
+    secondActionClick: () => void;
   };
-  close: Function;
+  close: () => void;
   fullSize?: boolean;
   children?: React.ReactNode;
 }
@@ -26,7 +26,7 @@ export const DefaultQuestionModal = ({
   secondAction,
   fullSize,
   title,
-}: IDefaultQuestionModal) => {
+}: IDefaultQuestionModal): JSX.Element => {
   return (
     <Modal isOpen={isOpen}>
       <div
@@ -41,12 +41,22 @@ export const DefaultQuestionModal = ({
             title ? "justify-between" : "justify-end"
           )}
         >
-          {title ? <span className="font-bold text-xl">{title}</span> : null}
+          {title ? (
+            <span
+              className={classNames("font-bold text-xl block", {
+                " mt-safe ml-safe": fullSize,
+              })}
+            >
+              {title}
+            </span>
+          ) : null}
           <button
             className={classNames("bg-error p-2 rounded-full", {
               "mt-safe mr-safe": fullSize,
             })}
-            onClick={() => close()}
+            onClick={() => {
+              close();
+            }}
           >
             <CloseIcon className="h-5 fill-system" />
           </button>
@@ -54,7 +64,9 @@ export const DefaultQuestionModal = ({
         {children}
         {action && (
           <button
-            onClick={() => action.actionClick()}
+            onClick={() => {
+              action.actionClick();
+            }}
             className="btn btn-primary"
           >
             {action.actionText}
@@ -62,7 +74,9 @@ export const DefaultQuestionModal = ({
         )}
         {secondAction && (
           <button
-            onClick={() => secondAction.secondActionClick()}
+            onClick={() => {
+              secondAction.secondActionClick();
+            }}
             className="btn btn-error"
           >
             {secondAction.secondActionText}
