@@ -29,7 +29,7 @@ export const RichText = (): JSX.Element => {
   }
 
   return (
-    <div className="border-2 border-system-100 flex-1 w-full h-full flex flex-col">
+    <div className="w-full flex flex-col grow">
       <Slate
         editor={editor}
         value={
@@ -46,16 +46,13 @@ export const RichText = (): JSX.Element => {
         <Editable
           renderLeaf={renderLeafs}
           renderElement={renderElement}
-          className="max-w-full flex-1 p-2"
+          className="max-w-full border-2 p-2 my-5 mx-4 h-full grow"
           placeholder="Um grande artigo..."
           onKeyDown={keyHandler(editor)}
         />
         <LinkEditModal />
         <ImageEditModal />
       </Slate>
-      <div>
-        <button onClick={handleSendArticle}>teste</button>
-      </div>
     </div>
   );
 };
