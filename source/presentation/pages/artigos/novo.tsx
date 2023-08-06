@@ -1,53 +1,28 @@
-import { Dropdown } from "@/presentation/components/common/Dropdown";
+import { EditorNavBar } from "@/presentation/components/common/EditorNavbar";
+import { Footer } from "@/presentation/components/common/Footer";
 import { Textarea } from "@/presentation/components/common/Textarea";
 import { Textinput } from "@/presentation/components/common/Textinput";
+import { ArticleEditModal } from "@/presentation/components/common/modals/ArticleEditModal";
+import { LinkEditModal } from "@/presentation/components/common/modals/LinkEditModal";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
+import { RichText } from "@/presentation/components/richText";
+import ArrowIcon from "@/presentation/public/images/icons/chevron.svg";
+import { useSlate } from "slate-react";
 
 const NewArticle = ({}) => {
   return (
     <>
-      <DefaultLayout>
-        <main className="flex flex-col grow justify-center items-center bg-red-400 h-full">
-          <div className="w-full p-safe">
-            <h1 className="text-2xl font-bold text-center">Novo artigo!</h1>
-            <section className="bg-system w-full p-3 rounded-lg ">
-              <form action="" className="space-y-3">
-                <div className="space-y-3 md:space-y-0 ">
-                <Textinput
-                  placeholder="Titulo..."
-                  label="Titulo do artigo:"
-                  type="text"
-                />
-                <Textinput
-                  placeholder="Descrição..."
-                  label="Descrição do artigo:"
-                  type="text"
-                />
-                <Dropdown
-                  label="Classificação"
-                  selectPlaceholder="Selecione uma classificação"
-                  options={[{ text: "op1", value: "op1" }]}
-                />
-                <Dropdown
-                  label="Carta cover"
-                  selectPlaceholder="Selecione uma carta de capa"
-                  options={[{ text: "op1", value: "op1" }]}
-                />
-                </div>
-                <Textarea
-                  placeholder="Este artigo fala sobre..."
-                  label="Texto:"
-                />
-                <Textarea
-                  placeholder="Digite a utl da fonte e uma virgula para separa-las"
-                  label="O artigo possui fontes?"
-                />
-                <button className="btn btn-primary w-full">Publicar</button>
-              </form>
-            </section>
-          </div>
+      {" "}
+      <div className="min-h-screen flex flex-col">
+        <EditorNavBar />
+        <main className="flex flex-col flex-1 justify-center items-center h-full grow my-4">
+          <section className="max-w-7xl flex-1 space-y-5 w-full text-system-800 mx-auto px-safe flex flex-col">
+            <RichText />
+          </section>
         </main>
-      </DefaultLayout>
+        <Footer />
+      </div>
+      <ArticleEditModal/>
     </>
   );
 };
