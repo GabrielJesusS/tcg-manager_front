@@ -27,7 +27,7 @@ export const StatusTag = ({
     >
       {message}
       {description ? (
-        <span className="absolute after:absolute after:w-full after:h-10 after:left-0 after:top-2/3 -translate-y-0 group-hover:-translate-y-2 group-hover:opacity-100 opacity-0 transition-all duration-150  w-60 -translate-x-1/2 text-center bg-system-800/80 p-2 rounded-lg drop-shadow-lg left-1/2  m-auto bottom-full select-none">
+        <span className="absolute after:absolute group-hover:pointer-events-auto pointer-events-none after:w-full after:h-10 after:left-0 after:top-2/3 -translate-y-0 group-hover:-translate-y-2 group-hover:opacity-100 opacity-0 transition-all duration-150  w-60 -translate-x-1/2 text-center bg-system-800/80 p-2 rounded-lg drop-shadow-lg left-1/2  m-auto bottom-full select-none">
           {description}
         </span>
       ) : null}
