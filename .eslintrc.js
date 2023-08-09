@@ -33,6 +33,8 @@ module.exports = {
     // No need to import React when using Next.js
     "react/react-in-jsx-scope": "off",
 
+    "@next/next/no-img-element": "off",
+    "@typescript-eslint/consistent-type-imports" : "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@next/next/no-html-link-for-pages": ["error", "source/presentation"],
     "@typescript-eslint/no-unused-vars": [
