@@ -10,6 +10,8 @@ import { withImage } from "./elements/plugins/withImage";
 import { ImageEditModal } from "./elements/modals/ImageEditModal";
 import { serialize } from "@/presentation/utils/editor/serializeArticle";
 import { keyHandler } from "@/presentation/utils/editor/keyHandler";
+import { useSetRecoilState } from "recoil";
+import { articleContentAtom } from "@/presentation/store/editor";
 
 export const RichText = (): JSX.Element => {
   const [editor] = useState(() =>
@@ -19,13 +21,10 @@ export const RichText = (): JSX.Element => {
   const { renderLeafs } = useRenderLeafs();
   /* const initialValue: Descendant[] = [createParagraphNode()];
    */
+  const setArticleContent = useSetRecoilState(articleContentAtom);
 
-  function handleSendArticle(): void {
-    console.log(editor.children);
-    const x = editor.children
-      .flatMap(serialize)
-      .reduce((acc, item) => acc + item, "");
-    console.log(x);
+  function handleChangeArticleContent(content: Descendant[]): void {
+    setArticleContent(content);
   }
 
   return (
@@ -41,6 +40,7 @@ export const RichText = (): JSX.Element => {
             },
           ] as Descendant[]
         }
+        onChange={handleChangeArticleContent}
       >
         <ToolBar />
         <Editable
