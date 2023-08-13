@@ -2,11 +2,8 @@ import React from "react";
 import type { AppProps } from "next/app";
 import "@/presentation/styles/globals.css";
 import favicon from "@/presentation/public/images/logo/favicon.ico";
-import 'react-toastify/dist/ReactToastify.css'
-
-import { Poppins } from "@next/font/google";
-
-import classNames from "classnames";
+import "react-toastify/dist/ReactToastify.css";
+import { Poppins } from "@next/font/google"
 import Head from "next/head";
 import { RecoilRoot } from "recoil";
 import { ToastContainer } from "react-toastify";
@@ -24,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <title>TCG Manager - Pokémon TCG Wiki</title>
         <link rel="shortcut icon" href={favicon.src} type="image/x-icon" />
       </Head>
-      <div className={"font-poppins"}>
+      <div className={`${poppins.variable} font-sans`}>
         <Component {...pageProps} />
       </div>
       <ToastContainer />

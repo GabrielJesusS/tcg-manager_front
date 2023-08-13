@@ -9,13 +9,13 @@ module.exports = {
   mode: "jit",
   theme: {
     extend: {
-      fontSize:{
-        "3.5xl": "2rem"
+      fontSize: {
+        "3.5xl": "2rem",
       },
-      spacing:{
-        "safe" : "1.5rem"
+      spacing: {
+        safe: "1.5rem",
       },
-      backgroundImage:{
+      backgroundImage: {
         "bg-pattern": "url(/images/rsc/bgs/pattern-bg.png)",
       },
       colors: {
@@ -35,12 +35,12 @@ module.exports = {
         warning: "#ed6c02",
         main: "#0288d1",
         system: {
-          "800": "#222629",
-          "600": "#474b4f",
-          "400": "#6b6e70",
-          "200": "#D9D9D9",
-          "100": "#F1F1F1",
-          DEFAULT: "#ffffff"
+          800: "#222629",
+          600: "#474b4f",
+          400: "#6b6e70",
+          200: "#D9D9D9",
+          100: "#F1F1F1",
+          DEFAULT: "#ffffff",
         },
         types: {
           grass: "#388545",
@@ -57,12 +57,12 @@ module.exports = {
         },
       },
       fontFamily: {
-        poppins: ['Poppins', "sans"],
+        sans: ["var(--font-poppins)"],
       },
-      aspectRatio:{
-        "card": "7 / 9.77",
-        "tv" : "4/3"
-       },
+      aspectRatio: {
+        card: "7 / 9.77",
+        tv: "4/3",
+      },
     },
   },
   variants: {

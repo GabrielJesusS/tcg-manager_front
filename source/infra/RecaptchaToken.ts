@@ -3,14 +3,15 @@ import { ITokenService } from "@/services/ITokenService";
 export class RecaptchaTokenService implements ITokenService {
   private static hasInited = false;
 
-  constructor(private readonly accessKey: string) { }
+  constructor(private readonly accessKey: string) {}
 
   private async init(): Promise<void> {
     if (RecaptchaTokenService.hasInited) {
-      return await Promise.resolve();
+      await Promise.resolve();
+      return;
     }
 
-    return await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       this.embed()
         .then(() => {
           grecaptcha.ready(() => {
@@ -18,12 +19,12 @@ export class RecaptchaTokenService implements ITokenService {
             resolve();
           });
         })
-        .catch(() => { });
+        .catch(() => {});
     });
   }
 
   private async embed(): Promise<void> {
-    return await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       const script = document.createElement("script");
 
       script.onload = function () {

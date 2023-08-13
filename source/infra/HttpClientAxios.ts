@@ -26,7 +26,7 @@ client.interceptors.request.use(
 );
 
 function sanitizeParams<Params>(params: Params): Record<string, string> | undefined {
-  return !!params && typeof params == "object" 
+  return !!params && typeof params === "object" 
     ? Object.fromEntries(
         Object.entries(params).filter(([_, v]) => {
           if (typeof v === "string") return v.length > 0;
