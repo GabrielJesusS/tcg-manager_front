@@ -6,6 +6,8 @@ import { createAuthUserUsecase } from "@/factories/createAuthUserUsecase";
 import { loginSchema } from "@/presentation/schemas/loginSchema";
 import { useState } from "react";
 import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
+import { useNotify } from "@/presentation/hooks/useNotify";
+import { StatusEnum } from "@/presentation/enums/NotifyTypeEnum";
 
 interface LoginParams {
   email: string;
@@ -15,6 +17,7 @@ interface LoginParams {
 const authUserUsecase = createAuthUserUsecase();
 
 export const LoginForm = (): JSX.Element => {
+  const { notify } = useNotify();
   const { push } = useRouter();
   const {
     register,
@@ -29,6 +32,7 @@ export const LoginForm = (): JSX.Element => {
     const response = await authUserUsecase.execute(data);
 
     if (response.isLeft()) {
+      notify("Credenciais inválidas", StatusEnum.ERROR);
       setLoading(false);
       return;
     }
@@ -45,7 +49,6 @@ export const LoginForm = (): JSX.Element => {
         error={errors.email?.message}
         {...register("email")}
       />
-      {errors.email && <span className="text-error">{}</span>}
       <TextInput
         label="Senha"
         type="password"

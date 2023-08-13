@@ -5,6 +5,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { createRegisterUserUsecase } from "@/factories/createRegisterUserUsecase";
 import { useRouter } from "next/router";
 import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
+import { useNotify } from "@/presentation/hooks/useNotify";
+import { StatusEnum } from "@/presentation/enums/NotifyTypeEnum";
 
 interface RegisterParams {
   name: string;
@@ -17,6 +19,7 @@ interface RegisterParams {
 const registerUserUsecase = createRegisterUserUsecase();
 
 export const RegisterForm = (): JSX.Element => {
+  const { notify } = useNotify();
   const {
     register,
     formState: { errors },
@@ -31,6 +34,7 @@ export const RegisterForm = (): JSX.Element => {
     const response = await registerUserUsecase.execute(data);
 
     if (response.isLeft()) {
+      notify("Dados inválidos", StatusEnum.ERROR)
       return;
     }
 
