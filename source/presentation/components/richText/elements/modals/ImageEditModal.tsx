@@ -14,6 +14,7 @@ import { Editor, Element, Transforms } from "slate";
 import { ReactEditor, useSlate } from "slate-react";
 import ImagePreview from "@/presentation/public/images/rsc/imagePreview.png";
 import { uploadImages } from "@/presentation/utils/uploadImages";
+import { generateRandomId } from "@/utils/generateRandomId";
 
 export const ImageEditModal = (): JSX.Element => {
   const [open, setOpen] = useRecoilState(imageModalAtom);
@@ -40,7 +41,7 @@ export const ImageEditModal = (): JSX.Element => {
     isBaseDataImage(getImageUrl()) ? getImageUrl() : "" ?? ""
   );
 
-  function insertImage(url: string): void {
+  function insertImage(url: string, name: string): void {
     ReactEditor.focus(editor);
 
     const { selection } = editor;
@@ -64,18 +65,18 @@ export const ImageEditModal = (): JSX.Element => {
         !Element.isElementType(parentNode, ElementTypesEnum.IMAGE) &&
         Editor.hasTexts(editor, parentNode)
       ) {
-        Transforms.insertNodes(editor, createImageElement(url));
+        Transforms.insertNodes(editor, createImageElement(url, name));
         Transforms.insertNodes(editor, createParagraphNode());
         handleClose();
         return;
       }
 
-      Transforms.setNodes(editor, createImageElement(url));
+      Transforms.setNodes(editor, createImageElement(url, name));
       Transforms.insertNodes(editor, createParagraphNode());
       handleClose();
       return;
     }
-    Transforms.setNodes(editor, createImageElement(url));
+    Transforms.setNodes(editor, createImageElement(url, name));
     Transforms.insertNodes(editor, createParagraphNode());
     handleClose();
   }
@@ -86,7 +87,7 @@ export const ImageEditModal = (): JSX.Element => {
       return;
     }
 
-    insertImage(src);
+    insertImage(src, generateRandomId());
   }
 
   function handleClose(): void {
@@ -106,7 +107,7 @@ export const ImageEditModal = (): JSX.Element => {
     setSrc("");
   }, [open]);
 
-  function uploadImage(fileList: File[] | FileList) {
+  function uploadImage(fileList: File[] | FileList): void {
     uploadImages(fileList, insertImage);
   }
 

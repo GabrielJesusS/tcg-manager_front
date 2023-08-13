@@ -5,8 +5,9 @@ import { ColorEnum } from "@/presentation/enums/ColorEnum";
 import { ElementTypesEnum } from "@/presentation/enums/ElementTypes";
 import { ImageBehaviorEnum } from "@/presentation/enums/ImageBehaviorEnum";
 import { ImageSizeEnum } from "@/presentation/enums/ImageSizeEnum";
+import { generateRandomId } from "../generateRandomId";
 
-export function createImageElement(src: string): ImageElement {
+export function createImageElement(src: string, name: string): ImageElement {
   return {
     children: [{ text: "", color: ColorEnum.BASE }],
     type: ElementTypesEnum.IMAGE,
@@ -15,5 +16,7 @@ export function createImageElement(src: string): ImageElement {
     behavior: ImageBehaviorEnum.AUTO,
     size: ImageSizeEnum.FULL,
     src,
+    name,
+    key: generateRandomId(),
   };
 }

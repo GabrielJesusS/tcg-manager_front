@@ -73,6 +73,8 @@ export interface ImageElement {
   size: string;
   behavior: string;
   src: string;
+  key: string;
+  name: string;
 }
 
 type CustomElement =
@@ -93,7 +95,7 @@ interface CustomText {
   isBold?: boolean;
   isItalic?: boolean;
   isUnderline?: boolean;
-  isLink?:boolean;
+  isLink?: boolean;
   color: ColorEnum;
 }
 
