@@ -1,24 +1,26 @@
 import { atom } from "recoil";
 
-
-
-
 export const deckFilterAtom = atom<boolean>({
-    key: "DeckFilterAtom",
-    default: false
-})
+  key: "DeckFilterAtom",
+  default: false,
+});
 
 export const articlesFilterAtom = atom<boolean>({
-    key: "ArticleFilterAtom",
-    default: false
-})
+  key: "ArticleFilterAtom",
+  default: false,
+});
 
 export const deckCardInsertAtom = atom<boolean>({
-    key: "DeckCardInsertModal",
-    default: false
-})
+  key: "DeckCardInsertModal",
+  default: false,
+});
 
 export const deckCardRemoveAtom = atom<boolean>({
-    key: "DeckCardRemoveModal",
-    default: false
-})
+  key: "DeckCardRemoveModal",
+  default: false,
+});
+
+export const articleEditAtom = atom<boolean>({
+  key: "ArticleEditModal",
+  default: false,
+});
