@@ -1,15 +1,10 @@
 import { EditorNavBar } from "@/presentation/components/common/EditorNavbar";
 import { Footer } from "@/presentation/components/common/Footer";
-import { Textarea } from "@/presentation/components/common/Textarea";
-import { Textinput } from "@/presentation/components/common/Textinput";
 import { ArticleEditModal } from "@/presentation/components/common/modals/ArticleEditModal";
-import { LinkEditModal } from "@/presentation/components/common/modals/LinkEditModal";
-import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
 import { RichText } from "@/presentation/components/richText";
-import ArrowIcon from "@/presentation/public/images/icons/chevron.svg";
-import { useSlate } from "slate-react";
+import { loadUserData } from "@/presentation/middlewares/loadUserData";
 
-const NewArticle = ({}) => {
+const NewArticle = (): JSX.Element => {
   return (
     <>
       {" "}
@@ -22,9 +17,9 @@ const NewArticle = ({}) => {
         </main>
         <Footer />
       </div>
-      <ArticleEditModal/>
+      <ArticleEditModal />
     </>
   );
 };
 
-export default NewArticle;
+export default loadUserData(NewArticle);
