@@ -1,5 +1,5 @@
 import { ImageUploader } from "@/presentation/components/common/ImageUploader";
-import { Textinput } from "@/presentation/components/common/Textinput";
+import { TextInput } from "@/presentation/components/common/Textinput";
 import { DefaultQuestionModal } from "@/presentation/components/common/modals/DefaultQuestionModal";
 import { ElementTypesEnum } from "@/presentation/enums/ElementTypes";
 import { useLockBody } from "@/presentation/hooks/useLockBody";
@@ -149,15 +149,13 @@ export const ImageEditModal = (): JSX.Element => {
               onChange={uploadImage}
               label="Faça upload de uma imagem"
             />
-            <Textinput
+            <TextInput
               type="url"
-              inputProps={{
-                onChange: (e) => {
-                  setSrc(e.target.value);
-                },
-                value: src,
-                placeholder: "http://suaimagem.com",
+              onChange={(e) => {
+                setSrc(e.target.value);
               }}
+              value={src}
+              placeholder={"http://suaimagem.com"}
               label="URL da imagem:"
             />
             {error ? <small className="text-error">*{error}</small> : null}

@@ -1,7 +1,7 @@
 import { Deckitem } from "@/presentation/components/common/Deckitem";
 import { Header } from "@/presentation/components/common/Header";
 import { DeckFilterModal } from "@/presentation/components/common/modals/DeckFilterModal";
-import { Textinput } from "@/presentation/components/common/Textinput";
+import { TextInput } from "@/presentation/components/common/Textinput";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
 import { Deckitems } from "@/presentation/data/mocks/deckMocks";
 import { deckFilterAtom } from "@/presentation/store/modal";
@@ -34,9 +34,7 @@ const Decks = (): JSX.Element => {
           </div>
 
           <form action="" className="space-y-6">
-            <Textinput label="" placeholder="Buscar por..." type="text">
-              {" "}
-            </Textinput>
+            <TextInput label="" placeholder="Buscar por..." type="text" />{" "}
           </form>
           <button onClick={toggle} className="btn btn-primary w-full">
             Filtrar

@@ -1,33 +1,39 @@
 import classNames from "classnames";
-import type { HTMLAttributes, InputHTMLAttributes } from "react";
+import { forwardRef, Ref, type InputHTMLAttributes, HTMLInputTypeAttribute } from "react";
 
-interface TextinputProps extends HTMLAttributes<HTMLLabelElement> {
+interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  type: "text" | "tel" | "password" | "email" | "textarea" | "date" | "url";
-  inputProps?: InputHTMLAttributes<HTMLInputElement> & {
-    ref?: React.Ref<HTMLInputElement>;
-  };
+  type: HTMLInputTypeAttribute
+  error?: string
 }
 
-export const Textinput = ({
+ const TextInputComponent = ({
   label,
   type,
   placeholder,
-  inputProps,
   className,
-}: TextinputProps): JSX.Element => {
+  error,
+  ...props
+}: TextInputProps, ref: Ref<HTMLInputElement>): JSX.Element => {
   return (
-    <label className="block">
+    <label className="block relative">
       <span className="block text-base">{label}</span>
       <input
         placeholder={placeholder}
         className={classNames(
-          "w-full drop-shadow-md text-base text-system-800 font-medium bg-system px-3 py-1 transition-all hover:border-system-200 duration-150 border-system-200 focus:border-secondary outline-0 border-2 rounded-full",
+          "w-full drop-shadow-md text-base text-system-800 font-medium bg-system px-3 py-1 transition-all hover:border-system-200 duration-150 focus:border-secondary outline-0 border-2 rounded-full",
+          error? "border-error": "border-system-200",
           className
         )}
-        {...inputProps}
+        {...props}
         type={type}
+        ref={ref}
       />
+       {error ? (
+        <span className="text-error absolute left-0 top-full">{error}</span>
+      ) : null}
     </label>
   );
 };
+
+export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(TextInputComponent)

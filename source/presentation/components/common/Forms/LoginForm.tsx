@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Textinput } from "../Textinput";
+import { TextInput } from "../Textinput";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { createAuthUserUsecase } from "@/factories/createAuthUserUsecase";
@@ -38,23 +38,21 @@ export const LoginForm = (): JSX.Element => {
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(submitData)}>
-      <Textinput
+      <TextInput
         label="E-mail"
         type="email"
-        inputProps={{ ...register("email"), placeholder: "Email" }}
+        placeholder="Email"
+        error={errors.email?.message}
+        {...register("email")}
       />
-      {errors.email && (
-        <span className="text-error">{errors.email.message}</span>
-      )}
-      <Textinput
+      {errors.email && <span className="text-error">{}</span>}
+      <TextInput
         label="Senha"
         type="password"
-        inputProps={{ ...register("password"), placeholder: "Senha" }}
+        placeholder="Senha"
+        error={errors.password?.message}
+        {...register("password")}
       />
-      {errors.password && (
-        <span className="text-error">{errors.password.message}</span>
-      )}
-
       <button disabled={loading} className="btn btn-primary uppercase w-full">
         Autenticar-se
       </button>

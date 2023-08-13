@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Textinput } from "../Textinput";
+import { TextInput } from "../Textinput";
 import { registerSchema } from "@/presentation/schemas/registerSchema";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { createRegisterUserUsecase } from "@/factories/createRegisterUserUsecase";
@@ -39,56 +39,46 @@ export const RegisterForm = (): JSX.Element => {
 
   return (
     <form className="space-y-6 max-w-xs" onSubmit={handleSubmit(submitData)}>
-      <Textinput
+      <TextInput
         label="Nome de usuário"
         type="text"
-        inputProps={{
-          ...register("user_name"),
-          placeholder: "Nome de usuário...",
-        }}
+        placeholder={"Nome de usuário..."}
+        error={errors.user_name?.message}
+        {...register("user_name")}
       />
-      {errors.user_name && (
-        <span className="text-error">{errors.user_name.message}</span>
-      )}
 
-      <Textinput
+      <TextInput
         label="Nome completo"
         type="text"
-        inputProps={{
-          ...register("name"),
-          placeholder: "Nome completo...",
-        }}
+        {...register("name")}
+        placeholder={"Nome completo..."}
+        error={errors.name?.message}
       />
-      {errors.name && <span className="text-error">{errors.name.message}</span>}
-      <Textinput
+
+      <TextInput
         label="E-mail"
         type="email"
-        inputProps={{ ...register("email"), placeholder: "Email" }}
+        {...register("email")}
+        placeholder={"Email"}
+        error={errors.email?.message}
       />
-      {errors.email && (
-        <span className="text-error">{errors.email.message}</span>
-      )}
-      <Textinput
+
+      <TextInput
         label="Senha"
         type="password"
-        inputProps={{ ...register("password"), placeholder: "Senha" }}
+        {...register("password")}
+        placeholder={"Senha"}
+        error={errors.password?.message}
       />
-      {errors.password && (
-        <span className="text-error">{errors.password.message}</span>
-      )}
-      <Textinput
+
+      <TextInput
         label="Confirmar senha"
         type="password"
-        inputProps={{
-          ...register("confirmPassword"),
-          placeholder: "Confirmar senha",
-        }}
+        {...register("confirmPassword")}
+        placeholder={"Confirmar senha"}
+        error={errors.confirmPassword?.message}
       />
-      {errors.confirmPassword && (
-        <span className="text-error whitespace-break-spaces">
-          {errors.confirmPassword.message}
-        </span>
-      )}
+
       <button className="btn btn-primary uppercase w-full">Registar-se</button>
     </form>
   );

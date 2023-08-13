@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Breadcrumb } from "../common/Breadcrumb";
 import { Dropdown } from "../common/Dropdown";
 import { Header } from "../common/Header";
-import { Textinput } from "../common/Textinput";
+import { TextInput } from "../common/Textinput";
 import { DefaultLayout } from "./DefaultLayout";
 import { useDebounce } from "@/presentation/hooks/useDebounce";
 import { useRecoilState } from "recoil";
@@ -60,10 +60,10 @@ export const SearchLayout = ({
           <Header>
             <div className="px-16">
               {tilte}
-              <Textinput
+              <TextInput
                 type="text"
                 placeholder="Buscar por..."
-                inputProps={{ onChange: handleSearch }}
+                onChange={handleSearch}
               />
             </div>
           </Header>

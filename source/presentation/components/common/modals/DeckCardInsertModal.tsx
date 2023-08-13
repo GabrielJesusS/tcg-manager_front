@@ -12,7 +12,7 @@ import {
   useResetRecoilState,
   useSetRecoilState,
 } from "recoil";
-import { Textinput } from "../Textinput";
+import { TextInput } from "../Textinput";
 import { PaginationBlock } from "../Pagination";
 import {
   listOffsetAtom,
@@ -136,13 +136,11 @@ export const DeckCardInsertModal = (): JSX.Element => {
     <DefaultQuestionModal fullSize close={toggleOpen} isOpen={isOpen}>
       <div className="max-w-7xl mx-auto">
         <div className="space-y-6 p-safe">
-          <Textinput
+          <TextInput
             label="Busque uma carta"
             type="text"
             placeholder="Chariz...."
-            inputProps={{
-              onChange: handleSearch,
-            }}
+            onChange={handleSearch}
           />
           <div className="grid grid-cols-3 gap-5">
             <CardFilter />

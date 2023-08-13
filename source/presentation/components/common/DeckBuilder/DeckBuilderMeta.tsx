@@ -1,5 +1,5 @@
 import { Dropdown } from "../Dropdown";
-import { Textinput } from "../Textinput";
+import { TextInput } from "../Textinput";
 
 export const DeckBuilderMeta = (): JSX.Element => {
   const Data = [
@@ -35,12 +35,12 @@ export const DeckBuilderMeta = (): JSX.Element => {
       <h2 className="font-bold text-2xl text-center sm:whitespace-nowrap">
         Informações do deck
       </h2>
-      <Textinput
+      <TextInput
         placeholder="Nome do deck..."
         type="text"
         label="Nome do deck"
       />
-      <Textinput
+      <TextInput
         placeholder="Descrição do deck..."
         type="text"
         label="Descrição do deck"

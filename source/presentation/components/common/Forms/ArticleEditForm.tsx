@@ -1,7 +1,7 @@
 import { Controller, UseFormReturn } from "react-hook-form";
 import { ImageUploader } from "../ImageUploader";
 import { StatusTag } from "../StatusTag";
-import { Textinput } from "../Textinput";
+import { TextInput } from "../Textinput";
 import imagePreview from "@/presentation/public/images/rsc/imagePreview.png";
 import { IArticleSchema } from "@/presentation/schemas/articleSchema";
 
@@ -63,7 +63,7 @@ export const ArticleEditForm = ({
     data: IArticleSchema
   ): Promise<void> {
     const serializedArticle = handleSendArticle(articleContent);
-    
+
     if (!userData) return;
 
     const response = await createArticleUseCase.execute({
@@ -91,25 +91,23 @@ export const ArticleEditForm = ({
             name="title"
             defaultValue=""
             render={({ field }) => (
-              <Textinput
+              <TextInput
                 type="text"
                 label="Título do artigo"
                 placeholder="Meu artigo..."
-                inputProps={{
-                  ...field,
-                  onChange: (e) => {
-                    setTitle(e.target.value);
-                    field.onChange(e);
-                  },
+                {...field}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                  field.onChange(e);
                 }}
               />
             )}
           />
-          <Textinput
+          <TextInput
             type="text"
             label="Descrição do artigo"
             placeholder="Este artigo fala..."
-            inputProps={{ ...register("description") }}
+            {...register("description")}
           />
           <div className="flex-1">
             {/*  <label>
@@ -141,21 +139,19 @@ export const ArticleEditForm = ({
             name="imageUrl"
             defaultValue=""
             render={({ field }) => (
-              <Textinput
+              <TextInput
                 type="text"
                 label="Passe uma URL"
                 placeholder="URL da imagem"
-                inputProps={{
-                  ...field,
-                  onChange: (e) => {
-                    if (isBaseDataImage(e.target.value)) {
-                      field.onChange("");
-                      return;
-                    }
-                    field.onChange(e.target.value);
-                  },
-                  value: isBaseDataImage(field.value) ? "" : field.value,
+                {...field}
+                onChange={(e) => {
+                  if (isBaseDataImage(e.target.value)) {
+                    field.onChange("");
+                    return;
+                  }
+                  field.onChange(e.target.value);
                 }}
+                value={isBaseDataImage(field.value) ? "" : field.value}
               />
             )}
           />
@@ -193,7 +189,7 @@ export const ArticleEditForm = ({
               status={articleStatus.status}
             />
           </div>
-         {/*  <button
+          {/*  <button
             onClick={() => console.log(articleContent)}
             className="btn btn-primary h-fit mx-auto"
           >
