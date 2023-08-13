@@ -24,7 +24,9 @@ export const BehaviorSelector = ({
           <li key={behavior}>
             <ButtonBase
               active={value === behavior}
-              onClick={() => onChange(behavior)}
+              onClick={() => {
+                onChange(behavior);
+              }}
             >
               {SIZE_LABELS[behavior]}
             </ButtonBase>

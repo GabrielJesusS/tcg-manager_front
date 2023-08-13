@@ -1,5 +1,4 @@
-import { SchemaOf, array, number, object, string } from "yup";
-import { checkCardsQuantity } from "../services/checkCardsQuantity";
+import { array, number, object, string } from "yup";
 
 export const deckComposeSchema = object({
   deckName: string().required().max(250),
@@ -43,7 +42,8 @@ export const deckComposeSchema = object({
 
         return false;
       }
-    ).test(
+    )
+    .test(
       "CheckHasMinimalEnergy",
       "O deck deve possuir no mínimo dez energias básicas",
       (deck) => {
@@ -51,17 +51,19 @@ export const deckComposeSchema = object({
           return false;
         }
 
-        const count = deck.reduce((acc, card)=>{
-          if(card.supertype === "Energy" && card.subtypes?.find((type) => type === "Basic")){
-            return acc + 1
+        const count = deck.reduce((acc, card) => {
+          if (
+            card.supertype === "Energy" &&
+            card.subtypes?.find((type) => type === "Basic")
+          ) {
+            return acc + 1;
           }
-          return acc
-        },0)
-        
-        if(count >= 10){
-          return true
-        }
+          return acc;
+        }, 0);
 
+        if (count >= 10) {
+          return true;
+        }
 
         return false;
       }

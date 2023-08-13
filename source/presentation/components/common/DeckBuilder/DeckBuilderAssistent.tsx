@@ -5,7 +5,7 @@ import { useState } from "react";
 export const DeckBuilderAssistent = (): JSX.Element => {
   const [open, toggle] = useState<boolean>(false);
 
-  function toggleHelper() {
+  function toggleHelper(): void {
     toggle((old) => !old);
   }
 
@@ -28,7 +28,7 @@ export const DeckBuilderAssistent = (): JSX.Element => {
         <img src={RotomDex.src} alt="" />
       </button>
       <AnimatePresence>
-        {open && (                                                                    
+        {open && (
           <motion.div
             {...animate}
             className="absolute w-60 p-safe space-y-2 border-2 border-system-200 rounded-lg shadow-black/30 shadow-lg bg-system bottom-full left-1/2 -translate-x-1/2"

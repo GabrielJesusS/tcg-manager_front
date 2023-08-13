@@ -1,13 +1,12 @@
 import Link from "next/link";
 import TCGLogo from "@/presentation/public/images/logo/logo-variation.svg";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { articleEditAtom } from "@/presentation/store/modal";
 import { useLockBody } from "@/presentation/hooks/useLockBody";
 import { articleTitleAtom } from "@/presentation/store/editor";
 
 export const EditorNavBar = (): JSX.Element => {
   const setModalOpen = useSetRecoilState(articleEditAtom);
-
 
   const [lock] = useLockBody();
 
@@ -22,7 +21,7 @@ export const EditorNavBar = (): JSX.Element => {
         <Link href={"/"} className="w-fit">
           <TCGLogo className={"h-12"} />
         </Link>
-      <NavbarTitle/>
+        <NavbarTitle />
       </div>
       <button
         onClick={handleModalOpen}
@@ -35,7 +34,7 @@ export const EditorNavBar = (): JSX.Element => {
 };
 
 const NavbarTitle = (): JSX.Element => {
-  const [title, setTitle] = useRecoilState(articleTitleAtom);
+  const title = useRecoilValue(articleTitleAtom);
   return (
     <h1 className="px-2 truncate  md:text-3xl w-full min-w-0 ">
       {title || "Titulo do artigo"}

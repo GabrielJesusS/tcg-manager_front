@@ -1,27 +1,23 @@
-import { createGetCardListUsecase } from "@/factories/createGetCardListUsecase";
 import {
-  actualCardOnComposeAtom,
   deckComposeAtom,
   deckComposeIdsAtom,
 } from "@/presentation/store/genericAtoms";
-import { deckCardInsertAtom, deckFilterAtom } from "@/presentation/store/modal";
+import { deckCardInsertAtom } from "@/presentation/store/modal";
 import { ChangeEvent, useEffect, useState } from "react";
+import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import {
-  useForm,
-  FieldArray,
-  useFieldArray,
-  SubmitHandler,
-} from "react-hook-form";
-import { useRecoilCallback, useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
-import { Modal } from "../Modal";
+  useRecoilCallback,
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
+} from "recoil";
 import { Textinput } from "../Textinput";
 import { PaginationBlock } from "../Pagination";
 import {
   listOffsetAtom,
   paginationAtom,
 } from "@/presentation/store/paginations";
-import { useFetch } from "@/presentation/hooks/useFetch";
-import { generateFilterString } from "@/presentation/utils/generateFilterString";
 import { DefaultQuestionModal } from "./DefaultQuestionModal";
 import { generateArray } from "@/presentation/utils/generateArray";
 import { CardSkeleton } from "../skeletons/CardSkeleton";
@@ -29,14 +25,6 @@ import { useDebounce } from "@/presentation/hooks/useDebounce";
 import { CardFilter } from "../Filters/CardFilter";
 import { cardFilterAtom } from "@/presentation/store/filters/cardFiltersAtom";
 import { useGetCards } from "@/presentation/hooks/useGetCards";
-import { useNotify } from "@/presentation/hooks/useNotify";
-import { StatusEnum } from "@/presentation/enums/NotifyTypeEnum";
-
-interface DeckCardInsertModalProps {}
-
-interface ISearchCardParams {
-  params: string;
-}
 
 interface ICardListParams {
   id: string;
@@ -49,57 +37,53 @@ interface ICardListParams {
   };
 }
 
-
 interface ICardParams {
-  pokemonCards: {
+  pokemonCards: Array<{
     cardId: string;
     name: string;
     image: string;
     subtypes: string[];
     supertype: string;
-  }[];
+  }>;
 }
 
-interface ICard{
+interface ICard {
   cardId: string;
-    name: string;
-    image: string;
-    subtypes: string[];
-    supertype: string;
-    quantity: number;
+  name: string;
+  image: string;
+  subtypes: string[];
+  supertype: string;
+  quantity: number;
 }
 
 const skeletonArray = generateArray(20);
 
-export const DeckCardInsertModal = ({}: DeckCardInsertModalProps) => {
+export const DeckCardInsertModal = (): JSX.Element => {
   const [isOpen, setOpen] = useRecoilState(deckCardInsertAtom);
-  const [composeIds, insertOnCompose] = useRecoilState(deckComposeIdsAtom);
-  const [offsetPage, setOffsetPage] = useRecoilState(listOffsetAtom);
+  const composeIds = useRecoilValue(deckComposeIdsAtom);
+  const offsetPage = useRecoilValue(listOffsetAtom);
   const [filters, setFilters] = useRecoilState(cardFilterAtom);
-  const { data, error, isValidating, mutate } = useGetCards(
-    offsetPage,
-    filters
-  );
-  const setActualCards = useSetRecoilState(actualCardOnComposeAtom);
+  const { data, isValidating, mutate } = useGetCards(offsetPage, filters);
+
   const [pokemonCardList, setPokemonCardList] = useState<ICardListParams[]>([]);
-  const [page, setPage] = useRecoilState(paginationAtom);
+  const setPage = useSetRecoilState(paginationAtom);
   const debounce = useDebounce(searchPokemon, 1000);
   const resetFilters = useResetRecoilState(cardFilterAtom);
-  const { notify } = useNotify();
+  /* const { notify } = useNotify(); */
 
-  function handleSearch(event: ChangeEvent<HTMLInputElement>) {
+  function handleSearch(event: ChangeEvent<HTMLInputElement>): void {
     debounce(event.target.value);
   }
 
-  function searchPokemon(name: string) {
+  function searchPokemon(name: string): void {
     setFilters({ ...filters, name });
   }
 
   useEffect(() => {
-    mutate();
+    void mutate();
   }, [offsetPage, filters]);
 
-  function toggleOpen() {
+  function toggleOpen(): void {
     setOpen(!isOpen);
   }
 
@@ -110,10 +94,10 @@ export const DeckCardInsertModal = ({}: DeckCardInsertModalProps) => {
     name: "pokemonCards",
   });
 
-  const insertCardOnDeck = useRecoilCallback(({set})=> (card:ICard)=>{
-    set(deckComposeIdsAtom, currVal => [...currVal, card.cardId])
-    set(deckComposeAtom(card.cardId), card)
-  })
+  const insertCardOnDeck = useRecoilCallback(({ set }) => (card: ICard) => {
+    set(deckComposeIdsAtom, (currVal) => [...currVal, card.cardId]);
+    set(deckComposeAtom(card.cardId), card);
+  });
 
   useEffect(() => {
     if (data) {
@@ -137,12 +121,11 @@ export const DeckCardInsertModal = ({}: DeckCardInsertModalProps) => {
 
   const insertCard: SubmitHandler<ICardParams> = async (data, e) => {
     e?.preventDefault();
-    const newCard:ICard = await JSON.parse(data.pokemonCards.toString());
+    const newCard: ICard = await JSON.parse(data.pokemonCards.toString());
 
     if (!composeIds.includes(newCard.cardId)) {
-      insertCardOnDeck({...newCard, quantity: 1})
+      insertCardOnDeck({ ...newCard, quantity: 1 });
     }
-
 
     resetFilters();
     reset();

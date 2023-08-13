@@ -12,7 +12,7 @@ export const Comment = ({
   releaseDate,
   profilePicture,
   comment,
-}: CommentProps) => {
+}: CommentProps): JSX.Element => {
   return (
     <article className="bg-red-500 p-2 rounded-lg flex space-x-8 items-center">
       <div className="rounded-full overflow-clip h-fit w-fit grow shrink-0">

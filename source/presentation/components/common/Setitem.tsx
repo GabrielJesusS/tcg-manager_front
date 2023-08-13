@@ -2,7 +2,7 @@ import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
 import Link from "next/link";
 import { HTMLAttributes } from "react";
 
-interface Setitem extends HTMLAttributes<HTMLDivElement> {
+interface ISetItem extends HTMLAttributes<HTMLDivElement> {
   id: string;
   title: string;
   releaseDate: string;
@@ -24,7 +24,7 @@ export const Setitem = ({
   legalities,
   image,
   icon,
-}: Setitem) => {
+}: ISetItem): JSX.Element => {
   return (
     <Link
       href={`${PageRoutesEnum.SETS}${id}`}

@@ -12,11 +12,11 @@ import { useWindowSize } from "@/presentation/hooks/useWindowSize";
 import { useGetMobile } from "@/presentation/hooks/useGetMobile";
 import { SetSkeleton } from "@/presentation/components/common/skeletons/SetSkeleton";
 
-export default function x() {
-  const [data, setData] = useState("")
+export default function x(): JSX.Element {
+  const [data, setData] = useState("");
 
-  const {query} = useRouter();
-  
+  const { query } = useRouter();
+
   const windowSize = useWindowSize();
   const isMobile = useGetMobile();
 
@@ -27,20 +27,22 @@ export default function x() {
         setter={setData}
         selectedOption={data}
         placeholder="Selecione um deck"
-        options={[{ id: 1,text: "opt1", value: "222" }]}
+        options={[{ id: 1, text: "opt1", value: "222" }]}
       ></Dropdown>
       <Radioinput radioName="Nota do deck" optionsQtd={5}></Radioinput>
-     
-     <Breadcrumb></Breadcrumb>
+
+      <Breadcrumb></Breadcrumb>
 
       <div className="grid-cols-4 w-full grid gap-6">
-      <SetSkeleton></SetSkeleton>
-      <SetSkeleton></SetSkeleton>
-      <SetSkeleton></SetSkeleton>
-      <SetSkeleton></SetSkeleton>
+        <SetSkeleton></SetSkeleton>
+        <SetSkeleton></SetSkeleton>
+        <SetSkeleton></SetSkeleton>
+        <SetSkeleton></SetSkeleton>
       </div>
       <div className="flex p-safe space-x-6">
-        <button className="btn btn-primary" type="button">ola sou um botão</button>
+        <button className="btn btn-primary" type="button">
+          ola sou um botão
+        </button>
       </div>
     </>
   );

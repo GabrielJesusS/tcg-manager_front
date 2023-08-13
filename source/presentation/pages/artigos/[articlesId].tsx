@@ -2,9 +2,7 @@ import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
 
 import Link from "next/link";
 
-interface ICARD {}
-
-const ArticleViewer = ({}) => {
+const ArticleViewer = (): JSX.Element => {
   return (
     <DefaultLayout>
       <div className=" bg-slate-400 ">

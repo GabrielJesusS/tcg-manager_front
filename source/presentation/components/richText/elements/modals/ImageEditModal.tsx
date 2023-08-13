@@ -45,7 +45,7 @@ export const ImageEditModal = (): JSX.Element => {
     ReactEditor.focus(editor);
 
     const { selection } = editor;
-    if (!!selection) {
+    if (selection) {
       const [parentNode] = Editor.parent(editor, selection.focus.path);
 
       setError("");

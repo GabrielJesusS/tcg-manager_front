@@ -1,4 +1,3 @@
-import { HTMLAttributes } from "react";
 import { Footer } from "../components/common/Footer";
 import TCGManagerLogo from "@/presentation/public/images/logo/logo-variation.svg";
 import Link from "next/link";
@@ -9,9 +8,7 @@ import { useGetRandomCard } from "../hooks/useGetRandomCard";
 import { PageRoutesEnum } from "../enums/PagesEnum";
 import { RegisterForm } from "../components/common/Forms/RegisterForm";
 
-interface RegisterProps extends HTMLAttributes<HTMLDivElement> {}
-
-const Register = ({}: RegisterProps) => {
+const Register = ():JSX.Element => {
 
   const { data } = useGetRandomCard();
 

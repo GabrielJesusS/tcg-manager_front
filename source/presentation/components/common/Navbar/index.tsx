@@ -1,4 +1,4 @@
-import { HTMLAttributes, useState } from "react";
+import { useState } from "react";
 import TCGLogo from "@/presentation/public/images/logo/logo.svg";
 import { NavLinks } from "./Navlinks";
 import { Navitem } from "./Navitem";
@@ -6,33 +6,30 @@ import Link from "next/link";
 import { motion, AnimatePresence, MotionProps } from "framer-motion";
 import classNames from "classnames";
 import { Userdata } from "../Userdata";
-import ProfilePicture from "@/presentation/public/images/rsc/mocks/profile-picture.png";
 import { useRecoilValue } from "recoil";
 import { userDataAtom } from "@/presentation/store/genericAtoms";
 import { createSignOutUsecase } from "@/factories/createSignOutUsecase";
 import { useRouter } from "next/router";
 
-interface NavbarProps extends HTMLAttributes<HTMLHeadingElement> {}
-
 const signOutUsecase = createSignOutUsecase();
 
-export const Navbar = ({}: NavbarProps) => {
+export const Navbar = (): JSX.Element => {
   const [isHideMenu, setHideMenu] = useState<boolean>(false);
   const { reload } = useRouter();
   const userData = useRecoilValue(userDataAtom);
 
-  function toggleMenu() {
+  function toggleMenu(): void {
     setHideMenu(!isHideMenu);
   }
 
-  async function logOutUser() {
+  async function logOutUser(): Promise<void> {
     const response = await signOutUsecase.execute();
 
     if (response.isLeft()) {
       return;
     }
 
-    await reload();
+    reload();
   }
 
   const animateSettings: MotionProps = {

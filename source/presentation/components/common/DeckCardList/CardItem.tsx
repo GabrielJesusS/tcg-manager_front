@@ -6,18 +6,18 @@ import {
   cardToRemoveAtom,
   deckComposeAtom,
 } from "@/presentation/store/genericAtoms";
-import { InputHTMLAttributes, useEffect } from "react";
 import { deckCardRemoveAtom } from "@/presentation/store/modal";
+import { useEffect } from "react";
 
 interface CardItemProps {
   cardId: string;
 }
 
-export const DeckCardItem = ({ cardId }: CardItemProps) => {
+export const DeckCardItem = ({ cardId }: CardItemProps): JSX.Element => {
   const [cardInfos, setCardToCompose] = useRecoilState(deckComposeAtom(cardId));
-  const [isOpen, setOpen] = useRecoilState(deckCardRemoveAtom);
+  const setOpen = useSetRecoilState(deckCardRemoveAtom);
   const actualCard = useRecoilValue(actualCardOnComposeAtom);
-  const setCardToRemove = useSetRecoilState(cardToRemoveAtom)
+  const setCardToRemove = useSetRecoilState(cardToRemoveAtom);
 
   useEffect(() => {
     if (actualCard.cardId.includes(cardId)) {
@@ -25,11 +25,11 @@ export const DeckCardItem = ({ cardId }: CardItemProps) => {
     }
   }, []);
 
-  function increaseCards() {
+  function increaseCards(): void {
     setCardToCompose({ ...cardInfos, quantity: cardInfos.quantity + 1 });
   }
 
-  function decreaseCards() {
+  function decreaseCards(): void {
     setCardToCompose({ ...cardInfos, quantity: cardInfos.quantity - 1 });
   }
 
@@ -42,7 +42,10 @@ export const DeckCardItem = ({ cardId }: CardItemProps) => {
         </picture>
         <button
           type="button"
-          onClick={() => { setCardToRemove(cardInfos.cardId) ;setOpen(true)}}
+          onClick={() => {
+            setCardToRemove(cardInfos.cardId);
+            setOpen(true);
+          }}
           className="btn btn-error w-full"
         >
           {" "}

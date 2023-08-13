@@ -28,7 +28,9 @@ export const AspectRatioSelector = ({
           <li key={aspect}>
             <ButtonBase
               active={value === aspect}
-              onClick={() => onChange(aspect)}
+              onClick={() => {
+                onChange(aspect);
+              }}
             >
               {ASPECT_RATIO_LABEL[aspect]}
             </ButtonBase>

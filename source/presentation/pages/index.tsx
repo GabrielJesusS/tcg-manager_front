@@ -1,11 +1,7 @@
 import { Footer } from "@/presentation/components/common/Footer";
 import { Navbar } from "@/presentation/components/common/Navbar";
 import { ArticlesList } from "../components/common/ArticlesList";
-import { Deckitem } from "../components/common/Deckitem";
-import { Setitem } from "../components/common/Setitem";
 import { ArticlesItems } from "../data/mocks/articleMock";
-import { Deckitems } from "../data/mocks/deckMocks";
-import { Setitems } from "../data/mocks/setMocks";
 import { HomeCaroussel } from "../components/common/Caroussel/HomeCaroussel";
 import { Banners } from "../data/local/banners";
 import { loadUserData } from "../middlewares/loadUserData";

@@ -14,11 +14,11 @@ export const QuantityManager = ({
   total,
   manipulation,
 }: IQuantityManager): JSX.Element => {
-  function onDecrease() {
+  function onDecrease(): void {
     manipulation(value - 1);
   }
 
-  function onIncrease() {
+  function onIncrease(): void {
     manipulation(value + 1);
   }
 

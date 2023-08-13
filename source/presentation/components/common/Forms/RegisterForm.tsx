@@ -30,10 +30,11 @@ export const RegisterForm = (): JSX.Element => {
   const submitData: SubmitHandler<RegisterParams> = async (data) => {
     const response = await registerUserUsecase.execute(data);
 
-    if (response.isRight()) {
-      push(PageRoutesEnum.HOME);
+    if (response.isLeft()) {
       return;
     }
+
+    void push(PageRoutesEnum.HOME);
   };
 
   return (

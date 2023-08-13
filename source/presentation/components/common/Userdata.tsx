@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import Link from "next/link";
-import { FC, HTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 
 interface UserdataProps extends HTMLAttributes<HTMLAnchorElement> {
   userId: string;
@@ -14,10 +14,16 @@ export const Userdata = ({
   userLevel,
   username,
   userPicture,
-  className
-}: UserdataProps) => {
+  className,
+}: UserdataProps): JSX.Element => {
   return (
-    <Link href={`users/${userId}`} className={classNames("flex shrink-0 items-center space-x-1 w-fit", className)}>
+    <Link
+      href={`users/${userId}`}
+      className={classNames(
+        "flex shrink-0 items-center space-x-1 w-fit",
+        className
+      )}
+    >
       <div className="rounded-full overflow-hidden w-10 h-10">
         <picture>
           <img
@@ -30,8 +36,12 @@ export const Userdata = ({
         </picture>
       </div>
       <div className="space-y-1">
-        <p className="leading-none text-system-800 block text-lg font-medium ">{username}</p>
-        <small className="leading-none block text-system-400">Treinador de nível: {userLevel}</small>
+        <p className="leading-none text-system-800 block text-lg font-medium ">
+          {username}
+        </p>
+        <small className="leading-none block text-system-400">
+          Treinador de nível: {userLevel}
+        </small>
       </div>
     </Link>
   );

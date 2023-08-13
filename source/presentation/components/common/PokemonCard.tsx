@@ -22,8 +22,8 @@ export const PokemonCard = ({
   src,
   url,
   decorative,
-  animate
-}: PokemonCardProps) => {
+  animate,
+}: PokemonCardProps): JSX.Element => {
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
   function handleImageLoad(e: SyntheticEvent<HTMLImageElement>): void {

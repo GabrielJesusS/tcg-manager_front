@@ -5,15 +5,10 @@ import { Header } from "../common/Header";
 import { Textinput } from "../common/Textinput";
 import { DefaultLayout } from "./DefaultLayout";
 import { useDebounce } from "@/presentation/hooks/useDebounce";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { cardFilterAtom } from "@/presentation/store/filters/cardFiltersAtom";
 import CloseIcon from "@/presentation/public/images/icons/close.svg";
-import {
-  motion,
-  AnimatePresence,
-  AnimationProps,
-  animate,
-} from "framer-motion";
+import { motion, AnimatePresence, AnimationProps } from "framer-motion";
 import { useGetMobile } from "@/presentation/hooks/useGetMobile";
 
 interface ISearchLayout {
@@ -22,7 +17,11 @@ interface ISearchLayout {
   children: React.ReactNode;
 }
 
-export const SearchLayout = ({ children, filters, tilte}: ISearchLayout) => {
+export const SearchLayout = ({
+  children,
+  filters,
+  tilte,
+}: ISearchLayout): JSX.Element => {
   const filterAnimation: AnimationProps = {
     initial: { opacity: 0, translateX: "-100%" },
     animate: { opacity: 1, translateX: "0%" },
@@ -42,16 +41,16 @@ export const SearchLayout = ({ children, filters, tilte}: ISearchLayout) => {
 
   const [filterValues, setFilterParams] = useRecoilState(cardFilterAtom);
 
-  function handleSearch(event: ChangeEvent<HTMLInputElement>) {
+  function handleSearch(event: ChangeEvent<HTMLInputElement>): void {
     debounce(event.target.value);
   }
 
-  function toggleFilter() {
+  function toggleFilter(): void {
     setFilterOpen((old) => !old);
   }
 
-  function search(name: string) {
-    setFilterParams({ ...filterValues ,name });
+  function search(name: string): void {
+    setFilterParams({ ...filterValues, name });
   }
 
   return (
@@ -64,7 +63,7 @@ export const SearchLayout = ({ children, filters, tilte}: ISearchLayout) => {
               <Textinput
                 type="text"
                 placeholder="Buscar por..."
-                inputProps={{ onChange: handleSearch}}
+                inputProps={{ onChange: handleSearch }}
               />
             </div>
           </Header>
@@ -92,7 +91,7 @@ export const SearchLayout = ({ children, filters, tilte}: ISearchLayout) => {
               <div className="flex justify-between flex-col md:flex-row">
                 <Breadcrumb />
                 <div className="md:max-w-xs w-full relative space-y-4">
-                  <Dropdown placeholder="Ordenar por..." options={[]} />
+                  {/*  <Dropdown placeholder="Ordenar por..." options={[]} /> */}
                   <button
                     onClick={toggleFilter}
                     className="btn btn-primary w-full lg:hidden"

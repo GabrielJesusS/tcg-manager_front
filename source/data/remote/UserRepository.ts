@@ -7,6 +7,7 @@ import { IUserCreatePayload } from "./models/CreateUserPayload";
 import { generateHttpErrorResponse } from "@/data/modules/generateHttpErrorResponse";
 import { ICookieService } from "@/services/ICookieService";
 import { IAuthUserPayload } from "./models/AuthUserPayload";
+import { IGetProfileResponse } from "./responses/GetProfileResponse";
 
 interface CreateParams {
   name: string;
@@ -29,7 +30,6 @@ export class UserRepository implements IUserRepository {
 
   private readonly cookieService: ICookieService;
 
-  //Routes
   private static readonly createRoute: string = "/user/register";
   private static readonly authRoute: string = "/user/login";
   private static readonly getPtofile: string = "/user/verifyUserToken";
@@ -43,7 +43,7 @@ export class UserRepository implements IUserRepository {
     params: CreateParams
   ): Promise<TEither<TApplicationError, undefined>> {
     try {
-      const payload: IUserCreatePayload = { ...params};
+      const payload: IUserCreatePayload = { ...params };
 
       await this.client.request<IApiResponse<undefined>, IUserCreatePayload>({
         method: HttpMethod.POST,
@@ -69,9 +69,8 @@ export class UserRepository implements IUserRepository {
       >({
         method: HttpMethod.POST,
         url: UserRepository.authRoute,
-        payload: payload,
+        payload,
       });
-      //TODO:change data response to a response pattern
 
       this.cookieService.setCookie(
         process.env.NEXT_PUBLIC_COOKIE_NAME as string,
@@ -101,7 +100,7 @@ export class UserRepository implements IUserRepository {
 
   async signOut(): Promise<TEither<TApplicationError, undefined>> {
     try {
-      await this.cookieService.removeCookie(
+      this.cookieService.removeCookie(
         process.env.NEXT_PUBLIC_COOKIE_NAME as string
       );
 

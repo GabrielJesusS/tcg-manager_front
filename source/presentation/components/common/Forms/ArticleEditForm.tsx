@@ -1,8 +1,6 @@
 import { Controller, UseFormReturn } from "react-hook-form";
-import { AutoCompleteBox } from "../AutoComplete";
 import { ImageUploader } from "../ImageUploader";
 import { StatusTag } from "../StatusTag";
-import { Tag } from "../Tag";
 import { Textinput } from "../Textinput";
 import imagePreview from "@/presentation/public/images/rsc/imagePreview.png";
 import { IArticleSchema } from "@/presentation/schemas/articleSchema";
@@ -195,12 +193,12 @@ export const ArticleEditForm = ({
               status={articleStatus.status}
             />
           </div>
-          <button
+         {/*  <button
             onClick={() => console.log(articleContent)}
             className="btn btn-primary h-fit mx-auto"
           >
             Publicar novo artigo
-          </button>
+          </button> */}
         </div>
       </form>
     </div>

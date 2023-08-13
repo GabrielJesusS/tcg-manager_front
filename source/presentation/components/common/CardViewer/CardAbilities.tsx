@@ -1,11 +1,14 @@
-interface ICardAbilities{
-    type: string;
-    name: string;
-    text: string;
+interface ICardAbilities {
+  type: string;
+  name: string;
+  text: string;
 }
 
-
-export const CardAbilities = ({type, name, text}:ICardAbilities) => {
+export const CardAbilities = ({
+  type,
+  name,
+  text,
+}: ICardAbilities): JSX.Element => {
   return (
     <>
       <p className="text-base sm:text-lg font-semibold">

@@ -1,4 +1,4 @@
-import { ChartData, Chart, ArcElement } from "chart.js";
+import { ChartData } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto";
 

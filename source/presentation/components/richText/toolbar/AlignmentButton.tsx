@@ -67,7 +67,9 @@ export const AlignmentButton = (): JSX.Element => {
           {Object.values(AlignmentEnum).map((item) => (
             <ButtonBase
               key={item}
-              onClick={() => toggleAlignment(item)}
+              onClick={() => {
+                toggleAlignment(item);
+              }}
               active={actualAlignment === item}
             >
               {ALIGNMENT_LABELS_MAP[item]}

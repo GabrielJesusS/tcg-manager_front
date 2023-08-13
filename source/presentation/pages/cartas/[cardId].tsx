@@ -7,16 +7,14 @@ import { CardAbilities } from "@/presentation/components/common/CardViewer/CardA
 import { CardSubTypes } from "@/presentation/enums/CardSubtypes";
 import { checkCardExists } from "@/presentation/middlewares/checkCardExists";
 import { useGetCard } from "@/presentation/hooks/useGetCard";
-import { useRecoilState, useRecoilValue } from "recoil";
 import { pokemonCardIdAtom } from "@/presentation/store/cardAtom";
 import { Breadcrumb } from "@/presentation/components/common/Breadcrumb";
+import { useRecoilValue } from "recoil";
+import { generateRandomId } from "@/utils/generateRandomId";
 
-const CardViewer = () => {
-  const defaultIconClass: string = "h-5";
-
+const CardViewer = (): JSX.Element => {
   const cardId = useRecoilValue(pokemonCardIdAtom);
-  const { data, error, isLoading } = useGetCard(cardId);
-  
+  const { data } = useGetCard(cardId);
 
   return (
     <DefaultLayout>
@@ -49,70 +47,64 @@ const CardViewer = () => {
                           </div>
                         </div>
                       )}
-                      {}
                       {!data.data.subtypes.includes(
                         CardSubTypes.SUPPORTER || CardSubTypes.TOOL
-                      ) && (
+                      ) ? (
                         <>
                           <div className="space-y-1">
                             <p>Resistência:</p>
                             <div className="flex text-lg">
-                              {data.data.resistances &&
-                                data.data.resistances.map((type) => (
-                                  <Fragment key={type.type}>
-                                    <IconComponent name={type.type} />
-                                    <small className="leading-none">
-                                      {type.value}
-                                    </small>
-                                  </Fragment>
-                                ))}
+                              {data.data.resistances?.map((type) => (
+                                <Fragment key={type.type}>
+                                  <IconComponent name={type.type} />
+                                  <small className="leading-none">
+                                    {type.value}
+                                  </small>
+                                </Fragment>
+                              ))}
                             </div>
                           </div>
                           <div className="space-y-1">
                             <p>Fraquezas:</p>
                             <div className="flex text-lg items-center">
-                              {data.data.weaknesses &&
-                                data.data.weaknesses.map((type) => (
-                                  <Fragment key={type.type}>
-                                    <IconComponent name={type.type} />
-                                    <small className="leading-none">
-                                      {type.value}
-                                    </small>
-                                  </Fragment>
-                                ))}
+                              {data.data.weaknesses?.map((type) => (
+                                <Fragment key={type.type}>
+                                  <IconComponent name={type.type} />
+                                  <small className="leading-none">
+                                    {type.value}
+                                  </small>
+                                </Fragment>
+                              ))}
                             </div>
                           </div>
                           <div className="space-y-1">
                             <p>Custo de recuo:</p>
                             <div className="flex space-x-1 text-lg">
-                              {data.data.retreatCost &&
-                                data.data.retreatCost.map((type, index) => (
-                                  <Fragment key={type + index}>
-                                    <IconComponent name={type} />
-                                  </Fragment>
-                                ))}
+                              {data.data.retreatCost?.map((type) => (
+                                <Fragment key={generateRandomId()}>
+                                  <IconComponent name={type} />
+                                </Fragment>
+                              ))}
                             </div>
                           </div>
                         </>
-                      )}
+                      ) : null}
                     </div>
                     <div className="mt-3 hidden md:block space-y-3 lg:mt-0">
                       <div className="space-y-3">
                         <ul className="space-y-3">
-                          {data.data.abilities &&
-                            data.data.abilities.map((item) => (
-                              <li key={item.name}>
-                                <CardAbilities {...item} />
-                              </li>
-                            ))}
+                          {data.data.abilities?.map((item) => (
+                            <li key={item.name}>
+                              <CardAbilities {...item} />
+                            </li>
+                          ))}
                         </ul>
                         <ul className="space-y-3">
-                          {data.data.attacks &&
-                            data.data.attacks.map((item) => (
-                              <li key={item.name}>
-                                <CardAttacks key={item.name} {...item} />
-                              </li>
-                            ))}
+                          {data.data.attacks?.map((item) => (
+                            <li key={item.name}>
+                              <CardAttacks key={item.name} {...item} />
+                            </li>
+                          ))}
                         </ul>
                       </div>
                     </div>
@@ -123,20 +115,18 @@ const CardViewer = () => {
               <div className="mt-3 space-y-3 md:hidden md:mt-0">
                 <hr className="mt-9 h-1 bg-system-200 border-none lg:block hidden" />
                 <ul className="space-y-3">
-                  {data.data.abilities &&
-                    data.data.abilities.map((item) => (
-                      <li key={item.name}>
-                        <CardAbilities {...item} />
-                      </li>
-                    ))}
+                  {data.data.abilities?.map((item) => (
+                    <li key={item.name}>
+                      <CardAbilities {...item} />
+                    </li>
+                  ))}
                 </ul>
                 <ul className="space-y-3">
-                  {data.data.attacks &&
-                    data.data.attacks.map((item) => (
-                      <li key={item.name}>
-                        <CardAttacks key={item.name} {...item} />
-                      </li>
-                    ))}
+                  {data.data.attacks?.map((item) => (
+                    <li key={item.name}>
+                      <CardAttacks key={item.name} {...item} />
+                    </li>
+                  ))}
                 </ul>
               </div>
               <hr className="h-1 bg-system-200 border-none " />

@@ -3,7 +3,7 @@ import BG from "@/presentation/public/images/rsc/bgs/titlebg-1.gif";
 
 interface HeaderProps extends HTMLAttributes<HTMLHeadingElement> {}
 
-export const Header = ({ children }: HeaderProps) => {
+export const Header = ({ children }: HeaderProps): JSX.Element => {
   return (
     <header className="relative h-fit">
       <div className="absolute bg-system-800 h-full w-full left-0 top-0 ">

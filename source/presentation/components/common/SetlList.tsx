@@ -1,7 +1,7 @@
 import { useGetSets } from "@/presentation/hooks/useGetSets";
 import { PaginationBlock } from "./Pagination";
 import { Setitem } from "./Setitem";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   listOffsetAtom,
   paginationAtom,
@@ -11,24 +11,23 @@ import { generateArray } from "@/presentation/utils/generateArray";
 import { SetSkeleton } from "./skeletons/SetSkeleton";
 import { cardFilterAtom } from "@/presentation/store/filters/cardFiltersAtom";
 
-
 const skeletonArray = generateArray(20);
 
-export const SetList = () => {
-  const [offsetPage, setOffsetPage] = useRecoilState(listOffsetAtom);
-  const filters = useRecoilValue(cardFilterAtom)
+export const SetList = (): JSX.Element => {
+  const offsetPage = useRecoilValue(listOffsetAtom);
+  const filters = useRecoilValue(cardFilterAtom);
   const { data, update, isLoading } = useGetSets(offsetPage, filters);
-  const [page, setPage] = useRecoilState(paginationAtom);
-  
+  const setPage = useSetRecoilState(paginationAtom);
+
   useEffect(() => {
     if (data) {
       setPage({ ...data });
     }
   }, [data]);
 
-  useEffect(()=>{
+  useEffect(() => {
     update();
-  }, [offsetPage, filters])
+  }, [offsetPage, filters]);
 
   console.log(data);
   return (
@@ -48,10 +47,7 @@ export const SetList = () => {
               />
             </li>
           ))}
-          {
-            isLoading  &&
-              skeletonArray.map((item) => <SetSkeleton key={item} />)
-          }
+        {isLoading && skeletonArray.map((item) => <SetSkeleton key={item} />)}
       </ul>
       {data && data.count > 0 && <PaginationBlock />}
       {data && data.count === 0 && (

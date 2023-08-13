@@ -1,8 +1,6 @@
-import CardMock from "@/presentation/public/images/rsc/mocks/card-back.png";
 import PokeballIcon from "@/presentation/public/images/icons/pokeball-counter.svg";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
-  actualCardOnComposeAtom,
   cardCoverAtom,
   cardEditOpen,
   deckComposeAtom,
@@ -14,12 +12,12 @@ interface IComposeCard {
 }
 
 export const ComposeCard = ({ cardId }: IComposeCard): JSX.Element => {
-  const [cardInfos, setCardToCompose] = useRecoilState(deckComposeAtom(cardId));
-  const [cover, setCover] = useRecoilState(cardCoverAtom);
+  const cardInfos = useRecoilValue(deckComposeAtom(cardId));
+  const cover = useRecoilValue(cardCoverAtom);
   const setEditOpen = useSetRecoilState(cardEditOpen);
   const setSelected = useSetRecoilState(selectedCardAtom);
 
-  function selectCard() {
+  function selectCard(): void {
     setEditOpen(true);
     setSelected(cardInfos.cardId);
   }
@@ -31,7 +29,7 @@ export const ComposeCard = ({ cardId }: IComposeCard): JSX.Element => {
           Cover
         </span>
       )}
-      <img src={cardInfos.image} alt={cardInfos.cardId} className="w-full"/>
+      <img src={cardInfos.image} alt={cardInfos.cardId} className="w-full" />
       <span className="absolute flex  bg-system shadow-md rounded-l-md right-0 bottom-10">
         <span className="block text-system-800 font-bold px-3">
           {cardInfos.quantity.toString().padStart(2, "0")}

@@ -5,7 +5,6 @@ import { useFocused, useSlateStatic } from "slate-react";
 import { toggleColors } from "@/presentation/utils/editor/toggleColors";
 import { checkActiveColor } from "@/presentation/utils/editor/checkActiveColor";
 
-
 function generateColorList(
   e: Record<ColorEnum, string>
 ): Array<{ value: string; name: string }> {
@@ -25,7 +24,7 @@ export const ColorPicker = (): JSX.Element => {
 
   function changeColor(e: ColorEnum): void {
     toggleSelector();
-    toggleColors(editor, e)
+    toggleColors(editor, e);
   }
 
   useEffect(() => {
@@ -46,7 +45,9 @@ export const ColorPicker = (): JSX.Element => {
             {COLOR_LIST.map((e) => (
               <li className="block" key={e.name}>
                 <ColorViewer
-                  onClick={() => changeColor(e.name as ColorEnum)}
+                  onClick={() => {
+                    changeColor(e.name as ColorEnum);
+                  }}
                   color={e.name}
                 />
               </li>

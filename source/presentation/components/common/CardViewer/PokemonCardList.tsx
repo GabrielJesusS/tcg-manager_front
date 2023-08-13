@@ -1,6 +1,9 @@
 import { createGetCardListUsecase } from "@/factories/createGetCardListUsecase";
 import { useFetch } from "@/presentation/hooks/useFetch";
-import { listOffsetAtom, paginationAtom } from "@/presentation/store/paginations";
+import {
+  listOffsetAtom,
+  paginationAtom,
+} from "@/presentation/store/paginations";
 import { generateArray } from "@/presentation/utils/generateArray";
 import { generateFilterString } from "@/presentation/utils/generateFilterString";
 import { useEffect } from "react";
@@ -11,25 +14,22 @@ import { PaginationBlock } from "../Pagination";
 import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
 import { cardFilterAtom } from "@/presentation/store/filters/cardFiltersAtom";
 
-
 const getCardListUsecase = createGetCardListUsecase();
 const skeletonArray = generateArray(20);
 
-export const PokemonCardList = () => {
- 
+export const PokemonCardList = (): JSX.Element => {
+  const [_, setPage] = useRecoilState(paginationAtom);
+  const [offsetPage] = useRecoilState(listOffsetAtom);
+  const filters = useRecoilValue(cardFilterAtom);
 
-  const [page, setPage] = useRecoilState(paginationAtom);
-  const [offsetPage, setOffsetPage] = useRecoilState(listOffsetAtom);
-  const filters = useRecoilValue(cardFilterAtom)
+  console.log(generateFilterString(filters));
 
-  console.log(generateFilterString(filters))
-
-  const { data, mutate, error, isValidating } = useFetch({
+  const { data, mutate, isValidating } = useFetch({
     name: "pokemonCardList",
     useCase: async () =>
       await getCardListUsecase.execute({
         page: offsetPage,
-        searchParams:  generateFilterString(filters),
+        searchParams: generateFilterString(filters),
       }),
     swr: {
       revalidateOnFocus: false,
@@ -43,7 +43,7 @@ export const PokemonCardList = () => {
   }, [data]);
 
   useEffect(() => {
-    mutate();
+    void mutate();
   }, [offsetPage, filters]);
 
   return (
@@ -54,7 +54,10 @@ export const PokemonCardList = () => {
           !isValidating &&
           data.data.map((card) => (
             <li key={card.id}>
-              <PokemonCard url={`${PageRoutesEnum.CARDS + card.id}`} src={card.images.small} />
+              <PokemonCard
+                url={`${PageRoutesEnum.CARDS + card.id}`}
+                src={card.images.small}
+              />
             </li>
           ))}
         {isValidating &&

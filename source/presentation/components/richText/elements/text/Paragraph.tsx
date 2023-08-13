@@ -2,7 +2,7 @@ import { ALIGNMENT_TEXT_CLASS_MAP } from "@/presentation/enums/AlignmentEnum";
 import classNames from "classnames";
 import { RenderElementProps } from "slate-react";
 
-export const Paragraph = (props: RenderElementProps) => {
+export const Paragraph = (props: RenderElementProps): JSX.Element => {
   return (
     <p
       className={classNames(

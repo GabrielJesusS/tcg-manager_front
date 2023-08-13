@@ -1,11 +1,11 @@
 import { SetList } from "@/presentation/components/common/SetlList";
 import { SearchLayout } from "@/presentation/components/layouts/SearchLayout";
 
-const Sets = ({}) => {
+const Sets = (): JSX.Element => {
   return (
-  <SearchLayout tilte="Coleções">
-    <SetList/>
-  </SearchLayout>
+    <SearchLayout tilte="Coleções" filters={<></>}>
+      <SetList />
+    </SearchLayout>
   );
 };
 

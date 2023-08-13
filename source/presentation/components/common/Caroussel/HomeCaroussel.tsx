@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { EffectFade, SwiperOptions } from "swiper";
+import { EffectFade, SwiperOptions, Pagination, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper";
 
 interface SwiperProps {
-  banners: Array<Banner>;
+  banners: Banner[];
 }
 
 interface Banner {
@@ -15,8 +14,8 @@ interface Banner {
   bannerUrl: string;
 }
 
-export const HomeCaroussel = ({ banners }: SwiperProps) => {
-  const carousselSettings: SwiperOptions = {
+export const HomeCaroussel = ({ banners }: SwiperProps): JSX.Element => {
+  const carouselSettings: SwiperOptions = {
     pagination: {},
     modules: [Pagination, EffectFade, Autoplay],
     effect: "fade",
@@ -28,7 +27,7 @@ export const HomeCaroussel = ({ banners }: SwiperProps) => {
 
   return (
     <div>
-      <Swiper {...carousselSettings}>
+      <Swiper {...carouselSettings}>
         {banners.map((banner) => (
           <SwiperSlide key={banner.bannerId}>
             <Link className="relative" href={banner.bannerUrl}>

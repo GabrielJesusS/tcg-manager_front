@@ -1,4 +1,3 @@
-import { HTMLAttributes } from "react";
 import { Footer } from "../components/common/Footer";
 import TCGManagerLogo from "@/presentation/public/images/logo/logo-variation.svg";
 import Link from "next/link";
@@ -9,9 +8,7 @@ import { useGetRandomCard } from "../hooks/useGetRandomCard";
 import { PageRoutesEnum } from "../enums/PagesEnum";
 import { LoginForm } from "../components/common/Forms/LoginForm";
 
-interface LoginProps extends HTMLAttributes<HTMLDivElement> {}
-
-const Login = ({}: LoginProps) => {
+const Login = (): JSX.Element => {
   const { data } = useGetRandomCard();
 
   return (

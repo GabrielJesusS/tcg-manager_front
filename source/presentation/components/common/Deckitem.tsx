@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { HTMLAttributes } from "react";
-import StarIcon from "@/presentation/public/images/icons/star.svg";
 
 interface DeckitemProps extends HTMLAttributes<HTMLDivElement> {
   deckId: string;
@@ -20,8 +19,8 @@ export const Deckitem = ({
   deckAuthor,
   deckRate,
   deckDifficulty,
-  deckDescription
-}: DeckitemProps) => {
+  deckDescription,
+}: DeckitemProps): JSX.Element => {
   return (
     <div className="rounded-2xl overflow-hidden shadow-lg ">
       <Link href={`decks/${deckId}`}>
@@ -38,7 +37,7 @@ export const Deckitem = ({
       <div className="text-system-800 bg-system p-2">
         <Link href={`decks/${deckId}`}>
           <h3 className="text-sm font-bold break-words md:text-xl">
-           {deckTitle}
+            {deckTitle}
           </h3>
         </Link>
         <small className="text-xs md:text-sm">
@@ -51,7 +50,9 @@ export const Deckitem = ({
           {deckDescription}
         </p>
         <p className="text-xs md:text-sm flex">Nota: {deckRate.toFixed(1)}</p>
-        <p className="text-xs md:text-sm flex">Dificuldade: {deckDifficulty.toFixed(1)}</p>
+        <p className="text-xs md:text-sm flex">
+          Dificuldade: {deckDifficulty.toFixed(1)}
+        </p>
       </div>
     </div>
   );

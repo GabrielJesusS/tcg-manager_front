@@ -1,5 +1,5 @@
 import { QuantityManager } from "./QuantityManager";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   cardCoverAtom,
@@ -39,7 +39,7 @@ export const CardEdit = (): JSX.Element => {
     setCover("");
   }
 
-  function manipulateQuantity(value: number) {
+  function manipulateQuantity(value: number): void {
     setCardToCompose({ ...cardInfos, quantity: value });
   }
 
@@ -47,7 +47,7 @@ export const CardEdit = (): JSX.Element => {
     setEditOpen(!isMobile);
   }, [isMobile]);
 
-  function toggleOpen() {
+  function toggleOpen(): void {
     setEditOpen((old) => !old);
   }
 

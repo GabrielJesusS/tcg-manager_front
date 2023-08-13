@@ -7,10 +7,10 @@ import { ArticlesItems } from "@/presentation/data/mocks/articleMock";
 import { articlesFilterAtom } from "@/presentation/store/modal";
 import { useRecoilState } from "recoil";
 
-const Articles = ({}) => {
+const Articles = (): JSX.Element => {
   const [modalIsOpen, toggleModal] = useRecoilState(articlesFilterAtom);
 
-  function toggle() {
+  function toggle(): void {
     toggleModal(!modalIsOpen);
   }
 

@@ -22,7 +22,12 @@ export const ImageSizeSelector = ({
       <ol className="flex space-x-2">
         {Object.values(ImageSizeEnum).map((size) => (
           <li key={size}>
-            <ButtonBase active={value === size} onClick={() => onChange(size)}>
+            <ButtonBase
+              active={value === size}
+              onClick={() => {
+                onChange(size);
+              }}
+            >
               {SIZE_LABELS[size]}
             </ButtonBase>
           </li>

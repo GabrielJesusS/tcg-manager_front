@@ -2,7 +2,7 @@
 import classNames from "classnames";
 import { useState } from "react";
 import { usePopper } from "react-popper";
-import { Editor, Element, Node, Transforms } from "slate";
+import { Editor, Element, Transforms } from "slate";
 import {
   ReactEditor,
   RenderElementProps,
@@ -47,7 +47,7 @@ function getImageBehavior(element: CustomElement): ImageBehaviorEnum {
     : ImageBehaviorEnum.AUTO;
 }
 
-export const ImageElm = (props: RenderElementProps) => {
+export const ImageElm = (props: RenderElementProps): JSX.Element => {
   const selected = useSelected();
   const editor = useSlate();
   const [lock] = useLockBody();
@@ -68,7 +68,7 @@ export const ImageElm = (props: RenderElementProps) => {
   function selectAspectRatio(newAspectRatio: AspectRatioEnum): void {
     const { selection } = editor;
 
-    if (!!selection) {
+    if (selection) {
       const [parentNode] = Editor.parent(editor, selection);
 
       if (
@@ -85,7 +85,7 @@ export const ImageElm = (props: RenderElementProps) => {
   function selectBehavior(newBehavior: ImageBehaviorEnum): void {
     const { selection } = editor;
 
-    if (!!selection) {
+    if (selection) {
       const [parentNode] = Editor.parent(editor, selection);
 
       if (
@@ -102,7 +102,7 @@ export const ImageElm = (props: RenderElementProps) => {
   function selectSize(newSize: ImageSizeEnum): void {
     const { selection } = editor;
 
-    if (!!selection) {
+    if (selection) {
       const [parentNode] = Editor.parent(editor, selection);
 
       if (
@@ -116,7 +116,7 @@ export const ImageElm = (props: RenderElementProps) => {
     }
   }
 
-  function removeImage() {
+  function removeImage(): void {
     const { selection } = editor;
 
     if (!selection) {
@@ -164,11 +164,15 @@ export const ImageElm = (props: RenderElementProps) => {
         )}
         src={element.type === ElementTypesEnum.IMAGE ? element.src : ""}
         alt=""
-        ref={(e) => setReferenceElement(e ?? undefined)}
+        ref={(e) => {
+          setReferenceElement(e ?? undefined);
+        }}
       />
       {selected && !isDraging && (
         <span
-          ref={(e) => setPopperElement(e ?? undefined)}
+          ref={(e) => {
+            setPopperElement(e ?? undefined);
+          }}
           style={styles.popper}
           {...att.popper}
           contentEditable={false}

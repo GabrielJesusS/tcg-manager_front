@@ -4,8 +4,8 @@ import {
   paginationAtom,
 } from "@/presentation/store/paginations";
 import classNames from "classnames";
-import { useEffect, useMemo, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useEffect, useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 interface PaginationBlockProps {
   isLoading?: boolean;
@@ -14,9 +14,11 @@ interface PaginationBlockProps {
 const maxItems = 5;
 const maxLeftItems = (maxItems - 1) / 2;
 
-export const PaginationBlock = ({isLoading}: PaginationBlockProps) => {
+export const PaginationBlock = ({
+  isLoading,
+}: PaginationBlockProps): JSX.Element => {
   const page = useRecoilValue(paginationAtom);
-  const [offset, setOffset] = useRecoilState(listOffsetAtom);
+  const setOffset = useSetRecoilState(listOffsetAtom);
   const [internalOffset, setInternalOffset] = useState<number>(0);
 
   const current = Math.round(
@@ -25,7 +27,7 @@ export const PaginationBlock = ({isLoading}: PaginationBlockProps) => {
   const pages = Math.ceil(page.totalCount / page.pageSize);
   const firstPage = Math.max(current - maxLeftItems, 1);
 
-  const changePage = (pageNumber: number) => {
+  const changePage = (pageNumber: number): void => {
     window.scrollTo({ top: 0 });
     setInternalOffset((pageNumber - 1) * page.pageSize);
   };
@@ -42,7 +44,9 @@ export const PaginationBlock = ({isLoading}: PaginationBlockProps) => {
     <div className="h-fit w-fit flex">
       <button
         type="button"
-        onClick={() => changePage(current - 1)}
+        onClick={() => {
+          changePage(current - 1);
+        }}
         className="pg-block-dft pg-block-navigate pg-block-back"
         disabled={current === 1 || isLoading}
       >
@@ -58,7 +62,9 @@ export const PaginationBlock = ({isLoading}: PaginationBlockProps) => {
                 <li key={pageNum}>
                   <button
                     type="button"
-                    onClick={() => changePage(pageNum)}
+                    onClick={() => {
+                      changePage(pageNum);
+                    }}
                     disabled={isLoading}
                     className={classNames(
                       "pg-block-dft pg-num-navigate",
@@ -73,7 +79,9 @@ export const PaginationBlock = ({isLoading}: PaginationBlockProps) => {
       </ul>
       <button
         type="button"
-        onClick={() => changePage(current + 1)}
+        onClick={() => {
+          changePage(current + 1);
+        }}
         className="pg-block-dft pg-block-navigate pg-block-next"
         disabled={current === pages || isLoading}
       >

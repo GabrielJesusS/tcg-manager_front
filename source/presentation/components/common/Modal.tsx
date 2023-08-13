@@ -1,12 +1,11 @@
-import { animate, motion } from "framer-motion";
 import { HTMLAttributes } from "react";
-import { AnimationProps, AnimatePresence } from "framer-motion";
+import { AnimationProps, AnimatePresence, motion } from "framer-motion";
 
 interface ModalProps extends HTMLAttributes<HTMLDivElement> {
   isOpen: boolean;
 }
 
-export const Modal = ({ isOpen, children }: ModalProps) => {
+export const Modal = ({ isOpen, children }: ModalProps): JSX.Element => {
   const animationsSettings: AnimationProps = {
     initial: {
       opacity: 0,

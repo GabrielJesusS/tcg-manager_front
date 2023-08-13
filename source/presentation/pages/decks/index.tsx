@@ -7,16 +7,15 @@ import { Deckitems } from "@/presentation/data/mocks/deckMocks";
 import { deckFilterAtom } from "@/presentation/store/modal";
 import { useRecoilState } from "recoil";
 
-const Decks = ({}) => {
+const Decks = (): JSX.Element => {
+  const [modalIsOpen, toggleModal] = useRecoilState(deckFilterAtom);
 
-  const [modalIsOpen, toggleModal] = useRecoilState(deckFilterAtom)
-
-  function toggle(){
-    toggleModal(!modalIsOpen)
+  function toggle(): void {
+    toggleModal(!modalIsOpen);
   }
 
   return (
-     <DefaultLayout>
+    <DefaultLayout>
       <main>
         <Header>Decks</Header>
 
@@ -39,7 +38,9 @@ const Decks = ({}) => {
               {" "}
             </Textinput>
           </form>
-          <button onClick={toggle} className="btn btn-primary w-full">Filtrar</button>
+          <button onClick={toggle} className="btn btn-primary w-full">
+            Filtrar
+          </button>
 
           <div>
             <ol className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8">

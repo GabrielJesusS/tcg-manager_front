@@ -11,15 +11,16 @@ interface IPathItems {
   name: string;
 }
 
-export const Breadcrumb = () => {
+export const Breadcrumb = (): JSX.Element => {
   const { asPath, pathname } = useRouter();
 
   const paths: IPathItems[] = useMemo(() => {
     const pathNames = asPath.split("/").filter((item) => item && item);
-    const parsedPaths = pathNames.reduce(
-      (acc, item) => [...acc, acc + "/" + item],
+    const parsedPaths = pathNames.reduce<string[]>(
+      (acc, item) => [...acc, "/" + item],
       []
     );
+
     return pathNames.reduce(
       (acc, item, index) => [...acc, { path: parsedPaths[index], name: item }],
       []

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import ChevronIcon from "@/presentation/public/images/icons/chevron.svg";
 import { AnimatePresence, motion, MotionProps } from "framer-motion";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { userDataAtom } from "@/presentation/store/genericAtoms";
 import { useRecoilValue } from "recoil";
+import { generateRandomId } from "@/utils/generateRandomId";
 
 interface INavitem {
   id: number;
@@ -17,11 +18,11 @@ interface ILinks {
   isPrivate: boolean;
 }
 
-export const Navitem = ({ id, subitem, title }: INavitem) => {
+export const Navitem = ({ subitem, title }: INavitem): JSX.Element => {
   const [isHide, setHide] = useState<boolean>(false);
   const userData = useRecoilValue(userDataAtom);
 
-  function toggleHide() {
+  function toggleHide(): void {
     setHide(!isHide);
   }
 
@@ -31,6 +32,15 @@ export const Navitem = ({ id, subitem, title }: INavitem) => {
     exit: { x: "100%" },
     transition: { duration: 0.3, ease: "easeInOut" },
   };
+
+  const possibleRoutes = useMemo(
+    () =>
+      subitem.filter((e) => {
+        if (!e.isPrivate) return !e.isPrivate;
+        return e.isPrivate && !!userData;
+      }),
+    [userData]
+  );
 
   return (
     <li>
@@ -54,20 +64,17 @@ export const Navitem = ({ id, subitem, title }: INavitem) => {
               {title}
             </button>
             <ul className="space-y-6">
-              {subitem.map(
-                (item) =>
-                  ((item.isPrivate && userData) || !item.isPrivate) && (
-                    <li key={id + item.name}>
-                      <Link
-                        className="text-lg flex justify-between border-b border-system-800"
-                        href={item.url}
-                      >
-                        {item.name}{" "}
-                        <ChevronIcon className="fill-secondary w-6 inline" />
-                      </Link>
-                    </li>
-                  )
-              )}
+              {possibleRoutes.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    className="text-lg flex justify-between border-b border-system-800"
+                    href={item.url}
+                  >
+                    {item.name}
+                    <ChevronIcon className="fill-secondary w-6 inline" />
+                  </Link>
+                </li>
+              ))}
             </ul>
           </motion.div>
         )}
