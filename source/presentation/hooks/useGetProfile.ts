@@ -15,16 +15,21 @@ interface IGetProfile {
 export const useGetProfile = (): IFetch<IGetProfile> => {
   const { data, error, mutate } = useFetch({
     name: "GetUserProfile",
-    useCase: async () => getProfileUsecase.execute(),
+    useCase: async () => await getProfileUsecase.execute(),
+    swr: {
+      shouldRetryOnError: false,
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+    },
   });
 
-  function update(clear: boolean) {
+  function update(clear: boolean): void {
     if (clear) {
-      mutate(undefined);
+      void mutate(undefined);
       return;
     }
 
-    mutate();
+    void mutate();
   }
 
   const isLoading = !data && !error;
