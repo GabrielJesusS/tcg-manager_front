@@ -13,62 +13,44 @@ import { CardSkeleton } from "../skeletons/CardSkeleton";
 import { PaginationBlock } from "../Pagination";
 import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
 import { cardFilterAtom } from "@/presentation/store/filters/cardFiltersAtom";
+import { useGetCards } from "@/presentation/hooks/useGetCards";
+import { Button } from "../Button";
 
-const getCardListUsecase = createGetCardListUsecase();
 const skeletonArray = generateArray(20);
 
 export const PokemonCardList = (): JSX.Element => {
-  const [_, setPage] = useRecoilState(paginationAtom);
-  const [offsetPage] = useRecoilState(listOffsetAtom);
   const filters = useRecoilValue(cardFilterAtom);
 
-  console.log(generateFilterString(filters));
-
-  const { data, mutate, isValidating } = useFetch({
-    name: "pokemonCardList",
-    useCase: async () =>
-      await getCardListUsecase.execute({
-        page: offsetPage,
-        searchParams: generateFilterString(filters),
-      }),
-    swr: {
-      revalidateOnFocus: false,
-    },
-  });
-
-  useEffect(() => {
-    if (data) {
-      setPage({ ...data });
-    }
-  }, [data]);
-
-  useEffect(() => {
-    void mutate();
-  }, [offsetPage, filters]);
+  const { data, mutate, isValidating, setSize, size } = useGetCards(filters);
 
   return (
     <div className="flex flex-col items-center space-y-6">
-      <ul className="grid grid-cols-2 md:grid-cols-4 gap-8 w-full">
-        {data &&
-          data.count > 0 &&
-          !isValidating &&
-          data.data.map((card) => (
-            <li key={card.id}>
-              <PokemonCard
-                url={`${PageRoutesEnum.CARDS + card.id}`}
-                src={card.images.small}
-              />
-            </li>
-          ))}
-        {isValidating &&
-          skeletonArray.map((item) => <CardSkeleton key={item} />)}
+      <ul className="grid grid-cols-2 md:grid-cols-4 gap-8 w-full pokemon-card-list">
+        {data
+          ? data.map((cards) =>
+              cards.data.map((card,index) => (
+                <li key={card.id} style={{"--animate-delay": index} as Record<string,unknown>}>
+                  <PokemonCard
+                    url={`${PageRoutesEnum.CARDS + card.id}`}
+                    src={card.images.small}
+                  />
+                </li>
+              ))
+            )
+          : null}
       </ul>
-      {data && data.count > 0 && <PaginationBlock />}
-      {data && data.count === 0 && (
+      <Button
+        onClick={() => {
+          setSize(size + 1);
+        }}
+      >
+        Carregar mais!
+      </Button>
+      {/*   {data && data.count === 0 && (
         <p className="text-center">
           Desculpe, não encontrei nada com este nome =(
         </p>
-      )}
+      )} */}
     </div>
   );
 };
