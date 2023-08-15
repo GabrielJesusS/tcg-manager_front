@@ -15,3 +15,23 @@
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
+
+.pokemon-card-list > li {
+  animation: slide-card 0.3s ease;
+  animation-delay: calc(var(--animate-delay) * 0.1s);
+  transform: translateX(-120px);
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide-card{
+  from{
+    opacity: 0;
+    transform: translateX(-120px)
+  }
+
+  to{
+    opacity: 1;
+    transform: translateX(0)
+  }
+}
