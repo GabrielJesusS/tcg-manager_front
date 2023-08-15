@@ -63,7 +63,7 @@
     "@babel/plugin-proposal-decorators": "7.17.2",
     "@commitlint/config-conventional": "17.4.2",
     "@faker-js/faker": "^7.6.0",
-    "@next/bundle-analyzer": "13.1.6",
+    "@next/bundle-analyzer": "^13.1.6",
     "@next/eslint-plugin-next": "^13.4.12",
     "@svgr/webpack": "^7.0.0",
     "@types/grecaptcha": "3.0.4",
