@@ -38,6 +38,7 @@ export const Button: TButtonComponent = forwardRef(function Btn<
     outline,
     full,
     color = "default",
+    className,
     ...props
   }: TButtonProps<B>,
   ref: TPolymorphicRef<B>
@@ -57,7 +58,8 @@ export const Button: TButtonComponent = forwardRef(function Btn<
         outline
           ? ["bg-transparent", BUTTON_TEXT_COLOR_MAP[color]]
           : [BUTTON_BG_COLOR_MAP[color], " text-system"],
-        full ? "w-full" : "w-fit"
+        full ? "w-full" : "w-fit",
+        className
       )}
       {...props}
       ref={ref}
