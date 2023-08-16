@@ -1,3 +1,6 @@
+import { OrderByEnum } from "@/presentation/enums/OrderByEnum";
+import { SuperTypeEnum } from "@/presentation/enums/SuperTypeEnum";
+
 export const typeFilter = [
   {
     id: "00",
@@ -61,25 +64,26 @@ export const typeFilter = [
   },
 ];
 
-export const supertypeFilter = [
-  {
-    id: "00",
-    text: "Nenhum",
-    value: "",
-  },
-  {
-    id: "01",
-    text: "Energy",
-    value: "Energy",
-  },
-  {
-    id: "02",
-    text: "Pokémon",
-    value: "Pokémon",
-  },
-  {
-    id: "03",
-    text: "Trainer",
-    value: "Trainer",
-  },
-];
+const SuperTypeLabelMap = {
+  [SuperTypeEnum.ENERGY]: "Energia",
+  [SuperTypeEnum.POKEMON]: "Pokémon",
+  [SuperTypeEnum.TRAINER]: "Treinador",
+};
+
+const OrderByLabelMap = {
+  [OrderByEnum.NAME]: "Nome",
+  [OrderByEnum.NUMBER]: "Número",
+  [OrderByEnum.SET]: "Set",
+};
+
+export const orderByOptions = Object.values(OrderByEnum).map((e) => ({
+  id: e,
+  text: OrderByLabelMap[e],
+  value: e,
+}));
+
+export const supertypeFilter = Object.values(SuperTypeEnum).map((e) => ({
+  id: e,
+  text: SuperTypeLabelMap[e],
+  value: e,
+}));

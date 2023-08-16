@@ -4,14 +4,14 @@ import { IUsecase } from "@/core/Usecase";
 import { ICardRepository } from "../repositories/ICardRepository";
 
 interface ICardListProps {
-  data: ICardItem[]
-  page: number
+  data: ICardItem[];
+  page: number;
   pageSize: number;
   count: number;
   totalCount: number;
 }
 
-interface ICardItem{
+interface ICardItem {
   id: string;
   name: string;
   subtypes: string[];
@@ -22,15 +22,18 @@ interface ICardItem{
   };
 }
 
-interface ISearchOnList{
-  searchParams?: string,
-  page?: number,
-  pageSize?: number
+interface ISearchOnList {
+  searchParams?: string;
+  page?: number;
+  pageSize?: number;
+  orderBy?: string;
 }
 
 export class GetCardListUsecase implements IUsecase {
   constructor(private readonly cardRepository: ICardRepository) {}
-  execute(params:ISearchOnList): Promise<TEither<TApplicationError, ICardListProps>> {
-    return this.cardRepository.getList(params);
+  async execute(
+    params: ISearchOnList
+  ): Promise<TEither<TApplicationError, ICardListProps>> {
+    return await this.cardRepository.getList(params);
   }
 }

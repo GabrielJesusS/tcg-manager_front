@@ -1,3 +1,4 @@
+import { OrderByEnum } from "@/presentation/enums/OrderByEnum";
 import { atom } from "recoil";
 
 export interface ICardFilter {
@@ -15,4 +16,9 @@ export const cardFilterAtom = atom<ICardFilter>({
     subtypes: "",
     supertype: "",
   },
+});
+
+export const cardFilterOrderAtom = atom<OrderByEnum>({
+  key: "CardFilterOrderAtom",
+  default: OrderByEnum.NUMBER,
 });

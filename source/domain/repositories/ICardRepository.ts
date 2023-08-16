@@ -2,14 +2,14 @@ import { TEither } from "@/core/Either";
 import { TApplicationError } from "@/core/Errors";
 
 interface ICardListProps {
-  data: ICardItem[]
-  page: number
+  data: ICardItem[];
+  page: number;
   pageSize: number;
   count: number;
   totalCount: number;
 }
 
-interface ICardItem{
+interface ICardItem {
   id: string;
   name: string;
   subtypes: string[];
@@ -20,8 +20,7 @@ interface ICardItem{
   };
 }
 
-
-interface ICardRandomProps  {
+interface ICardRandomProps {
   id: string;
   name: string;
   images: {
@@ -30,8 +29,8 @@ interface ICardRandomProps  {
   };
 }
 
-interface ICardParamsReturn{
-  data: ICardParams
+interface ICardParamsReturn {
+  data: ICardParams;
 }
 
 export interface ICardParams {
@@ -42,17 +41,17 @@ export interface ICardParams {
   hp: string;
   types: string[];
   evolvesTo?: string[];
-  attacks: {
+  attacks: Array<{
     name: string;
     cost: string[];
     convertedEnergyCost: number;
     damage: string;
     text: string;
-  }[];
-  weaknesses: {
+  }>;
+  weaknesses: Array<{
     type: string;
     value: string;
-  }[];
+  }>;
   convertedRetreatCost: number;
   set: {
     id: string;
@@ -61,9 +60,9 @@ export interface ICardParams {
     printedTotal: number;
     total: number;
     legalities: {
-        unlimited?: string,
-        expanded?: string
-        standard?:string
+      unlimited?: string;
+      expanded?: string;
+      standard?: string;
     };
     ptcgoCode: string;
     releaseDate: string;
@@ -79,7 +78,7 @@ export interface ICardParams {
   legalities: {
     unlimited?: string;
     expanded?: string;
-    standard?:string
+    standard?: string;
   };
   images: {
     small: string;
@@ -87,14 +86,19 @@ export interface ICardParams {
   };
 }
 
-interface ISearchOnList{
-  searchParams?: string,
-  page?: number,
-  pageSize?: number
+interface ISearchOnList {
+  searchParams?: string;
+  page?: number;
+  pageSize?: number;
+  orderBy?: string;
 }
 
 export interface ICardRepository {
-  getList:(params:ISearchOnList) => Promise<TEither<TApplicationError, ICardListProps>>;
-  get: (cardId:string) => Promise<TEither<TApplicationError,ICardParamsReturn>>;
-  getRandom: ()=> Promise<TEither<TApplicationError, ICardRandomProps>>
+  getList: (
+    params: ISearchOnList
+  ) => Promise<TEither<TApplicationError, ICardListProps>>;
+  get: (
+    cardId: string
+  ) => Promise<TEither<TApplicationError, ICardParamsReturn>>;
+  getRandom: () => Promise<TEither<TApplicationError, ICardRandomProps>>;
 }

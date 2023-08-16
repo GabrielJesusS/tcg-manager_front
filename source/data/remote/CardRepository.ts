@@ -1,9 +1,6 @@
 import { left, right, TEither } from "@/core/Either";
 import { TApplicationError } from "@/core/Errors";
-import {
-  ICardParams,
-  ICardRepository,
-} from "@/domain/repositories/ICardRepository";
+import { ICardRepository } from "@/domain/repositories/ICardRepository";
 import { HttpMethod, IHttpClient } from "@/services/http";
 import { generateHttpErrorResponse } from "../modules/generateHttpErrorResponse";
 import { IApiResponse } from "../modules/IApiResponse";
@@ -15,10 +12,11 @@ interface ISearchOnListParams {
   searchParams?: string;
   page?: number;
   pageSize?: number;
+  orderBy: string;
 }
 
-interface ICardResp{
-  data: CardResponse 
+interface ICardResp {
+  data: CardResponse;
 }
 
 export class CardRepository implements ICardRepository {
@@ -39,13 +37,15 @@ export class CardRepository implements ICardRepository {
     try {
       const {
         body: { data },
-      } = await this.client.request<IApiResponse<ICardListResponse>, undefined, ISearchOnListParams>(
-        {
-          method: HttpMethod.GET,
-          url: CardRepository.getListRoute,
-          params
-        }
-      );
+      } = await this.client.request<
+        IApiResponse<ICardListResponse>,
+        undefined,
+        ISearchOnListParams
+      >({
+        method: HttpMethod.GET,
+        url: CardRepository.getListRoute,
+        params,
+      });
 
       return right(data);
     } catch (error) {
@@ -57,14 +57,12 @@ export class CardRepository implements ICardRepository {
     try {
       const {
         body: { data },
-      } = await this.client.request<
-        IApiResponse<ICardResp>,
-        undefined,
-        string
-      >({
-        url: CardRepository.getRoute + cardId,
-        method: HttpMethod.GET,
-      });
+      } = await this.client.request<IApiResponse<ICardResp>, undefined, string>(
+        {
+          url: CardRepository.getRoute + cardId,
+          method: HttpMethod.GET,
+        }
+      );
 
       return right(data);
     } catch (error) {
