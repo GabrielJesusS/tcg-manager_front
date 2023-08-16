@@ -7,4 +7,5 @@ export interface IInfiniteFetch<T> {
   mutate?: () => void;
   error?: TApplicationError;
   isValidating?: boolean;
+  isLoading?: boolean;
 }
