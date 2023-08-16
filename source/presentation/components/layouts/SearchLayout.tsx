@@ -56,8 +56,9 @@ export const SearchLayout = ({
   return (
     <DefaultLayout>
       <main className="flex w-full bg-dft-pattern grow bg-slate-400">
-        <div className="w-full max-w-7xl mx-auto  flex flex-col ">
+        <div className="w-full relative max-w-7xl mx-auto  flex flex-col ">
           <Header>
+            <Breadcrumb />
             <div className="px-16 ">
               {tilte}
               <TextInput
@@ -88,13 +89,10 @@ export const SearchLayout = ({
               )}
             </AnimatePresence>
             <div className="w-full h-full p-safe space-y-safe bg-system-100">
-              <div className="flex justify-between flex-col md:flex-row">
-                <Breadcrumb />
-                <div className="w-full relative space-y-4">
-                  <Button full onClick={toggleFilter} className="lg:hidden">
-                    Filtros
-                  </Button>
-                </div>
+              <div className="w-full relative space-y-4">
+                <Button full onClick={toggleFilter} className="lg:hidden">
+                  Filtros
+                </Button>
               </div>
               {children}
             </div>

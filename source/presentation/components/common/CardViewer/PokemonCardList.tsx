@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { useRecoilValue } from "recoil";
 import { PokemonCard } from "../PokemonCard";
 import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
-import { cardFilterAtom } from "@/presentation/store/filters/cardFiltersAtom";
+import { cardFilterAtom, cardFilterOrderAtom } from "@/presentation/store/filters/cardFiltersAtom";
 import { useGetCards } from "@/presentation/hooks/useGetCards";
 import { Button } from "../Button";
 import LoadingIcon from "@/presentation/public/images/icons/loading.svg";
@@ -15,8 +15,9 @@ const skeletonArray = generateArray(20);
 
 export const PokemonCardList = (): JSX.Element => {
   const filters = useRecoilValue(cardFilterAtom);
+  const order = useRecoilValue(cardFilterOrderAtom);
 
-  const { data, isValidating, setSize, size, isLoading } = useGetCards(filters);
+  const { data, isValidating, setSize, size, isLoading } = useGetCards(filters, order);
 
   const itemsFounded = useMemo(
     () => data?.findLast((e) => e)?.totalCount,

@@ -3,13 +3,16 @@ import { Dropdown } from "../Dropdown";
 import {
   typeFilter,
   supertypeFilter,
+  orderByOptions,
 } from "@/presentation/data/local/cardFiltersInfos";
 import {
   ICardFilter,
   cardFilterAtom,
+  cardFilterOrderAtom,
 } from "@/presentation/store/filters/cardFiltersAtom";
 import { useGetSubtypes } from "@/presentation/hooks/useGetSubtypes";
 import { useMemo } from "react";
+import { OrderByEnum } from "@/presentation/enums/OrderByEnum";
 
 const defaultValue = {
   id: "01",
@@ -19,6 +22,8 @@ const defaultValue = {
 
 export const CardFilter = (): JSX.Element => {
   const [filtersValue, setFilterParams] = useRecoilState(cardFilterAtom);
+  const [order, setOrder] = useRecoilState(cardFilterOrderAtom);
+
   const { data } = useGetSubtypes();
 
   const subtypesList = useMemo(
@@ -31,6 +36,10 @@ export const CardFilter = (): JSX.Element => {
     [data]
   );
 
+  function handleOrderChange(e: OrderByEnum): void {
+    setOrder(e);
+  }
+
   function handleChange(param: keyof ICardFilter) {
     return (e: string): void => {
       setFilterParams({ ...filtersValue, [param]: e, types: "" });
@@ -40,19 +49,20 @@ export const CardFilter = (): JSX.Element => {
   return (
     <div className="space-y-4">
       <Dropdown
-        label="Ordenar por"
+        label="Ordenar por "
         placeholder="Selecione o tipo"
-        selectedOption={filtersValue.subtypes ?? ""}
-        options={[defaultValue, ...(subtypesList ?? [])]}
-        setter={handleChange("subtypes")}
+        options={[defaultValue, ...orderByOptions]}
+        selectedOption={order}
+        setter={handleOrderChange}
       />
       <Dropdown
         label="Super tipo"
         placeholder="Selecione o tipo"
-        options={supertypeFilter}
-        selectedOption={filtersValue.supertype ?? ""}
-        setter={handleChange("supertype")}
+        selectedOption={filtersValue.supertype}
+        options={[defaultValue, ...supertypeFilter]}
+        setter={handleChange("subtypes")}
       />
+
       <Dropdown
         label="Subtipo"
         placeholder="Selecione o tipo"
