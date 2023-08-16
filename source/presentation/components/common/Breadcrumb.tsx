@@ -28,7 +28,7 @@ export const Breadcrumb = (): JSX.Element => {
   }, [asPath]);
 
   return (
-    <div className="absolute z-10 left-6 top-20 hidden md:block">
+    <div className="absolute text-base z-10 left-6 top-6 hidden md:block">
       <ol className="font-bold text-system-200 flex items-end">
         <li>
           <Link
@@ -47,9 +47,8 @@ export const Breadcrumb = (): JSX.Element => {
             >
               <ArrowIcon className="h-4 w-4 fill-current" />
               <span
-                className={classNames("block leading-none border-b-2 border-spacing-2 border-secondary", {
-                  "text-system hover:text-secondary":
-                    path.path === pathname,
+                className={classNames("block leading-none", {
+                  "text-system hover:text-secondary": path.path === pathname,
                 })}
               >
                 {path.name}
