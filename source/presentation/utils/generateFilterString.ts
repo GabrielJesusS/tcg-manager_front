@@ -1,26 +1,18 @@
 interface ICardFilter {
-  name: string
+  name: string;
   types: string;
   supertype: string;
-  subtypes: string ;
+  subtypes: string;
 }
 
 export function generateFilterString(filterProps: ICardFilter): string {
-  const parsedFilterName: ICardFilter = {
-    ...filterProps,
-    name: filterProps.name && `*${filterProps.name}*`,
-  };
+  return Object.entries(filterProps)
+    .reduce((acc, [key, value]) => {
+      if (typeof value !== "string") return acc;
 
-  return Object.entries(parsedFilterName)
-    .filter((item) => item[1] !== '')
-    .reduce((acc, item) => {
-      return (
-        acc +
-        item
-          .flatMap((m) => m)
-          .toString()
-          .replace(",", ":") +
-        " "
-      );
-    }, "");
+      if (!value) return acc;
+
+      return [...acc, `${key}:"*${value}*"`];
+    }, [])
+    .join(" ");
 }
