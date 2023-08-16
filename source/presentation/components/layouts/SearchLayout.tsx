@@ -1,6 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Breadcrumb } from "../common/Breadcrumb";
-import { Dropdown } from "../common/Dropdown";
 import { Header } from "../common/Header";
 import { TextInput } from "../common/Textinput";
 import { DefaultLayout } from "./DefaultLayout";
@@ -10,6 +9,7 @@ import { cardFilterAtom } from "@/presentation/store/filters/cardFiltersAtom";
 import CloseIcon from "@/presentation/public/images/icons/close.svg";
 import { motion, AnimatePresence, AnimationProps } from "framer-motion";
 import { useGetMobile } from "@/presentation/hooks/useGetMobile";
+import { Button } from "../common/Button";
 
 interface ISearchLayout {
   tilte: React.ReactNode;
@@ -55,10 +55,10 @@ export const SearchLayout = ({
 
   return (
     <DefaultLayout>
-      <main className="flex w-full bg-dft-pattern  min-h-screen bg-slate-400">
+      <main className="flex w-full bg-dft-pattern grow bg-slate-400">
         <div className="w-full max-w-7xl mx-auto  flex flex-col ">
           <Header>
-            <div className="px-16">
+            <div className="px-16 ">
               {tilte}
               <TextInput
                 type="text"
@@ -82,7 +82,7 @@ export const SearchLayout = ({
                       <CloseIcon className="w-8 h-8 fill-system-800" />
                     </button>
                     <h3 className="text-2xl font-bold text-center ">Filtros</h3>
-                    <div>{filters}</div>
+                    {filters}
                   </div>
                 </motion.div>
               )}
@@ -90,15 +90,10 @@ export const SearchLayout = ({
             <div className="w-full h-full p-safe space-y-safe bg-system-100">
               <div className="flex justify-between flex-col md:flex-row">
                 <Breadcrumb />
-                <div className="md:max-w-xs w-full relative space-y-4">
-                  {/*  <Dropdown placeholder="Ordenar por..." options={[]} /> */}
-                  <button
-                    onClick={toggleFilter}
-                    className="btn btn-primary w-full lg:hidden"
-                  >
-                    {" "}
+                <div className="w-full relative space-y-4">
+                  <Button full onClick={toggleFilter} className="lg:hidden">
                     Filtros
-                  </button>
+                  </Button>
                 </div>
               </div>
               {children}

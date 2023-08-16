@@ -31,6 +31,7 @@ function getKey(params: ICardFilter) {
 export const useGetCards = (
   params: ICardFilter
 ): IInfiniteFetch<ICardListResponse> => {
+  
   const { data, mutate, error, isValidating, setSize, size } =
     useInfinite<ICardListResponse>({
       getKey: getKey(params),
@@ -54,5 +55,6 @@ export const useGetCards = (
     mutate,
     error,
     isValidating,
+    isLoading: !data && !error,
   };
 };
