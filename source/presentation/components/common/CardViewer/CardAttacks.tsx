@@ -1,4 +1,4 @@
-import { IconComponent } from "@/presentation/public/images/icons/types";
+import { PokemonTypeIcons } from "@/presentation/public/images/icons/types";
 import { generateRandomId } from "@/utils/generateRandomId";
 import { Fragment } from "react";
 
@@ -23,7 +23,7 @@ export const CardAttacks = ({
           <span className="flex space-x-1">
             {cost.map((cost) => (
               <Fragment key={generateRandomId()}>
-                <IconComponent name={cost} />
+                 {PokemonTypeIcons[cost]}
               </Fragment>
             ))}
           </span>

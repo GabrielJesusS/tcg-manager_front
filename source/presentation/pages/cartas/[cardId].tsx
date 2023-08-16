@@ -1,6 +1,6 @@
 import { PokemonCard } from "@/presentation/components/common/PokemonCard";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
-import { IconComponent } from "@/presentation/public/images/icons/types";
+import { PokemonTypeIcons } from "@/presentation/public/images/icons/types";
 import { Fragment } from "react";
 import { CardAttacks } from "@/presentation/components/common/CardViewer/CardAttacks";
 import { CardAbilities } from "@/presentation/components/common/CardViewer/CardAbilities";
@@ -14,7 +14,7 @@ import { generateRandomId } from "@/utils/generateRandomId";
 
 const CardViewer = (): JSX.Element => {
   const cardId = useRecoilValue(pokemonCardIdAtom);
-  const { data } = useGetCard(cardId);
+  const { data } = useGetCard(cardId)
 
   return (
     <DefaultLayout>
@@ -26,6 +26,7 @@ const CardViewer = (): JSX.Element => {
               <div className="flex space-x-5 mb-3">
                 <div className="space-y-2 w-fit">
                   <PokemonCard
+                    decorative
                     url={data.data.id}
                     src={data.data.images.small}
                   ></PokemonCard>
@@ -40,10 +41,10 @@ const CardViewer = (): JSX.Element => {
                       {data.data.types && (
                         <div className="space-y-1">
                           <p>Tipo:</p>
-                          <div className="text-lg">
-                            {data.data.types.map((type) => (
-                              <IconComponent key={type} name={type} />
-                            ))}
+                          <div className="text-lg flex space-x-1">
+                            {data.data.types.map(
+                              (type) => PokemonTypeIcons[type]
+                            )}
                           </div>
                         </div>
                       )}
@@ -51,38 +52,43 @@ const CardViewer = (): JSX.Element => {
                         CardSubTypes.SUPPORTER || CardSubTypes.TOOL
                       ) ? (
                         <>
-                          <div className="space-y-1">
-                            <p>Resistência:</p>
-                            <div className="flex text-lg">
-                              {data.data.resistances?.map((type) => (
-                                <Fragment key={type.type}>
-                                  <IconComponent name={type.type} />
-                                  <small className="leading-none">
-                                    {type.value}
-                                  </small>
-                                </Fragment>
-                              ))}
+                          {data.data.resistances ? (
+                            <div className="space-y-1">
+                              <p>Resistência:</p>
+                              <div className="flex text-lg">
+                                {data.data.resistances?.map((type) => (
+                                  <Fragment key={type.type}>
+                                    {PokemonTypeIcons[type.type]}
+                                    <small className="leading-none">
+                                      {type.value}
+                                    </small>
+                                  </Fragment>
+                                ))}
+                              </div>
                             </div>
-                          </div>
-                          <div className="space-y-1">
-                            <p>Fraquezas:</p>
-                            <div className="flex text-lg items-center">
-                              {data.data.weaknesses?.map((type) => (
-                                <Fragment key={type.type}>
-                                  <IconComponent name={type.type} />
-                                  <small className="leading-none">
-                                    {type.value}
-                                  </small>
-                                </Fragment>
-                              ))}
+                          ) : null}
+                          {data.data.weaknesses ? (
+                            <div className="space-y-1">
+                              <p>Fraquezas:</p>
+                              <div className="flex text-lg items-center">
+                                {data.data.weaknesses?.map((type) => (
+                                  <Fragment key={type.type}>
+                                    {PokemonTypeIcons[type.type]}
+                                    <small className="leading-none">
+                                      {type.value}
+                                    </small>
+                                  </Fragment>
+                                ))}
+                              </div>
                             </div>
-                          </div>
+                          ) : null}
+
                           <div className="space-y-1">
                             <p>Custo de recuo:</p>
                             <div className="flex space-x-1 text-lg">
                               {data.data.retreatCost?.map((type) => (
                                 <Fragment key={generateRandomId()}>
-                                  <IconComponent name={type} />
+                                  {PokemonTypeIcons[type]}
                                 </Fragment>
                               ))}
                             </div>
