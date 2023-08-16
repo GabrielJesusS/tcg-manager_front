@@ -45,10 +45,11 @@ export const useGetCards = (
       },
       swr: {
         revalidateFirstPage: false,
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        shouldRetryOnError: false,
       },
     });
-
-  console.log(data, error);
 
   return {
     data,

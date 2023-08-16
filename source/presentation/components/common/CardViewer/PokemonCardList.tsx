@@ -1,28 +1,43 @@
 import { generateArray } from "@/presentation/utils/generateArray";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useRecoilValue } from "recoil";
 import { PokemonCard } from "../PokemonCard";
 import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
-import { cardFilterAtom, cardFilterOrderAtom } from "@/presentation/store/filters/cardFiltersAtom";
+import {
+  cardFilterAtom,
+  cardFilterOrderAtom,
+} from "@/presentation/store/filters/cardFiltersAtom";
 import { useGetCards } from "@/presentation/hooks/useGetCards";
 import { Button } from "../Button";
 import LoadingIcon from "@/presentation/public/images/icons/loading.svg";
 import Image from "next/image";
 import Spinda from "@/presentation/public/images/rsc/spinda.webp";
 import { CardSkeleton } from "../skeletons/CardSkeleton";
+import { useNotify } from "@/presentation/hooks/useNotify";
+import { StatusEnum } from "@/presentation/enums/NotifyTypeEnum";
 
 const skeletonArray = generateArray(20);
 
 export const PokemonCardList = (): JSX.Element => {
   const filters = useRecoilValue(cardFilterAtom);
   const order = useRecoilValue(cardFilterOrderAtom);
+  const { notify } = useNotify();
 
-  const { data, isValidating, setSize, size, isLoading } = useGetCards(filters, order);
+  const { data, error, isValidating, setSize, size, isLoading } = useGetCards(
+    filters,
+    order
+  );
 
   const itemsFounded = useMemo(
     () => data?.findLast((e) => e)?.totalCount,
     [data]
   );
+
+  useEffect(() => {
+    if (error) {
+      notify("Um erro ocorreu, por favor tente novamente!", StatusEnum.ERROR);
+    }
+  }, [error]);
 
   const reachedFinalList = useMemo(
     () => itemsFounded === data?.reduce((acc, e) => acc + e.data.length, 0),
