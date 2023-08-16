@@ -10,35 +10,19 @@ import Lightning from "./lightning.svg";
 import Metal from "./metal.svg";
 import Psychic from "./psychic.svg";
 import Water from "./water.svg";
+import { PokemonTypesEnum } from "@/presentation/enums/PokemonTypesEnum";
 
-type pokemonIcon = Function;
-
-interface PokemonTypeIconsX {
-  [key: string]: React.FC<React.SVGProps<SVGSVGElement | HTMLImageElement>>;
-}
-
-const pokemonTypeIcons: PokemonTypeIconsX = {
-  Colorless: () => <Colorless />,
-  Darkness: () => <Darkness />,
-  Dragon: () => <Dragon />,
-  Fairy: () => <Fairy />,
-  Fighting: () => <Fighting />,
-  Fire: () => <Fire />,
-  Grass: () => <Grass />,
-  Lightning: () => <Lightning />,
-  Metal: () => <Metal />,
-  Psychic: () => <Psychic />,
-  Water: () => <Water />,
-};
-
-interface x {
-  name: string;
-  props?: HTMLAttributes<HTMLOrSVGElement>
-}
-
-export const IconComponent = ({ name, props}: x): JSX.Element => {
-
-  let Icon = pokemonTypeIcons[name]
-
-  return  <Icon {...props} />
-};
+export const PokemonTypeIcons: Partial<Record<PokemonTypesEnum, JSX.Element>> =
+  {
+    [PokemonTypesEnum.DARK]: <Darkness />,
+    [PokemonTypesEnum.DRAGON]: <Dragon />,
+    [PokemonTypesEnum.LIGHTNING]: <Lightning />,
+    [PokemonTypesEnum.FAIRY]: <Fairy />,
+    [PokemonTypesEnum.FIGHTER]: <Fighting />,
+    [PokemonTypesEnum.FIRE]: <Fire />,
+    [PokemonTypesEnum.GRASS]: <Grass />,
+    [PokemonTypesEnum.COLORLESS]: <Colorless />,
+    [PokemonTypesEnum.PSYCHIC]: <Psychic />,
+    [PokemonTypesEnum.METAL]: <Metal />,
+    [PokemonTypesEnum.WATER]: <Water />,
+  };
