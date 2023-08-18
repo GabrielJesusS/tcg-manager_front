@@ -88,8 +88,8 @@ export const SearchLayout = ({
                 </motion.div>
               )}
             </AnimatePresence>
-            <div className="w-full h-full p-safe space-y-safe bg-system-100">
-              <div className="w-full relative space-y-4">
+            <div className="w-full h-full p-safe space-y-safe lg:space-y-0 bg-system-100">
+              <div className="w-full relative">
                 <Button full onClick={toggleFilter} className="lg:hidden">
                   Filtros
                 </Button>
