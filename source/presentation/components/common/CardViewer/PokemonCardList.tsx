@@ -1,6 +1,6 @@
 import { generateArray } from "@/presentation/utils/generateArray";
 import { useEffect, useMemo } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import { PokemonCard } from "../PokemonCard";
 import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
 import {
@@ -21,6 +21,7 @@ const skeletonArray = generateArray(20);
 export const PokemonCardList = (): JSX.Element => {
   const filters = useRecoilValue(cardFilterAtom);
   const order = useRecoilValue(cardFilterOrderAtom);
+  const resetFilter = useResetRecoilState(cardFilterAtom);
   const { notify } = useNotify();
 
   const { data, error, isValidating, setSize, size, isLoading } = useGetCards(
@@ -28,10 +29,12 @@ export const PokemonCardList = (): JSX.Element => {
     order
   );
 
-  const itemsFounded = useMemo(
-    () => data?.findLast((e) => e)?.totalCount,
-    [data]
-  );
+  const itemsFounded = useMemo(() => {
+    if (data) {
+      return data[data.length - 1].totalCount;
+    }
+    return 0;
+  }, [data]);
 
   useEffect(() => {
     if (error) {
@@ -44,7 +47,9 @@ export const PokemonCardList = (): JSX.Element => {
     [data]
   );
 
-  console.log(reachedFinalList, isValidating);
+  useEffect(() => {
+    resetFilter();
+  }, []);
 
   return (
     <div className="flex flex-col items-center space-y-6">
