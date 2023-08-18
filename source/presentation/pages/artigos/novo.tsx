@@ -1,13 +1,40 @@
-import { EditorNavBar } from "@/presentation/components/common/EditorNavbar";
 import { Footer } from "@/presentation/components/common/Footer";
-import { ArticleEditModal } from "@/presentation/components/common/modals/ArticleEditModal";
-import { RichText } from "@/presentation/components/richText";
 import { loadUserData } from "@/presentation/middlewares/loadUserData";
+import dynamic from "next/dynamic";
+
+const RichText = dynamic(
+  async () =>
+    await import("@/presentation/components/richText").then(
+      (mod) => mod.RichText
+    ),
+  {
+    ssr: false,
+  }
+);
+
+const EditorNavBar = dynamic(
+  async () =>
+    await import("@/presentation/components/common/EditorNavbar").then(
+      (mod) => mod.EditorNavBar
+    ),
+  {
+    ssr: false,
+  }
+);
+
+const ArticleEditModal = dynamic(
+  async () =>
+    await import(
+      "@/presentation/components/common/modals/ArticleEditModal"
+    ).then((mod) => mod.ArticleEditModal),
+  {
+    ssr: false,
+  }
+);
 
 const NewArticle = (): JSX.Element => {
   return (
     <>
-      {" "}
       <div className="min-h-screen flex flex-col">
         <EditorNavBar />
         <main className="flex flex-col flex-1 justify-center items-center h-full grow my-4">
