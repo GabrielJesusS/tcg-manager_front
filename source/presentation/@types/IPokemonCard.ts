@@ -6,17 +6,17 @@ export interface IPokemonCard {
   hp: string;
   types: string[];
   evolvesTo?: string[];
-  attacks: {
+  attacks: Array<{
     name: string;
     cost: string[];
     convertedEnergyCost: number;
     damage: string;
     text: string;
-  }[];
-  weaknesses: {
+  }>;
+  weaknesses: Array<{
     type: string;
     value: string;
-  }[];
+  }>;
   convertedRetreatCost: number;
   set: {
     id: string;
@@ -49,18 +49,19 @@ export interface IPokemonCard {
     small: string;
     large: string;
   };
-  resistances: {
+  resistances: Array<{
     type: string;
     value: string;
-  }[];
+  }>;
+  rules?: string[];
   retreatCost: string[];
-  abilities: {
+  abilities: Array<{
     name: string;
     text: string;
     type: string;
-  }[];
+  }>;
 }
 
-export interface IPokemonCardResponse{
-  data: IPokemonCard
+export interface IPokemonCardResponse {
+  data: IPokemonCard;
 }
