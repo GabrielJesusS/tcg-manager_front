@@ -34,7 +34,7 @@ export const PokemonCard = ({
 
   return (
     <Tilty className="w-fit">
-      <Link href={!url || decorative ? "" : url} aria-disabled={decorative}>
+      <CardWrapper url={decorative ? undefined : url}>
         <Image
           src={src ?? CardBackplate.src}
           alt=""
@@ -46,9 +46,23 @@ export const PokemonCard = ({
             { "flip-card": animate && imageLoaded },
             className
           )}
-          loading="lazy"
+          priority
         />
-      </Link>
+      </CardWrapper>
     </Tilty>
   );
+};
+
+const CardWrapper = ({
+  url,
+  children,
+}: {
+  url?: string;
+  children: React.ReactNode;
+}): JSX.Element => {
+  if (url) {
+    return <Link href={url}>{children}</Link>;
+  }
+
+  return <div>{children}</div>;
 };
