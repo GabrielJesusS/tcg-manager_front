@@ -60,7 +60,7 @@ export const CardFilter = (): JSX.Element => {
         placeholder="Selecione o tipo"
         selectedOption={filtersValue.supertype}
         options={[defaultValue, ...supertypeFilter]}
-        setter={handleChange("subtypes")}
+        setter={handleChange("supertype")}
       />
 
       <Dropdown
