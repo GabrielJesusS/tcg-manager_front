@@ -1,10 +1,13 @@
 import {
+  cardsInLimitSelector,
   deckComposeAtom,
   deckComposeIdsAtom,
 } from "@/presentation/store/genericAtoms";
-import { deckCardInsertAtom } from "@/presentation/store/modal";
-import { ChangeEvent, useEffect, useState } from "react";
-import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
+import {
+  deckCardFilterAtom,
+  deckCardInsertAtom,
+} from "@/presentation/store/modal";
+import { ChangeEvent, useState } from "react";
 import {
   useRecoilCallback,
   useRecoilState,
@@ -13,18 +16,15 @@ import {
   useSetRecoilState,
 } from "recoil";
 import { TextInput } from "../Textinput";
-import { PaginationBlock } from "../Pagination";
-import {
-  listOffsetAtom,
-  paginationAtom,
-} from "@/presentation/store/paginations";
-import { DefaultQuestionModal } from "./DefaultQuestionModal";
 import { generateArray } from "@/presentation/utils/generateArray";
 import { CardSkeleton } from "../skeletons/CardSkeleton";
 import { useDebounce } from "@/presentation/hooks/useDebounce";
-import { CardFilter } from "../Filters/CardFilter";
 import { cardFilterAtom } from "@/presentation/store/filters/cardFiltersAtom";
 import { useGetCards } from "@/presentation/hooks/useGetCards";
+import { OrderByEnum } from "@/presentation/enums/OrderByEnum";
+import { Button } from "../Button";
+import { BorderlessModal } from "./BorderlessModal";
+import { useLockBody } from "@/presentation/hooks/useLockBody";
 
 interface ICardListParams {
   id: string;
@@ -60,13 +60,17 @@ const skeletonArray = generateArray(20);
 
 export const DeckCardInsertModal = (): JSX.Element => {
   const [isOpen, setOpen] = useRecoilState(deckCardInsertAtom);
-  const composeIds = useRecoilValue(deckComposeIdsAtom);
-  const offsetPage = useRecoilValue(listOffsetAtom);
+  const setFilterOpen = useSetRecoilState(deckCardFilterAtom);
   const [filters, setFilters] = useRecoilState(cardFilterAtom);
-  const { data, isValidating, mutate } = useGetCards(offsetPage, filters);
+  const cardsInLimit = useRecoilValue(cardsInLimitSelector)
+  const { data, isValidating, setSize } = useGetCards(
+    filters,
+    OrderByEnum.NAME
+  );
+  const [selectedCard, setSelectedCard] = useState("");
 
-  const [pokemonCardList, setPokemonCardList] = useState<ICardListParams[]>([]);
-  const setPage = useSetRecoilState(paginationAtom);
+  const [_, unlock] = useLockBody();
+
   const debounce = useDebounce(searchPokemon, 1000);
   const resetFilters = useResetRecoilState(cardFilterAtom);
   /* const { notify } = useNotify(); */
@@ -79,114 +83,112 @@ export const DeckCardInsertModal = (): JSX.Element => {
     setFilters({ ...filters, name });
   }
 
-  useEffect(() => {
-    void mutate();
-  }, [offsetPage, filters]);
-
   function toggleOpen(): void {
+    unlock();
     setOpen(!isOpen);
   }
-
-  const { control, register, handleSubmit, reset } = useForm<ICardParams>();
-
-  const { fields, append, remove } = useFieldArray<ICardParams>({
-    control,
-    name: "pokemonCards",
-  });
 
   const insertCardOnDeck = useRecoilCallback(({ set }) => (card: ICard) => {
     set(deckComposeIdsAtom, (currVal) => [...currVal, card.cardId]);
     set(deckComposeAtom(card.cardId), card);
   });
 
-  useEffect(() => {
-    if (data) {
-      remove();
-      setPokemonCardList(data.data);
-      setPage({ ...data });
-    }
-  }, [data]);
+  function handleSelectCard(event: ChangeEvent<HTMLInputElement>): void {
+    setSelectedCard(event.target.value);
+  }
 
-  useEffect(() => {
-    pokemonCardList.forEach((e) => {
-      append({
-        cardId: e.id,
-        name: e.name,
-        image: e.images.small,
-        subtypes: e.subtypes,
-        supertype: e.supertype,
-      });
-    });
-  }, [pokemonCardList]);
+  const insertCard = (): void => {
+    const card = data?.reduce((acc, e) => {
+      const rawCard = e.data.find((card) => card.id === selectedCard);
 
-  const insertCard: SubmitHandler<ICardParams> = async (data, e) => {
-    e?.preventDefault();
-    const newCard: ICard = await JSON.parse(data.pokemonCards.toString());
+      if (!rawCard) return acc;
 
-    if (!composeIds.includes(newCard.cardId)) {
-      insertCardOnDeck({ ...newCard, quantity: 1 });
-    }
+      return {
+        cardId: rawCard.id,
+        image: rawCard.images.small,
+        name: rawCard.name,
+        quantity: 1,
+        subtypes: rawCard.subtypes,
+        supertype: rawCard.supertype,
+      };
+    }, {}) as ICard | undefined;
 
+    if (!card) return;
+
+    if(cardsInLimit.includes(card.name)) return
+
+    insertCardOnDeck(card);
+    setSelectedCard("");
     resetFilters();
-    reset();
     toggleOpen();
   };
 
+  function loadMoreCards(): void {
+    setSize((e) => e + 1);
+  }
+
   return (
-    <DefaultQuestionModal fullSize close={toggleOpen} isOpen={isOpen}>
-      <div className="max-w-7xl mx-auto">
-        <div className="space-y-6 p-safe">
+    <BorderlessModal isOpen={isOpen}>
+      <div className="max-w-7xl md:space-x-4 mx-auto p-safe flex-1 w-full flex flex-col-reverse md:flex-row h-full">
+        <div className="h-full w-full overflow-y-auto p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-2 grid-flow-row">
+          {data
+            ? data?.map((e) =>
+                e.data.map((field) => {
+                  return (
+                    <label
+                      onDoubleClick={insertCard}
+                      key={field.id}
+                      className="relative"
+                    >
+                      <input
+                        type="radio"
+                        value={field.id}
+                        className={
+                          "absolute w-full h-full opacity-0 peer  cursor-pointer"
+                        }
+                        onChange={handleSelectCard}
+                        checked={field.id === selectedCard}
+                        name="deck-insert-card"
+                      />
+                      <img
+                        alt={field.name}
+                        width={160}
+                        height={222}
+                        src={field.images.small}
+                        className="w-full transition-all duration-150 ease-out peer-checked:ring-4 peer-checked:ring-offset-4 peer-checked:opacity-75 peer-checked:border-secondary peer-checked:rounded-lg"
+                      ></img>
+                    </label>
+                  );
+                })
+              )
+            : null}
+          {isValidating &&
+            !data &&
+            skeletonArray.map((item) => <CardSkeleton key={item} />)}
+          <Button onClick={loadMoreCards} className="col-span-full mx-auto">
+            Carregar mais!
+          </Button>
+        </div>
+
+        <div className="space-y-5 md:basis-1/3 md:h-full pb-safe md:pb-0 shrink-0 w-full">
           <TextInput
-            label="Busque uma carta"
-            type="text"
-            placeholder="Chariz...."
+            type="search"
+            placeholder="Chari..."
+            label="Pesquise por cartas"
             onChange={handleSearch}
           />
-          <div className="grid grid-cols-3 gap-5">
-            <CardFilter />
-          </div>
-          <div className="max-w-5xl mx-auto">
-            <fieldset>
-              <div className="p-5 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 grid-flow-row">
-                {!isValidating &&
-                  fields.map((field) => {
-                    return (
-                      <div key={field.id} className="relative">
-                        <input
-                          {...register(`pokemonCards`)}
-                          type="radio"
-                          value={JSON.stringify(field)}
-                          className={"absolute w-full h-full opacity-0 peer"}
-                        />
-                        <img
-                          alt={field.name}
-                          width={160}
-                          height={222}
-                          src={field.image}
-                          className="w-full peer-checked:ring-4 peer-checked:ring-offset-4 peer-checked:opacity-75 peer-checked:border-secondary peer-checked:rounded-lg"
-                        ></img>
-                      </div>
-                    );
-                  })}
-                {isValidating &&
-                  skeletonArray.map((item) => <CardSkeleton key={item} />)}
-              </div>
-            </fieldset>
-          </div>
-        </div>
-        <div className="space-y-5 p-safe sticky pt-20 bottom-0 bg-gradient-to-t from-system via-system">
-          <div className="mx-auto w-fit">
-            <PaginationBlock isLoading={isValidating} />
-          </div>
-          <button
-            onClick={handleSubmit(insertCard)}
-            type="button"
-            className="btn btn-primary w-full"
-          >
+          <Button full onClick={() => {setFilterOpen(true)}}>
+            Abrir filtros
+          </Button>
+
+          <Button onClick={insertCard} full>
             Adicionar
-          </button>
+          </Button>
+          <Button onClick={toggleOpen} color="error" outline full>
+            Cancelar
+          </Button>
         </div>
       </div>
-    </DefaultQuestionModal>
+    </BorderlessModal>
   );
 };

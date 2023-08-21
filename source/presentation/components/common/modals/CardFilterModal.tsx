@@ -1,10 +1,11 @@
-import { cardFilterAtom } from "@/presentation/store/modal";
+import { deckCardFilterAtom } from "@/presentation/store/modal";
 import { useRecoilState } from "recoil";
-import { Dropdown } from "../Dropdown";
 import { DefaultQuestionModal } from "./DefaultQuestionModal";
+import { CardFilter } from "../Filters/CardFilter";
+import { Button } from "../Button";
 
 export const CardFilterModal = (): JSX.Element => {
-  const [isOpen, setOpen] = useRecoilState(cardFilterAtom);
+  const [isOpen, setOpen] = useRecoilState(deckCardFilterAtom);
 
   function toggleOpen(): void {
     setOpen(!isOpen);
@@ -12,26 +13,10 @@ export const CardFilterModal = (): JSX.Element => {
 
   return (
     <DefaultQuestionModal close={toggleOpen} isOpen={isOpen}>
-      <form action="">
-        <div className="space-y-6">
-          {/*      <Dropdown
-            options={[{ text: "opt-1", value: "opt-2" }]}
-            label="Tipo"
-            selectPlaceholder="Selecione um tipo"
-          />
-          <Dropdown
-            options={[{ text: "opt-1", value: "opt-2" }]}
-            label="Supertipo"
-            selectPlaceholder="Selecione um supertipo"
-          />
-          <Dropdown
-            options={[{ text: "opt-1", value: "opt-2" }]}
-            label="Subtipo"
-            selectPlaceholder="Selecione um subtipo"
-          /> */}
-        </div>
-        <button className="btn btn-primary w-full mt-20">Filtrar</button>
-      </form>
+      <div className="space-y-safe">
+        <CardFilter />
+        <Button full>Filtrar</Button>
+      </div>
     </DefaultQuestionModal>
   );
 };

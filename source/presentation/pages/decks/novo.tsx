@@ -3,8 +3,10 @@ import { DeckBuilderAssistent } from "@/presentation/components/common/DeckBuild
 import { DeckBuilderMeta } from "@/presentation/components/common/DeckBuilder/DeckBuilderMeta";
 import { DeckStatistics } from "@/presentation/components/common/DeckBuilder/DeckStatistics";
 import { CardEdit } from "@/presentation/components/common/DeckCardList/CardEdit";
+import { CardFilterModal } from "@/presentation/components/common/modals/CardFilterModal";
 import { DeckCardInsertModal } from "@/presentation/components/common/modals/DeckCardInsertModal";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
+import { verifyToken } from "@/presentation/middlewares/verifyToken";
 import ArrowIcon from "@/presentation/public/images/icons/chevron.svg";
 
 const NewDeck = (): JSX.Element => {
@@ -27,7 +29,7 @@ const NewDeck = (): JSX.Element => {
             <div className="flex lg:space-x-8">
               <div className="flex flex-col space-y-8 w-full">
                 <div className="flex flex-col lg:flex-row space-y-5 lg:space-y-0 lg:space-x-5">
-                  <DeckBuilderMeta/>
+                  <DeckBuilderMeta />
                   <DeckStatistics />
                 </div>
                 <DeckBuildViewer />
@@ -38,9 +40,11 @@ const NewDeck = (): JSX.Element => {
         </main>
       </DefaultLayout>
       <DeckCardInsertModal />
-      <DeckBuilderAssistent/>
+
+      <DeckBuilderAssistent />
+      <CardFilterModal />
     </>
   );
 };
 
-export default NewDeck;
+export default verifyToken(NewDeck);

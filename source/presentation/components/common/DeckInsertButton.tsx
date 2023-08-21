@@ -2,11 +2,14 @@ import PokeballIcon from "@/presentation/public/images/icons/pokeball-counter.sv
 import { deckCardInsertAtom } from "@/presentation/store/modal";
 import { useSetRecoilState } from "recoil";
 import PlusIcon from "@/presentation/public/images/icons/plus.svg";
+import { useLockBody } from "@/presentation/hooks/useLockBody";
 
 export const DeckInsertButton = (): JSX.Element => {
   const setOpen = useSetRecoilState(deckCardInsertAtom);
+  const [lock] = useLockBody();
 
   function toggleModal(): void {
+    lock();
     setOpen((old) => !old);
   }
 

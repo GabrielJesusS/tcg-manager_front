@@ -1,10 +1,16 @@
 import { QuantityManager } from "./QuantityManager";
-import { useEffect, useMemo } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useEffect, useMemo, useRef } from "react";
+import {
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
+} from "recoil";
 import {
   cardCoverAtom,
   cardEditOpen,
   deckComposeAtom,
+  deckComposeIdsAtom,
   quantityPerName,
   selectedCardAtom,
 } from "@/presentation/store/genericAtoms";
@@ -12,16 +18,46 @@ import { AnimatePresence, AnimationProps, motion } from "framer-motion";
 import { useGetMobile } from "@/presentation/hooks/useGetMobile";
 import CloseIcon from "@/presentation/public/images/icons/close.svg";
 import { CardSupertypeEnum } from "@/presentation/enums/CardSupertype";
+import { Button } from "../Button";
+import { useClickOutside } from "@/presentation/hooks/useClickOutside";
+
+const animation: AnimationProps = {
+  initial: {
+    translateY: "200%",
+    opacity: 0,
+  },
+  animate: {
+    translateY: "0%",
+    opacity: 1,
+  },
+  exit: {
+    opacity: 0,
+    translateY: "200%",
+    transition: {
+      duration: 0.7,
+    },
+  },
+  transition: {
+    duration: 0.5,
+  },
+};
 
 export const CardEdit = (): JSX.Element => {
   const isMobile = useGetMobile();
   const [cover, setCover] = useRecoilState(cardCoverAtom);
   const [editOpen, setEditOpen] = useRecoilState(cardEditOpen);
-  const selectedCardId = useRecoilValue(selectedCardAtom);
+  const setDeckComposeIds = useSetRecoilState(deckComposeIdsAtom);
+  const [selectedCardId, setSelectedCardId] = useRecoilState(selectedCardAtom);
   const [cardInfos, setCardToCompose] = useRecoilState(
     deckComposeAtom(selectedCardId)
   );
+  const resetCard = useResetRecoilState(deckComposeAtom(selectedCardId));
+  const ref = useRef(null);
   const sameCardsOnDeck = useRecoilValue(quantityPerName(cardInfos.name));
+
+  useClickOutside(ref, () => {
+    setSelectedCardId("");
+  });
 
   const isCover = useMemo<boolean>(
     () => cover === cardInfos.cardId,
@@ -29,10 +65,15 @@ export const CardEdit = (): JSX.Element => {
     [cover, cardInfos]
   );
 
-  console.log(sameCardsOnDeck);
-
   function defineCover(): void {
     setCover(cardInfos.cardId);
+  }
+
+  function removeCard(): void {
+    setDeckComposeIds((e) => e.filter((i) => i !== selectedCardId));
+    setSelectedCardId("");
+    setEditOpen(false);
+    resetCard();
   }
 
   function removeCover(): void {
@@ -48,6 +89,7 @@ export const CardEdit = (): JSX.Element => {
   }, [isMobile]);
 
   function toggleOpen(): void {
+    setSelectedCardId("");
     setEditOpen((old) => !old);
   }
 
@@ -60,33 +102,13 @@ export const CardEdit = (): JSX.Element => {
 
   const cardExists = selectedCardId !== "";
 
-  const animation: AnimationProps = {
-    initial: {
-      translateY: "200%",
-      opacity: 0,
-    },
-    animate: {
-      translateY: "0%",
-      opacity: 1,
-    },
-    exit: {
-      opacity: 0,
-      translateY: "200%",
-      transition: {
-        duration: 0.7,
-      },
-    },
-    transition: {
-      duration: 0.5,
-    },
-  };
-
   return (
     <AnimatePresence>
       {editOpen && (
         <motion.div
           {...animation}
-          className="fixed top-0 left-0 z-20 lg:z-0 lg:relative w-full h-full  lg:h-auto lg:max-w-xs lg:rounded-2xl bg-system shadow-md"
+          ref={ref}
+          className="fixed top-0 left-0 z-30 lg:z-0 lg:relative w-full h-full  lg:h-auto lg:max-w-xs lg:rounded-2xl bg-system shadow-md"
         >
           <div className="lg:sticky lg:top-10">
             {!cardExists && (
@@ -117,27 +139,19 @@ export const CardEdit = (): JSX.Element => {
                   />
                 </div>
                 {!isCover && (
-                  <button
-                    onClick={defineCover}
-                    className="btn btn-primary w-full max-w-xs"
-                    type="button"
-                  >
+                  <Button onClick={defineCover} full>
                     {cover === "" && "Definir como capa"}
                     {cover !== "" && "Alterar como capa"}
-                  </button>
+                  </Button>
                 )}
                 {isCover && (
-                  <button
-                    onClick={removeCover}
-                    className="btn btn-error w-full max-w-xs"
-                    type="button"
-                  >
+                  <Button onClick={removeCover} full>
                     Remover capa
-                  </button>
+                  </Button>
                 )}
-                <button className="btn btn-error w-full max-w-xs" type="button">
+                <Button onClick={removeCard} full color="error">
                   Remover carta
-                </button>
+                </Button>
               </div>
             )}
           </div>

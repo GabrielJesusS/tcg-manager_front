@@ -10,6 +10,11 @@ export const cardFilterAtom = atom<boolean>({
   default: false,
 });
 
+export const deckCardFilterAtom = atom<boolean>({
+  key: "DeckCardFilterAtom",
+  default: false,
+});
+
 export const articlesFilterAtom = atom<boolean>({
   key: "ArticleFilterAtom",
   default: false,
