@@ -31,8 +31,8 @@ export const DefaultQuestionModal = ({
     <Modal isOpen={isOpen}>
       <div
         className={classNames("bg-system z-50 w-full", {
-          "max-w-4xl mx-safe rounded-lg p-safe": !fullSize,
-          "h-screen overflow-auto": fullSize,
+          "max-w-4xl mx-auto h-fit rounded-lg p-safe": !fullSize,
+          "h-full flex flex-col": fullSize,
         })}
       >
         <div
