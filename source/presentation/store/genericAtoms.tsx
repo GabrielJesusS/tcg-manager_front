@@ -1,11 +1,6 @@
-import {
-  atom,
-  atomFamily,
-  selector,
-  selectorFamily,
-  useRecoilCallback,
-} from "recoil";
+import { atom, atomFamily, selector, selectorFamily } from "recoil";
 import { normalizeString } from "../utils/normalizeString";
+import { CardSupertypeEnum } from "../enums/CardSupertype";
 
 interface IUserDataAtomProps {
   id: number | string;
@@ -25,12 +20,6 @@ interface IDeckObjProps {
 
 interface IDeckComposeProps extends IDeckObjProps {
   image: string;
-}
-
-interface IFilterParams {
-  name?: string;
-  type?: string;
-  supertype?: string;
 }
 
 interface IDeckStatistics {
@@ -58,12 +47,29 @@ export const deckComposeAtom = atomFamily<IDeckComposeProps, string>({
   default: emptyCard,
 });
 
-export const deckComposeArrayAtom = selector<Array<IDeckObjProps>>({
+export const cardsInLimitSelector = selector<string[]>({
+  key: "CardsInLimitASelector",
+  get: ({ get }) => {
+    const cardsIds = get(deckComposeIdsAtom);
+
+    return cardsIds.reduce((acc, item) => {
+      const cardOnCompose: IDeckComposeProps = get(deckComposeAtom(item));
+
+      if (cardOnCompose.supertype === CardSupertypeEnum.ENERGY) return acc;
+
+      if (cardOnCompose.quantity === 4) return [...acc, cardOnCompose.name];
+
+      return acc;
+    }, []);
+  },
+});
+
+export const deckComposeArrayAtom = selector<IDeckObjProps[]>({
   key: "DeckComposeArrayAtom",
   get: ({ get }) => {
     const cardsIds = get(deckComposeIdsAtom);
 
-    return cardsIds.reduce((total, cards): Array<IDeckObjProps> => {
+    return cardsIds.reduce((total, cards): IDeckObjProps[] => {
       const cardsOnCompose: IDeckComposeProps = get(deckComposeAtom(cards));
 
       return [
@@ -92,7 +98,7 @@ export const deckStatisticsSelector = selector<IDeckStatistics>({
 
         return {
           ...total,
-          [key]: total[key] + cardsOnCompose.quantity,
+          [key]: (total[key] as number) + cardsOnCompose.quantity,
         };
       },
       { pokemon: 0, energy: 0, trainer: 0 }
@@ -129,8 +135,6 @@ export const quantityPerName = selectorFamily({
     (name) =>
     ({ get }) => {
       const cardsIds = get(deckComposeIdsAtom);
-      const statistics = get(deckStatisticsSelector)
-
       return cardsIds.reduce((total, id) => {
         const cardOnCompose: IDeckComposeProps = get(deckComposeAtom(id));
 
