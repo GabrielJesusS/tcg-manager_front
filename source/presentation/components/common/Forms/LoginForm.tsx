@@ -8,6 +8,8 @@ import { useState } from "react";
 import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
 import { useNotify } from "@/presentation/hooks/useNotify";
 import { StatusEnum } from "@/presentation/enums/NotifyTypeEnum";
+import { CheckBox } from "../CheckBox";
+import { Button } from "../Button";
 
 interface LoginParams {
   email: string;
@@ -18,6 +20,7 @@ const authUserUsecase = createAuthUserUsecase();
 
 export const LoginForm = (): JSX.Element => {
   const { notify } = useNotify();
+  const [showPassword, setShowPassword] = useState(false);
   const { push } = useRouter();
   const {
     register,
@@ -40,6 +43,10 @@ export const LoginForm = (): JSX.Element => {
     await push(PageRoutesEnum.HOME);
   };
 
+  function handleShowPassword(): void {
+    setShowPassword((e) => !e);
+  }
+
   return (
     <form className="space-y-6" onSubmit={handleSubmit(submitData)}>
       <TextInput
@@ -51,14 +58,19 @@ export const LoginForm = (): JSX.Element => {
       />
       <TextInput
         label="Senha"
-        type="password"
+        type={showPassword ? "text" : "password"}
         placeholder="Senha"
         error={errors.password?.message}
         {...register("password")}
       />
-      <button disabled={loading} className="btn btn-primary uppercase w-full">
+      <CheckBox
+        label="Mostrar senha"
+        onChange={handleShowPassword}
+        checked={showPassword}
+      />
+      <Button disabled={loading} full className="uppercase">
         Autenticar-se
-      </button>
+      </Button>
     </form>
   );
 };

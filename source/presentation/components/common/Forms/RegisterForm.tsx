@@ -7,6 +7,9 @@ import { useRouter } from "next/router";
 import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
 import { useNotify } from "@/presentation/hooks/useNotify";
 import { StatusEnum } from "@/presentation/enums/NotifyTypeEnum";
+import { useState } from "react";
+import { CheckBox } from "../CheckBox";
+import { Button } from "../Button";
 
 interface RegisterParams {
   name: string;
@@ -20,6 +23,7 @@ const registerUserUsecase = createRegisterUserUsecase();
 
 export const RegisterForm = (): JSX.Element => {
   const { notify } = useNotify();
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     formState: { errors },
@@ -28,13 +32,17 @@ export const RegisterForm = (): JSX.Element => {
     resolver: yupResolver(registerSchema),
   });
 
+  function handleShowPassword(): void {
+    setShowPassword((e) => !e);
+  }
+
   const { push } = useRouter();
 
   const submitData: SubmitHandler<RegisterParams> = async (data) => {
     const response = await registerUserUsecase.execute(data);
 
     if (response.isLeft()) {
-      notify("Dados inválidos", StatusEnum.ERROR)
+      notify("Dados inválidos", StatusEnum.ERROR);
       return;
     }
 
@@ -69,7 +77,7 @@ export const RegisterForm = (): JSX.Element => {
 
       <TextInput
         label="Senha"
-        type="password"
+        type={showPassword ? "text" : "password"}
         {...register("password")}
         placeholder={"Senha"}
         error={errors.password?.message}
@@ -77,13 +85,20 @@ export const RegisterForm = (): JSX.Element => {
 
       <TextInput
         label="Confirmar senha"
-        type="password"
+        type={showPassword ? "text" : "password"}
         {...register("confirmPassword")}
         placeholder={"Confirmar senha"}
         error={errors.confirmPassword?.message}
       />
+      <CheckBox
+        label="Mostrar senha"
+        onChange={handleShowPassword}
+        checked={showPassword}
+      />
 
-      <button className="btn btn-primary uppercase w-full">Registar-se</button>
+      <Button className="uppercase" full>
+        Registar-se
+      </Button>
     </form>
   );
 };
