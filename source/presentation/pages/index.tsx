@@ -4,7 +4,6 @@ import { ArticlesList } from "../components/common/ArticlesList";
 import { ArticlesItems } from "../data/mocks/articleMock";
 import { HomeCaroussel } from "../components/common/Caroussel/HomeCaroussel";
 import { Banners } from "../data/local/banners";
-import { loadUserData } from "../middlewares/loadUserData";
 
 function Home(): JSX.Element {
   return (
@@ -35,4 +34,4 @@ function Home(): JSX.Element {
 }
 
 
-export default loadUserData(Home)
+export default Home

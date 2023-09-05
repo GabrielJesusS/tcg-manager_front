@@ -10,10 +10,11 @@ import { useRecoilValue } from "recoil";
 import { userDataAtom } from "@/presentation/store/genericAtoms";
 import { createSignOutUsecase } from "@/factories/createSignOutUsecase";
 import { useRouter } from "next/router";
+import { loadUserData } from "@/presentation/middlewares/loadUserData";
 
 const signOutUsecase = createSignOutUsecase();
 
-export const Navbar = (): JSX.Element => {
+export const  Navbar = loadUserData((): JSX.Element =>  {
   const [isHideMenu, setHideMenu] = useState<boolean>(false);
   const { reload } = useRouter();
   const userData = useRecoilValue(userDataAtom);
@@ -65,7 +66,7 @@ export const Navbar = (): JSX.Element => {
               <nav>
                 {userData && (
                   <Userdata
-                    userId={userData.user_name}
+                    userId={userData.id.toString()}
                     userLevel={userData.experience_level}
                     userPicture={""}
                     username={userData.name}
@@ -161,4 +162,8 @@ export const Navbar = (): JSX.Element => {
       </div>
     </header>
   );
-};
+});
+
+
+
+
