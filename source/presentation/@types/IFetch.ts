@@ -1,9 +1,8 @@
-import { TApplicationError } from "@/core/Errors"
-import { KeyedMutator } from "swr"
+import { TApplicationError } from "@/core/Errors";
 
-export interface IFetch<T>{
-    data: T | undefined,
-    error: TApplicationError | undefined
-    update: Function
-    isLoading: boolean
+export interface IFetch<T> {
+  data: T | undefined;
+  error: TApplicationError | undefined;
+  update: (clean: boolean) => void;
+  isLoading: boolean;
 }
