@@ -16,6 +16,7 @@ interface IDefaultQuestionModal {
   close: () => void;
   fullSize?: boolean;
   children?: React.ReactNode;
+  small?: boolean;
 }
 
 export const DefaultQuestionModal = ({
@@ -26,19 +27,24 @@ export const DefaultQuestionModal = ({
   secondAction,
   fullSize,
   title,
+  small,
 }: IDefaultQuestionModal): JSX.Element => {
   return (
     <Modal isOpen={isOpen}>
       <div
-        className={classNames("bg-system z-50 w-full", {
-          "max-w-4xl mx-auto h-fit rounded-lg p-safe": !fullSize,
-          "h-full flex flex-col": fullSize,
-        })}
+        className={classNames(
+          "bg-system z-50",
+          {
+            "max-w-4xl mx-auto h-fit rounded-lg p-safe": !fullSize,
+            "h-full flex flex-col": fullSize,
+          },
+          small ? "w-fit" : " w-full"
+        )}
       >
         <div
           className={classNames(
             "w-full flex items-center",
-            title ? "justify-between" : "justify-end"
+            title ? "justify-between space-x-4" : "justify-end"
           )}
         >
           {title ? (
@@ -62,26 +68,28 @@ export const DefaultQuestionModal = ({
           </button>
         </div>
         {children}
-        {action && (
-          <button
-            onClick={() => {
-              action.actionClick();
-            }}
-            className="btn btn-primary"
-          >
-            {action.actionText}
-          </button>
-        )}
-        {secondAction && (
-          <button
-            onClick={() => {
-              secondAction.secondActionClick();
-            }}
-            className="btn btn-error"
-          >
-            {secondAction.secondActionText}
-          </button>
-        )}
+        <div className="flex space-x-4">
+          {action && (
+            <button
+              onClick={() => {
+                action.actionClick();
+              }}
+              className="btn btn-primary"
+            >
+              {action.actionText}
+            </button>
+          )}
+          {secondAction && (
+            <button
+              onClick={() => {
+                secondAction.secondActionClick();
+              }}
+              className="btn btn-error"
+            >
+              {secondAction.secondActionText}
+            </button>
+          )}
+        </div>
       </div>
     </Modal>
   );
