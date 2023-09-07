@@ -26,6 +26,7 @@ interface IDeckStatistics {
   pokemon: number;
   energy: number;
   trainer: number;
+  total: number;
 }
 
 const emptyCard: IDeckComposeProps = {
@@ -92,16 +93,17 @@ export const deckStatisticsSelector = selector<IDeckStatistics>({
     const cardsIds = get(deckComposeIdsAtom);
 
     return cardsIds.reduce(
-      (total, cards): IDeckStatistics => {
+      (acc, cards): IDeckStatistics => {
         const cardsOnCompose: IDeckComposeProps = get(deckComposeAtom(cards));
         const key: string = normalizeString(cardsOnCompose.supertype);
 
         return {
-          ...total,
-          [key]: (total[key] as number) + cardsOnCompose.quantity,
+          ...acc,
+          [key]: (acc[key] as number) + cardsOnCompose.quantity,
+          total: acc.total + cardsOnCompose.quantity,
         };
       },
-      { pokemon: 0, energy: 0, trainer: 0 }
+      { pokemon: 0, energy: 0, trainer: 0, total: 0 }
     );
   },
 });
@@ -114,19 +116,6 @@ export const actualCardOnComposeAtom = atom<IDeckComposeProps>({
 export const deckComposeIdsAtom = atom<string[]>({
   key: "DeckComposeIdsAtom",
   default: [],
-});
-
-export const totalDeckCardsAtom = selector<number>({
-  key: "TotalDeckCardsOnCompose",
-  get: ({ get }) => {
-    const cardsIds = get(deckComposeIdsAtom);
-
-    return cardsIds.reduce((total, cards) => {
-      const cardsOnCompose: IDeckComposeProps = get(deckComposeAtom(cards));
-
-      return total + cardsOnCompose.quantity;
-    }, 0);
-  },
 });
 
 export const quantityPerName = selectorFamily({

@@ -11,6 +11,7 @@ import {
   cardEditOpen,
   deckComposeAtom,
   deckComposeIdsAtom,
+  deckStatisticsSelector,
   quantityPerName,
   selectedCardAtom,
 } from "@/presentation/store/genericAtoms";
@@ -51,6 +52,7 @@ export const CardEdit = (): JSX.Element => {
   const [cardInfos, setCardToCompose] = useRecoilState(
     deckComposeAtom(selectedCardId)
   );
+  const totalCards = useRecoilValue(deckStatisticsSelector);
   const resetCard = useResetRecoilState(deckComposeAtom(selectedCardId));
   const ref = useRef(null);
   const sameCardsOnDeck = useRecoilValue(quantityPerName(cardInfos.name));
@@ -72,7 +74,9 @@ export const CardEdit = (): JSX.Element => {
   function removeCard(): void {
     setDeckComposeIds((e) => e.filter((i) => i !== selectedCardId));
     setSelectedCardId("");
-    setEditOpen(false);
+    if (isMobile) {
+      setEditOpen(false);
+    }
     resetCard();
   }
 
@@ -95,10 +99,11 @@ export const CardEdit = (): JSX.Element => {
 
   const cardLimit = useMemo<number>(() => {
     if (cardInfos.supertype === CardSupertypeEnum.ENERGY) {
-      return 60;
+      return 60 - (totalCards.pokemon + totalCards.trainer);
     }
-    return 4;
-  }, [sameCardsOnDeck]);
+    const restCards = 60 - totalCards.total;
+    return restCards <= 0 ? restCards : 4;
+  }, [sameCardsOnDeck, totalCards]);
 
   const cardExists = selectedCardId !== "";
 
