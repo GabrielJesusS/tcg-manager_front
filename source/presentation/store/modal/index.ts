@@ -39,3 +39,8 @@ export const userEditModalAtom = atom<boolean>({
   key: "UserEditModalAtom",
   default: false,
 });
+
+export const userExcludeModalAtom = atom<boolean>({
+  key: "userExcludeModalAtom",
+  default: false,
+});
