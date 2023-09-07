@@ -29,5 +29,6 @@ export interface IUserRepository {
     params: IUserAuthParams
   ) => Promise<TEither<TApplicationError, undefined>>;
   getProfile: () => Promise<TEither<TApplicationError, IUserData>>;
+  getById: (id: string) => Promise<TEither<TApplicationError, IUserData>>;
   signOut: () => Promise<TEither<TApplicationError, undefined>>;
 }

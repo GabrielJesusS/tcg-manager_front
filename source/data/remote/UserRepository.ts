@@ -33,6 +33,7 @@ export class UserRepository implements IUserRepository {
   private static readonly createRoute: string = "/user/register";
   private static readonly authRoute: string = "/user/login";
   private static readonly getPtofile: string = "/user/verifyUserToken";
+  private static readonly getById: string = "/user";
 
   constructor(client: IHttpClient, cookieService: ICookieService) {
     this.client = client;
@@ -90,6 +91,23 @@ export class UserRepository implements IUserRepository {
       >({
         method: HttpMethod.GET,
         url: UserRepository.getPtofile,
+      });
+
+      return right(body.data);
+    } catch (error) {
+      return left(generateHttpErrorResponse(error));
+    }
+  }
+
+  async getById(
+    id: string
+  ): Promise<TEither<TApplicationError, IGetProfileResponse>> {
+    try {
+      const { body } = await this.client.request<
+        IApiResponse<IGetProfileResponse>
+      >({
+        method: HttpMethod.GET,
+        url: `${UserRepository.getById}/${id}`,
       });
 
       return right(body.data);
