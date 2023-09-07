@@ -1,3 +1,4 @@
+import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
 import classNames from "classnames";
 import Link from "next/link";
 import { HTMLAttributes } from "react";
@@ -18,7 +19,7 @@ export const Userdata = ({
 }: UserdataProps): JSX.Element => {
   return (
     <Link
-      href={`users/${userId}`}
+      href={`${PageRoutesEnum.USERS}${userId}`}
       className={classNames(
         "flex shrink-0 items-center space-x-1 w-fit",
         className
