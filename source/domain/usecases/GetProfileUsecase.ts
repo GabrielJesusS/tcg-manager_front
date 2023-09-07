@@ -13,7 +13,7 @@ interface IUserDataProps {
 
 export class GetUserProfileUsecase implements IUsecase {
   constructor(private readonly repository: IUserRepository) {}
-  execute(): Promise<TEither<TApplicationError, IUserDataProps>> {
-    return this.repository.getProfile();
+  async execute(): Promise<TEither<TApplicationError, IUserDataProps>> {
+    return await this.repository.getProfile();
   }
 }
