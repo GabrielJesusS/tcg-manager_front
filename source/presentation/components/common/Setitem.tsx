@@ -27,7 +27,7 @@ export const Setitem = ({
 }: ISetItem): JSX.Element => {
   return (
     <Link
-      href={`${PageRoutesEnum.SETS}${id}`}
+      href={`${PageRoutesEnum.CARDS}?set=${id}`}
       className="bg-system rounded-2xl p-3 shadow-xl h-full block"
     >
       <span className="space-y-3 block">
