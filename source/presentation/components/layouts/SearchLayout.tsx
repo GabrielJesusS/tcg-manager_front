@@ -15,12 +15,14 @@ interface ISearchLayout {
   tilte: React.ReactNode;
   filters: React.ReactNode;
   children: React.ReactNode;
+  disableFilters?: boolean;
 }
 
 export const SearchLayout = ({
   children,
   filters,
   tilte,
+  disableFilters,
 }: ISearchLayout): JSX.Element => {
   const filterAnimation: AnimationProps = {
     initial: { opacity: 0, translateX: "-100%" },
@@ -69,25 +71,29 @@ export const SearchLayout = ({
             </div>
           </Header>
           <section className="flex h-full ">
-            <AnimatePresence>
-              {filterOpen && (
-                <motion.div
-                  {...filterAnimation}
-                  className="w-full h-full lg:max-w-xs top-0 bg-system p-4 fixed lg:relative z-20 lg:z-0"
-                >
-                  <div className="sticky left-0 top-20 flex flex-col">
-                    <button
-                      onClick={toggleFilter}
-                      className="lg:hidden self-end"
-                    >
-                      <CloseIcon className="w-8 h-8 fill-system-800" />
-                    </button>
-                    <h3 className="text-2xl font-bold text-center ">Filtros</h3>
-                    {filters}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {disableFilters ? null : (
+              <AnimatePresence>
+                {filterOpen && (
+                  <motion.div
+                    {...filterAnimation}
+                    className="w-full h-full lg:max-w-xs top-0 bg-system p-4 fixed lg:relative z-20 lg:z-0"
+                  >
+                    <div className="sticky left-0 top-20 flex flex-col">
+                      <button
+                        onClick={toggleFilter}
+                        className="lg:hidden self-end"
+                      >
+                        <CloseIcon className="w-8 h-8 fill-system-800" />
+                      </button>
+                      <h3 className="text-2xl font-bold text-center ">
+                        Filtros
+                      </h3>
+                      {filters}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            )}
             <div className="w-full h-full p-safe space-y-safe lg:space-y-0 bg-system-100">
               <div className="w-full relative">
                 <Button full onClick={toggleFilter} className="lg:hidden">
