@@ -11,8 +11,37 @@ interface ICreateDeckParams {
   };
 }
 
+interface ISearchOnList {
+  searchParams?: string;
+  page?: number;
+  pageSize?: number;
+  orderBy?: string;
+}
+
+interface IDeckItem {
+  id: string;
+  name: string;
+  description: string;
+  difficulty: number;
+  user: {
+    id: string;
+    user_name: string;
+  };
+}
+
+interface IDeckListProps {
+  data: IDeckItem[];
+  page: number;
+  pageSize: number;
+  count: number;
+  totalCount: number;
+}
+
 export interface IDeckRepository {
   create: (
     params: ICreateDeckParams
   ) => Promise<TEither<TApplicationError, undefined>>;
+  getList: (
+    params: ISearchOnList
+  ) => Promise<TEither<TApplicationError, IDeckListProps>>;
 }
