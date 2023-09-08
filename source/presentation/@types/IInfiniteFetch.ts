@@ -4,7 +4,7 @@ export interface IInfiniteFetch<T> {
   data?: T[];
   size: number;
   setSize: (val: number | ((x: number) => number)) => void;
-  mutate?: () => void;
+  mutate: () => void;
   error?: TApplicationError;
   isValidating?: boolean;
   isLoading?: boolean;
