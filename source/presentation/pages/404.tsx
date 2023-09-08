@@ -3,14 +3,21 @@ import Unknow2x from "@/presentation/public/images/rsc/unknow-2x.png";
 import Unknow from "@/presentation/public/images/rsc/unknow.png";
 import BackgroundRoad2x from "@/presentation/public/images/rsc/bgs/bg_404-2x.png";
 import BackgroundRoad from "@/presentation/public/images/rsc/bgs/bg_404.png";
+import { useRouter } from "next/router";
 
 export default function NotFound(): JSX.Element {
+  const { back } = useRouter();
+
+  function returnNavigation(): void {
+    back();
+  }
+
   return (
     <div className="h-screen flex flex-col">
       <section className="h-full relative text-system">
         <div className="p-5 pt-16 bg-gradient-to-b from-black flex flex-col-reverse text-center h-full relative z-10">
           <h1 className="text-6xl font-extrabold uppercase grow">Erro 404</h1>
-          <div className="space grow">
+          <div className="grow">
             <p className="font-semibold text-xl mb-10">
               Desculpe, não entendi o que você esta procurando...
             </p>
@@ -31,6 +38,12 @@ export default function NotFound(): JSX.Element {
                 className="mx-auto"
               />
             </picture>
+            <button
+              onClick={returnNavigation}
+              className="text-2xl hover:text-secondary-light duration-150 transition-all"
+            >
+              Voltar
+            </button>
           </div>
         </div>
         <div className="absolute top-0 h-full w-full overflow-hidden">
@@ -52,7 +65,7 @@ export default function NotFound(): JSX.Element {
           </picture>
         </div>
       </section>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }
