@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { HTMLAttributes } from "react";
 import CoffeeIcon from "@/presentation/public/images/icons/coffee.svg";
 import classNames from "classnames";
@@ -20,13 +19,23 @@ export const Footer = ({ className }: FooterProps): JSX.Element => {
         </p>
         <p>
           Created by{" "}
-          <Link className="dft-link" href="#">
-            Gabriel Jesus
-          </Link>{" "}
-          &{" "}
-          <Link className="dft-link" href="#">
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="dft-link"
+            href="https://github.com/L3m0S"
+          >
             Gabriel Lemos
-          </Link>{" "}
+          </a>{" "}
+          &{" "}
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="dft-link"
+            href="https://github.com/GabrielJesusS"
+          >
+            Gabriel Jesus
+          </a>{" "}
           <CoffeeIcon className="inline" />
         </p>
       </div>
