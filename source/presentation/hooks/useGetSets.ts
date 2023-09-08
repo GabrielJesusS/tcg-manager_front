@@ -1,7 +1,6 @@
 import { createGetSetListUsecase } from "@/factories/createGetSetListUsecase";
-import { useFetch } from "./useFetch";
-import { IFetch } from "../@types/IFetch";
-import { generateFilterString } from "../utils/generateFilterString";
+import { IInfiniteFetch } from "../@types/IInfiniteFetch";
+import { useInfinite } from "./useInfinite";
 
 const getSetsUsecase = createGetSetListUsecase();
 
@@ -33,29 +32,46 @@ interface ISetResponse {
   totalCount: number;
 }
 
-interface ICardFilter {
-  name: string;
-  types: string;
-  supertype: string;
-  subtypes: string ;
+interface ISetListKey {
+  key: string;
+  page: number;
+}
+
+function getKey() {
+  return (index: number, prevData: any): ISetListKey | null => {
+    if (prevData && !prevData.data) return null;
+    return {
+      key: "SetCardList",
+      page: index + 1,
+    };
+  };
 }
 
 export const useGetSets = (
-  offset: number,
-  searchParams: ICardFilter
-): IFetch<ISetResponse> => {
-  const { data, error, isLoading, mutate, isValidating } = useFetch({
-    name: "get-sets",
-    useCase: async () =>
-      await getSetsUsecase.execute({ page: offset, searchParams: generateFilterString(searchParams)}),
-    swr: {
-      revalidateOnFocus: false,
-    },
-  });
+): IInfiniteFetch<ISetResponse> => {
+  const { data, mutate, error, isValidating, setSize, size } =
+    useInfinite<ISetResponse>({
+      getKey: getKey(),
+      useCase: async (e: ISetListKey) => {
+        return await getSetsUsecase.execute({
+          page: e.page,
+        });
+      },
+      swr: {
+        revalidateFirstPage: false,
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        shouldRetryOnError: false,
+      },
+    });
 
-  function update() {
-    mutate();
-  }
-
-  return { data, error, update, isLoading: (!data && !error) || isValidating };
+  return {
+    data,
+    size,
+    setSize,
+    mutate,
+    error,
+    isValidating,
+    isLoading: !data && !error,
+  };
 };
