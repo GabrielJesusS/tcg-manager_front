@@ -22,7 +22,7 @@ export const Deckitem = ({
   deckDescription,
 }: DeckitemProps): JSX.Element => {
   return (
-    <div className="rounded-2xl overflow-hidden shadow-lg ">
+    <div title={deckTitle} className="rounded-2xl overflow-hidden shadow-lg ">
       <Link href={`decks/${deckId}`}>
         <div className="h-20 bg-gradient-to-t from-system-800">
           <picture>
@@ -36,17 +36,17 @@ export const Deckitem = ({
       </Link>
       <div className="text-system-800 bg-system p-2">
         <Link href={`decks/${deckId}`}>
-          <h3 className="text-sm font-bold break-words md:text-xl">
+          <h3 className="text-sm font-bold break-words line-clamp-1  md:text-xl">
             {deckTitle}
           </h3>
         </Link>
         <small className="text-xs md:text-sm">
-          Criado por{" "}
-          <Link className="dft-link" href={`user/${deckAuthor.authorId}`}>
+          Criado por
+          <Link className="dft-link" href={`usuarios/${deckAuthor.authorId}`}>
             {deckAuthor.authorName}
           </Link>
         </small>
-        <p className="text-system-400 text-sm hidden md:block">
+        <p className="text-system-400 text-sm line-clamp-1 max-md:hidden">
           {deckDescription}
         </p>
         <p className="text-xs md:text-sm flex">Nota: {deckRate.toFixed(1)}</p>
