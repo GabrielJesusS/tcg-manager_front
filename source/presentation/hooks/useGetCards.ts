@@ -10,6 +10,7 @@ interface ICardFilter {
   types: string;
   supertype: string;
   subtypes: string;
+  "set.id"?: string;
 }
 
 interface ICardListKey {
@@ -48,6 +49,7 @@ export const useGetCards = (
         revalidateIfStale: false,
         revalidateOnFocus: false,
         shouldRetryOnError: false,
+        revalidateOnMount: false
       },
     });
 

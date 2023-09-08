@@ -1,5 +1,5 @@
 import { generateArray } from "@/presentation/utils/generateArray";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { PokemonCard } from "../PokemonCard";
 import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
@@ -15,6 +15,7 @@ import Spinda from "@/presentation/public/images/rsc/spinda.webp";
 import { CardSkeleton } from "../skeletons/CardSkeleton";
 import { useNotify } from "@/presentation/hooks/useNotify";
 import { StatusEnum } from "@/presentation/enums/NotifyTypeEnum";
+import { useRouter } from "next/router";
 
 const skeletonArray = generateArray(20);
 
@@ -22,12 +23,12 @@ export const PokemonCardList = (): JSX.Element => {
   const filters = useRecoilValue(cardFilterAtom);
   const order = useRecoilValue(cardFilterOrderAtom);
   const resetFilter = useResetRecoilState(cardFilterAtom);
+  const [cardSet, setCardSet] = useState<string>("");
   const { notify } = useNotify();
+  const { query, isReady } = useRouter();
 
-  const { data, error, isValidating, setSize, size, isLoading } = useGetCards(
-    filters,
-    order
-  );
+  const { data, error, isValidating, setSize, size, isLoading, mutate } =
+    useGetCards({ ...filters, "set.id": cardSet }, order);
 
   const itemsFounded = useMemo(() => {
     if (data) {
@@ -35,6 +36,14 @@ export const PokemonCardList = (): JSX.Element => {
     }
     return 0;
   }, [data]);
+
+  useEffect(() => {
+    if (isReady) {
+      setCardSet(query.set as string);
+      mutate();
+    }
+  }, [isReady]);
+
 
   useEffect(() => {
     if (error) {
