@@ -15,7 +15,11 @@ export const Breadcrumb = (): JSX.Element => {
   const { asPath, pathname } = useRouter();
 
   const paths: IPathItems[] = useMemo(() => {
-    const pathNames = asPath.split("/").filter((item) => item && item);
+    const pathNames = asPath
+      .replace(/\?(.*)/gm, "")
+      .split("/")
+      .filter((item) => item && item);
+
     const parsedPaths = pathNames.reduce<string[]>(
       (acc, item) => [...acc, "/" + item],
       []
