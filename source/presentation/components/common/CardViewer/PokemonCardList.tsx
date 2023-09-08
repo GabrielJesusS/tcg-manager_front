@@ -4,7 +4,7 @@ import { useRecoilValue, useResetRecoilState } from "recoil";
 import { PokemonCard } from "../PokemonCard";
 import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
 import {
-  cardFilterAtom,
+  filterParamsAtom,
   cardFilterOrderAtom,
 } from "@/presentation/store/filters/cardFiltersAtom";
 import { useGetCards } from "@/presentation/hooks/useGetCards";
@@ -20,9 +20,9 @@ import { useRouter } from "next/router";
 const skeletonArray = generateArray(20);
 
 export const PokemonCardList = (): JSX.Element => {
-  const filters = useRecoilValue(cardFilterAtom);
+  const filters = useRecoilValue(filterParamsAtom);
   const order = useRecoilValue(cardFilterOrderAtom);
-  const resetFilter = useResetRecoilState(cardFilterAtom);
+  const resetFilter = useResetRecoilState(filterParamsAtom);
   const [cardSet, setCardSet] = useState<string>("");
   const { notify } = useNotify();
   const { query, isReady } = useRouter();

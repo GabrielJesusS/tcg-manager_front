@@ -8,8 +8,8 @@ export interface ICardFilter {
   subtypes: string;
 }
 
-export const cardFilterAtom = atom<ICardFilter>({
-  key: "CardFilterAtom",
+export const filterParamsAtom = atom<ICardFilter>({
+  key: "FilterParamsAtom",
   default: {
     name: "",
     types: "",

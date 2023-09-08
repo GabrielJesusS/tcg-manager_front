@@ -5,7 +5,7 @@ import { TextInput } from "../common/Textinput";
 import { DefaultLayout } from "./DefaultLayout";
 import { useDebounce } from "@/presentation/hooks/useDebounce";
 import { useRecoilState } from "recoil";
-import { cardFilterAtom } from "@/presentation/store/filters/cardFiltersAtom";
+import { filterParamsAtom } from "@/presentation/store/filters/cardFiltersAtom";
 import CloseIcon from "@/presentation/public/images/icons/close.svg";
 import { motion, AnimatePresence, AnimationProps } from "framer-motion";
 import { useGetMobile } from "@/presentation/hooks/useGetMobile";
@@ -41,7 +41,7 @@ export const SearchLayout = ({
     setFilterOpen(!isMobile);
   }, [isMobile]);
 
-  const [filterValues, setFilterParams] = useRecoilState(cardFilterAtom);
+  const [filterValues, setFilterParams] = useRecoilState(filterParamsAtom);
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>): void {
     debounce(event.target.value);
