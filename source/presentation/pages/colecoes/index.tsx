@@ -3,7 +3,7 @@ import { SearchLayout } from "@/presentation/components/layouts/SearchLayout";
 
 const Sets = (): JSX.Element => {
   return (
-    <SearchLayout tilte="Coleções" filters={<></>}>
+    <SearchLayout disableFilters tilte="Coleções" filters={<></>}>
       <SetList />
     </SearchLayout>
   );
