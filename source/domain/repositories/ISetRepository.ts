@@ -30,7 +30,6 @@ interface ISetResponse {
 }
 
 interface ISearchOnList {
-  searchParams?: string;
   page?: number;
   pageSize?: number;
 }

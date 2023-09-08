@@ -32,7 +32,6 @@ interface ISetResponse {
 }
 
 interface ISearchOnList {
-  searchParams?: string;
   page?: number;
   pageSize?: number;
 }
@@ -40,9 +39,9 @@ interface ISearchOnList {
 export class GetSetListUsecase implements IUsecase {
   constructor(private readonly setrepository: ISetRepository) {}
 
-  execute(
+  async execute(
     params: ISearchOnList
   ): Promise<TEither<TApplicationError, ISetResponse>> {
-    return this.setrepository.get(params);
+    return await this.setrepository.get(params);
   }
 }
