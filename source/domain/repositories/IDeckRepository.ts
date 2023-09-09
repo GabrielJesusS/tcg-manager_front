@@ -37,6 +37,27 @@ interface IDeckListProps {
   totalCount: number;
 }
 
+interface ICardDeckInfo {
+  id: number;
+  card_id: string;
+  cardInfo: {
+    id: string;
+    name: string;
+    images: {
+      small: string;
+      large: string;
+    };
+  };
+}
+
+interface IDeck {
+  id: string;
+  name: string;
+  description: string;
+  difficulty: number;
+  cards: ICardDeckInfo[];
+}
+
 export interface IDeckRepository {
   create: (
     params: ICreateDeckParams
@@ -44,4 +65,5 @@ export interface IDeckRepository {
   getList: (
     params: ISearchOnList
   ) => Promise<TEither<TApplicationError, IDeckListProps>>;
+  getById: (id: string) => Promise<TEither<TApplicationError, IDeck>>;
 }

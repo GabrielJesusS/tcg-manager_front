@@ -5,6 +5,7 @@ import { HttpMethod, IHttpClient, IHttpResponse } from "@/services/http";
 import { generateHttpErrorResponse } from "../modules/generateHttpErrorResponse";
 import { IDeckListResponse } from "./responses/DeckListResponse";
 import { IApiResponse } from "../modules/IApiResponse";
+import { IDeckResponse } from "./responses/DeckResponse";
 
 interface ICreateDeckParams {
   name: string;
@@ -17,7 +18,7 @@ interface ICreateDeckParams {
 }
 
 interface ISearchOnListParams {
-  relations?: string
+  relations?: string;
   searchParams?: string;
   page?: number;
   pageSize?: number;
@@ -29,6 +30,7 @@ export class DeckRepository implements IDeckRepository {
 
   public static createUrl: string = "/deck";
   public static list: string = "/deck";
+  public static getOne: string = "/deck";
 
   constructor(client: IHttpClient) {
     this.client = client;
@@ -47,11 +49,39 @@ export class DeckRepository implements IDeckRepository {
       >({
         method: HttpMethod.GET,
         url: DeckRepository.list,
-        params: {...params, relations: "user"},
+        params: { ...params, relations: "user" },
       });
-    
 
       return right(data);
+    } catch (error) {
+      return left(generateHttpErrorResponse(error));
+    }
+  }
+
+  async getById(id): Promise<TEither<TApplicationError, IDeckResponse>> {
+    try {
+      const {
+        body: {
+          data: { data },
+        },
+      } = await this.client.request<
+        IApiResponse<{ data: IDeckResponse[] }>,
+        undefined,
+        { id: string; relations?: string }
+      >({
+        method: HttpMethod.GET,
+        url: DeckRepository.getOne,
+        params: {
+          id,
+          relations: "cards",
+        },
+      });
+
+      if (!data.length) {
+        throw new Error("Deck not found");
+      }
+
+      return right(data[0]);
     } catch (error) {
       return left(generateHttpErrorResponse(error));
     }
