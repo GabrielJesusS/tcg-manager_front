@@ -1,3 +1,5 @@
+@import "./animations.css";
+
 .dummy {
   border: 1px solid red;
 }
