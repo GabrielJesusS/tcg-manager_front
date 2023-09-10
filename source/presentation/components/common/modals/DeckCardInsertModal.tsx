@@ -19,7 +19,7 @@ import { TextInput } from "../Textinput";
 import { generateArray } from "@/presentation/utils/generateArray";
 import { CardSkeleton } from "../skeletons/CardSkeleton";
 import { useDebounce } from "@/presentation/hooks/useDebounce";
-import { cardFilterAtom } from "@/presentation/store/filters/cardFiltersAtom";
+import { filterParamsAtom } from "@/presentation/store/filters/cardFiltersAtom";
 import { useGetCards } from "@/presentation/hooks/useGetCards";
 import { OrderByEnum } from "@/presentation/enums/OrderByEnum";
 import { Button } from "../Button";
@@ -64,7 +64,7 @@ const skeletonArray = generateArray(20);
 export const DeckCardInsertModal = (): JSX.Element => {
   const [isOpen, setOpen] = useRecoilState(deckCardInsertAtom);
   const setFilterOpen = useSetRecoilState(deckCardFilterAtom);
-  const [filters, setFilters] = useRecoilState(cardFilterAtom);
+  const [filters, setFilters] = useRecoilState(filterParamsAtom);
   const cardsInLimit = useRecoilValue(cardsInLimitSelector);
   const { data, isValidating, isLoading, setSize } = useGetCards(
     filters,
@@ -75,7 +75,7 @@ export const DeckCardInsertModal = (): JSX.Element => {
   const [_, unlock] = useLockBody();
 
   const debounce = useDebounce(searchPokemon, 1000);
-  const resetFilters = useResetRecoilState(cardFilterAtom);
+  const resetFilters = useResetRecoilState(filterParamsAtom);
   /* const { notify } = useNotify(); */
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>): void {
@@ -146,18 +146,18 @@ export const DeckCardInsertModal = (): JSX.Element => {
     <BorderlessModal isOpen={isOpen}>
       <div className="max-w-7xl md:space-x-4 mx-auto p-safe flex-1 w-full flex flex-col-reverse md:flex-row h-full">
         <div className="h-full w-full overflow-y-auto p-2 space-y-4">
-        {!itemsFounded && !isValidating ? (
-        <p className="text-center font-bold text-2xl mt-11">
-          <Image
-            src={Spinda.src}
-            width={200}
-            height={200}
-            alt="Imagem do spinda."
-            className="mx-auto animate-bounce"
-          />
-          Desculpe, não encontrei nada com este nome =(
-        </p>
-      ) : null}
+          {!itemsFounded && !isValidating ? (
+            <p className="text-center font-bold text-2xl mt-11">
+              <Image
+                src={Spinda.src}
+                width={200}
+                height={200}
+                alt="Imagem do spinda."
+                className="mx-auto animate-bounce"
+              />
+              Desculpe, não encontrei nada com este nome =(
+            </p>
+          ) : null}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-2 grid-flow-row">
             {data
               ? data?.map((e) =>
