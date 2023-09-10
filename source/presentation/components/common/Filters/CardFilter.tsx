@@ -7,7 +7,7 @@ import {
 } from "@/presentation/data/local/cardFiltersInfos";
 import {
   ICardFilter,
-  cardFilterAtom,
+  filterParamsAtom,
   cardFilterOrderAtom,
 } from "@/presentation/store/filters/cardFiltersAtom";
 import { useGetSubtypes } from "@/presentation/hooks/useGetSubtypes";
@@ -21,7 +21,7 @@ const defaultValue = {
 };
 
 export const CardFilter = (): JSX.Element => {
-  const [filtersValue, setFilterParams] = useRecoilState(cardFilterAtom);
+  const [filtersValue, setFilterParams] = useRecoilState(filterParamsAtom);
   const [order, setOrder] = useRecoilState(cardFilterOrderAtom);
 
   const { data } = useGetSubtypes();
