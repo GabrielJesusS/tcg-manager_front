@@ -38,6 +38,12 @@ const emptyCard: IDeckComposeProps = {
   quantity: 0,
 };
 
+interface IDeckRules {
+  quantity: boolean;
+  basicPokemon: boolean;
+  minimalEnergy: boolean;
+}
+
 export const userDataAtom = atom<IUserDataAtomProps | null>({
   key: "UserDataAtom",
   default: null,
@@ -153,6 +159,25 @@ export const cardEditOpen = atom<boolean>({
 export const cardCoverAtom = atom<string>({
   key: "CardCoverAtom",
   default: "",
+});
+
+export const deckRulesSelector = selector<IDeckRules>({
+  key: "DeckRulesSelector",
+  get: ({ get }) => {
+    const statistics = get(deckStatisticsSelector);
+    const cardsIds = get(deckComposeIdsAtom);
+
+    const hasBasicPokemon = cardsIds.some((id) => {
+      const cardOnCompose: IDeckComposeProps = get(deckComposeAtom(id));
+      return cardOnCompose.subtypes.includes("Basic");
+    });
+
+    return {
+      basicPokemon: hasBasicPokemon,
+      minimalEnergy: statistics.energy >= 10,
+      quantity: statistics.total === 60,
+    };
+  },
 });
 
 export const cardSelector = selectorFamily<IDeckComposeProps, string>({

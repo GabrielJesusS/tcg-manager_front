@@ -1,7 +1,10 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Dropdown } from "../Dropdown";
 import { TextInput } from "../Textinput";
-import { deckComposeArrayAtom } from "@/presentation/store/genericAtoms";
+import {
+  deckComposeArrayAtom,
+  deckRulesSelector,
+} from "@/presentation/store/genericAtoms";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "../Button";
 import { createCreateDeckUseCase } from "@/factories/createCreateDeckUseCase";
@@ -11,6 +14,7 @@ import { deckComposeSchema } from "@/presentation/schemas/deckComposeSchema";
 import { useEffect } from "react";
 import { useNotify } from "@/presentation/hooks/useNotify";
 import { StatusEnum } from "@/presentation/enums/NotifyTypeEnum";
+import { deckPublishedModalAtom } from "@/presentation/store/modal";
 
 const Data = [
   {
@@ -69,8 +73,25 @@ export const DeckBuilderMeta = (): JSX.Element => {
   }, [errors]);
 
   const cards = useRecoilValue(deckComposeArrayAtom);
+  const deckRules = useRecoilValue(deckRulesSelector);
+  const setOpen = useSetRecoilState(deckPublishedModalAtom);
 
   async function submitHandler(data): Promise<void> {
+    if (!deckRules.basicPokemon) {
+      notify("O deck deve possuir um Pokemon básico", StatusEnum.ERROR);
+      return;
+    }
+
+    if (!deckRules.minimalEnergy) {
+      notify("O deck deve possuir ao menos 10 energias", StatusEnum.ERROR);
+      return;
+    }
+
+    if (!deckRules.quantity) {
+      notify("O deck deve possuir 60 cartas", StatusEnum.ERROR);
+      return;
+    }
+
     const parsedCards = cards
       .map((e) =>
         Array.from({ length: e.quantity }).fill({ card_id: e.cardId })
@@ -88,7 +109,7 @@ export const DeckBuilderMeta = (): JSX.Element => {
       return;
     }
 
-    console.log(data, parsedCards);
+    setOpen(true);
   }
 
   return (
