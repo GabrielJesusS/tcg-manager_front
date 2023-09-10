@@ -44,3 +44,8 @@ export const userExcludeModalAtom = atom<boolean>({
   key: "userExcludeModalAtom",
   default: false,
 });
+
+export const deckPublishedModalAtom = atom<boolean>({
+  key: "deckPublishedModalAtom",
+  default: false,
+});
