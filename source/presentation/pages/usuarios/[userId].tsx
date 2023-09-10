@@ -12,12 +12,13 @@ import { UserEditModal } from "@/presentation/components/common/modals/UserEditM
 import { useSetRecoilState } from "recoil";
 import { userEditModalAtom } from "@/presentation/store/modal";
 import { ExcludeUserModal } from "@/presentation/components/common/modals/ExcludeUserModal";
-import { verifyToken } from "@/presentation/middlewares/verifyToken";
+import { useGetProfile } from "@/presentation/hooks/useGetProfile";
 
 function UserProfile(): JSX.Element {
   const { query, replace } = useRouter();
   const setModalOpen = useSetRecoilState(userEditModalAtom);
   const { data, error } = useGetUser(query.userId as string | undefined);
+  const { data: actualUser } = useGetProfile();
 
   useEffect(() => {
     if (!error) return;
@@ -47,12 +48,14 @@ function UserProfile(): JSX.Element {
                   <h1 className="font-bold text-2xl sm:text-4xl">
                     {data.user_name}
                   </h1>
-                  <button
-                    onClick={openModal}
-                    className="hover:text-secondary transition-all duration-75 active:text-secondary-light"
-                  >
-                    <Edit />
-                  </button>
+                  {actualUser?.id.toString() === query.userId ? (
+                    <button
+                      onClick={openModal}
+                      className="hover:text-secondary transition-all duration-75 active:text-secondary-light"
+                    >
+                      <Edit />
+                    </button>
+                  ) : null}
                 </div>
                 <p className="text-xl">
                   Treinador de nível: {data.experience_level}
