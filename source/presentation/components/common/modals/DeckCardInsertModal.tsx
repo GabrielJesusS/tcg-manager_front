@@ -7,7 +7,7 @@ import {
   deckCardFilterAtom,
   deckCardInsertAtom,
 } from "@/presentation/store/modal";
-import { ChangeEvent, useMemo, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import {
   useRecoilCallback,
   useRecoilState,
@@ -28,27 +28,8 @@ import LoadingIcon from "@/presentation/public/images/icons/loading.svg";
 import { useLockBody } from "@/presentation/hooks/useLockBody";
 import Image from "next/image";
 import Spinda from "@/presentation/public/images/rsc/spinda.webp";
-
-interface ICardListParams {
-  id: string;
-  name: string;
-  subtypes: string[];
-  supertype: string;
-  images: {
-    small: string;
-    large: string;
-  };
-}
-
-interface ICardParams {
-  pokemonCards: Array<{
-    cardId: string;
-    name: string;
-    image: string;
-    subtypes: string[];
-    supertype: string;
-  }>;
-}
+import { useNotify } from "@/presentation/hooks/useNotify";
+import { StatusEnum } from "@/presentation/enums/NotifyTypeEnum";
 
 interface ICard {
   cardId: string;
@@ -66,7 +47,7 @@ export const DeckCardInsertModal = (): JSX.Element => {
   const setFilterOpen = useSetRecoilState(deckCardFilterAtom);
   const [filters, setFilters] = useRecoilState(filterParamsAtom);
   const cardsInLimit = useRecoilValue(cardsInLimitSelector);
-  const { data, isValidating, isLoading, setSize } = useGetCards(
+  const { data, isValidating, isLoading, setSize, mutate } = useGetCards(
     filters,
     OrderByEnum.NAME
   );
@@ -76,7 +57,7 @@ export const DeckCardInsertModal = (): JSX.Element => {
 
   const debounce = useDebounce(searchPokemon, 1000);
   const resetFilters = useResetRecoilState(filterParamsAtom);
-  /* const { notify } = useNotify(); */
+  const { notify } = useNotify();
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>): void {
     debounce(event.target.value);
@@ -116,9 +97,18 @@ export const DeckCardInsertModal = (): JSX.Element => {
       };
     }, {}) as ICard | undefined;
 
-    if (!card) return;
+    if (!card) {
+      notify("Nenhuma carta selecionada", StatusEnum.ERROR);
+      return;
+    }
 
-    if (cardsInLimit.includes(card.name)) return;
+    if (cardsInLimit.includes(card.name)) {
+      notify(
+        "Não é possivel adicionar mais cartas com este nome",
+        StatusEnum.ERROR
+      );
+      return;
+    }
 
     insertCardOnDeck(card);
     setSelectedCard("");
@@ -141,6 +131,10 @@ export const DeckCardInsertModal = (): JSX.Element => {
     () => itemsFounded === data?.reduce((acc, e) => acc + e.data.length, 0),
     [data]
   );
+
+  useEffect(() => {
+    mutate();
+  }, []);
 
   return (
     <BorderlessModal isOpen={isOpen}>
