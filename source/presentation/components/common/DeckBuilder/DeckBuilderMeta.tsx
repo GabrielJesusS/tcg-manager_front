@@ -1,14 +1,16 @@
 import { useRecoilValue } from "recoil";
 import { Dropdown } from "../Dropdown";
 import { TextInput } from "../Textinput";
-import {
-  deckComposeArrayAtom,
-  userDataAtom,
-} from "@/presentation/store/genericAtoms";
+import { deckComposeArrayAtom } from "@/presentation/store/genericAtoms";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "../Button";
 import { createCreateDeckUseCase } from "@/factories/createCreateDeckUseCase";
 import { useGetProfile } from "@/presentation/hooks/useGetProfile";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { deckComposeSchema } from "@/presentation/schemas/deckComposeSchema";
+import { useEffect } from "react";
+import { useNotify } from "@/presentation/hooks/useNotify";
+import { StatusEnum } from "@/presentation/enums/NotifyTypeEnum";
 
 const Data = [
   {
@@ -41,8 +43,30 @@ const Data = [
 const createDeckUseCase = createCreateDeckUseCase();
 
 export const DeckBuilderMeta = (): JSX.Element => {
-  const { register, handleSubmit, control } = useForm();
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+    clearErrors,
+  } = useForm({
+    resolver: yupResolver(deckComposeSchema),
+  });
   const { data: user } = useGetProfile();
+
+  const { notify } = useNotify();
+
+  useEffect(() => {
+    const errorList = Object.values(errors);
+
+    if (!errorList.length) return;
+
+    errorList.forEach((e) => {
+      notify(e?.message as string, StatusEnum.ERROR);
+    });
+
+    clearErrors();
+  }, [errors]);
 
   const cards = useRecoilValue(deckComposeArrayAtom);
 
@@ -60,7 +84,7 @@ export const DeckBuilderMeta = (): JSX.Element => {
     });
 
     if (response.isLeft()) {
-      console.log("error");
+      notify("Um erro ocorreu ao salvar o deck", StatusEnum.ERROR);
       return;
     }
 
