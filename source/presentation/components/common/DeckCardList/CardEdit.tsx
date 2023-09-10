@@ -98,6 +98,10 @@ export const CardEdit = (): JSX.Element => {
   }
 
   const cardLimit = useMemo<number>(() => {
+    if (totalCards.total === 60) {
+      return 0;
+    }
+
     if (cardInfos.supertype === CardSupertypeEnum.ENERGY) {
       return 60 - (totalCards.pokemon + totalCards.trainer);
     }
