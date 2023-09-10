@@ -8,6 +8,9 @@ module.exports = {
   ],
   mode: "jit",
   theme: {
+    fontFamily: {
+      sans: ["Poppins", "sans-serif"],
+    },
     extend: {
       fontSize: {
         "3.5xl": "2rem",
@@ -55,10 +58,6 @@ module.exports = {
           water: "#3f9dc7",
           dark: "#3d5669",
         },
-      },
-      fontFamily: {
-        sans: ["var(--font-poppins)"],
-        mono: ["var(--font-poppins)"],
       },
       aspectRatio: {
         card: "7 / 9.77",
