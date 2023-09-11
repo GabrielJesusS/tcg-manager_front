@@ -5,6 +5,7 @@ import { DeckStatistics } from "@/presentation/components/common/DeckBuilder/Dec
 import { CardEdit } from "@/presentation/components/common/DeckCardList/CardEdit";
 import { CardFilterModal } from "@/presentation/components/common/modals/CardFilterModal";
 import { DeckCardInsertModal } from "@/presentation/components/common/modals/DeckCardInsertModal";
+import { DeckPublishedModal } from "@/presentation/components/common/modals/DeckPublishedModal";
 import { DefaultLayout } from "@/presentation/components/layouts/DefaultLayout";
 import { verifyToken } from "@/presentation/middlewares/verifyToken";
 import ArrowIcon from "@/presentation/public/images/icons/chevron.svg";
@@ -40,7 +41,7 @@ const NewDeck = (): JSX.Element => {
         </main>
       </DefaultLayout>
       <DeckCardInsertModal />
-
+      <DeckPublishedModal />
       <DeckBuilderAssistent />
       <CardFilterModal />
     </>
