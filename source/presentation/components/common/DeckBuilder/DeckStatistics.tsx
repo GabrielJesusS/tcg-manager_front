@@ -40,7 +40,7 @@ export const DeckStatistics = (): JSX.Element => {
             reachedTheLimit ? "text-secondary" : "text-error"
           )}
         >
-          {totalCards.total}
+          {totalCards.total.toString().padStart(2, "0")}
         </span>
       </p>
       {totalCards.total !== 0 ? (
