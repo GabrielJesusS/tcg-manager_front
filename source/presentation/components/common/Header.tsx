@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import BG from "@/presentation/public/images/rsc/bgs/titlebg-1.gif";
+import BG from "@/presentation/public/images/rsc/bgs/header.webp";
 
 interface HeaderProps extends HTMLAttributes<HTMLHeadingElement> {}
 

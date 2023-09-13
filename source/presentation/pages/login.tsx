@@ -2,7 +2,7 @@ import { Footer } from "../components/common/Footer";
 import TCGManagerLogo from "@/presentation/public/images/logo/logo-variation.svg";
 import Link from "next/link";
 import Image from "next/image";
-import BackgroundImage from "@/presentation/public/images/rsc/bgs/formbg-1.gif";
+import BackgroundImage from "@/presentation/public/images/rsc/bgs/loginbg.webp";
 import { PokemonCard } from "../components/common/PokemonCard";
 import { useGetRandomCard } from "../hooks/useGetRandomCard";
 import { PageRoutesEnum } from "../enums/PagesEnum";
