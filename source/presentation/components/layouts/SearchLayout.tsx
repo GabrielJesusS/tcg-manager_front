@@ -57,8 +57,8 @@ export const SearchLayout = ({
 
   return (
     <DefaultLayout>
-      <main className="flex w-full bg-dft-pattern grow bg-slate-400">
-        <div className="w-full relative max-w-7xl mx-auto  flex flex-col ">
+      <main className="flex w-full bg-dft-pattern grow bg-bg-pattern">
+        <div className="w-full relative max-w-7xl mx-auto  flex flex-col">
           <Header>
             <Breadcrumb />
             <div className="px-16 ">
