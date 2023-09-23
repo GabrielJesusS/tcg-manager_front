@@ -47,7 +47,7 @@ export class SetRepository implements ISetRepository {
 
   private static readonly getRoute: string = "/set";
 
-  async get(
+  async getList(
     params: ISearchOnList
   ): Promise<TEither<TApplicationError, ISetResponse>> {
     try {

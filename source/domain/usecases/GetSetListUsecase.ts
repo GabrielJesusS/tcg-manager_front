@@ -42,6 +42,6 @@ export class GetSetListUsecase implements IUsecase {
   async execute(
     params: ISearchOnList
   ): Promise<TEither<TApplicationError, ISetResponse>> {
-    return await this.setrepository.get(params);
+    return await this.setrepository.getList(params);
   }
 }

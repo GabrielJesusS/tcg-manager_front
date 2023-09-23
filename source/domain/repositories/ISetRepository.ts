@@ -35,7 +35,7 @@ interface ISearchOnList {
 }
 
 export interface ISetRepository {
-  get: (
+  getList: (
     params: ISearchOnList
   ) => Promise<TEither<TApplicationError, ISetResponse>>;
 }
