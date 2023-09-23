@@ -5,7 +5,7 @@ import { HttpMethod, IHttpClient } from "@/services/http";
 import { generateHttpErrorResponse } from "../modules/generateHttpErrorResponse";
 import { IApiResponse } from "../modules/IApiResponse";
 
-interface ISetList {
+interface ISet {
   id: string;
   name: string;
   series: string;
@@ -26,7 +26,7 @@ interface ISetList {
 }
 
 interface ISetResponse {
-  data: ISetList[];
+  data: ISet[];
   page: number;
   pageSize: number;
   count: number;
@@ -64,6 +64,21 @@ export class SetRepository implements ISetRepository {
       });
 
       return right(data);
+    } catch (error) {
+      return left(generateHttpErrorResponse(error));
+    }
+  }
+
+  async get(id: string): Promise<TEither<TApplicationError, ISet>> {
+    try {
+      const {
+        body: { data },
+      } = await this.client.request<IApiResponse<{data: ISet}>>({
+        method: HttpMethod.GET,
+        url: `${SetRepository.getRoute}/${id}`,
+      });
+
+      return right(data.data);
     } catch (error) {
       return left(generateHttpErrorResponse(error));
     }

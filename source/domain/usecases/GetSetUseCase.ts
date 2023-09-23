@@ -1,3 +1,5 @@
+import { IUsecase } from "@/core/Usecase";
+import { ISetRepository } from "../repositories/ISetRepository";
 import { TEither } from "@/core/Either";
 import { TApplicationError } from "@/core/Errors";
 
@@ -21,22 +23,10 @@ interface ISet {
   };
 }
 
-interface ISetResponse {
-  data: ISet[];
-  page: number;
-  pageSize: number;
-  count: number;
-  totalCount: number;
-}
+export class GetSetUsecase implements IUsecase {
+  constructor(private readonly repository: ISetRepository) {}
 
-interface ISearchOnList {
-  page?: number;
-  pageSize?: number;
-}
-
-export interface ISetRepository {
-  getList: (
-    params: ISearchOnList
-  ) => Promise<TEither<TApplicationError, ISetResponse>>;
-  get: (id: string) => Promise<TEither<TApplicationError, ISet>>;
+  async execute(id: string): Promise<TEither<TApplicationError, ISet>> {
+    return await this.repository.get(id);
+  }
 }
