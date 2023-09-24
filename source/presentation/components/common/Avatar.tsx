@@ -1,9 +1,10 @@
 import classNames from "classnames";
+import UserProfileIcon from "@/presentation/public/images/icons/profile.svg";
 
 interface IAvatarProps {
   size?: "small" | "large";
   className?: string;
-  image: string;
+  image?: string;
 }
 
 export const Avatar = ({
@@ -19,11 +20,17 @@ export const Avatar = ({
         className
       )}
     >
-      <img
-        src={image}
-        className="w-full aspect-square object-cover rounded-full"
-        alt={"user profile picture"}
-      />
+      {image ? (
+        <img
+          src={image}
+          className="w-full aspect-square object-cover rounded-full"
+          alt={"user profile picture"}
+        />
+      ) : (
+        <span className="bg-system-200 rounded-full block text-system-400 h-full">
+          <UserProfileIcon className="h-full w-full " />
+        </span>
+      )}
     </span>
   );
 };
