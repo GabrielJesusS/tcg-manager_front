@@ -8,7 +8,7 @@ export const DefaultLayout = ({
 }): JSX.Element => {
   return (
     <>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-bg-pattern">
         <Navbar></Navbar>
         {children}
         <Footer></Footer>
