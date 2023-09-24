@@ -21,7 +21,7 @@ interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
       <input
         placeholder={placeholder}
         className={classNames(
-          "w-full drop-shadow-md text-base text-system-800 font-medium bg-system px-3 py-1 transition-all hover:border-system-200 duration-150 focus:border-secondary outline-0 border-2 rounded-full",
+          "w-full disabled:bg-system-100 disabled:text-system-400 drop-shadow-md text-base text-system-800 font-medium bg-system px-3 py-1 transition-all hover:border-system-200 duration-150 focus:border-secondary outline-0 border-2 rounded-full",
           error? "border-error": "border-system-200",
           className
         )}
