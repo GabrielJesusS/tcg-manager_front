@@ -9,6 +9,7 @@ export const ButtonBase = ({ active, onClick, children }: IButtonBase):JSX.Eleme
   return (
     <button
       type="button"
+      title="Funcionalidade do editor de texto "
       onClick={onClick}
       className={classNames(
         "block rounded-md w-fit mx-auto transition-all duration-150 ease-in-out",

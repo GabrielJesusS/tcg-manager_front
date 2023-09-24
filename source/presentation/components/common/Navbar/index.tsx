@@ -43,7 +43,7 @@ export const  Navbar = loadUserData((): JSX.Element =>  {
   return (
     <header className={classNames("bg-primary w-full sticky z-20 top-0")}>
       <div className="mx-auto px-6 py-2 flex items-center justify-between">
-        <Link href={"/"}>
+        <Link href={"/"} title="Voltar para o inicio">
           <TCGLogo className={"h-12"} />
         </Link>
         <AnimatePresence>
@@ -103,6 +103,7 @@ export const  Navbar = loadUserData((): JSX.Element =>  {
           <button
             onClick={toggleMenu}
             className="relative z-30 h-10 w-10 p-1 block"
+            title="Alternar menu"
           >
             <svg
               viewBox="0 0 24 24"

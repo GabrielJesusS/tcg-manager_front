@@ -8,7 +8,6 @@ import { withLink } from "./elements/plugins/withLink";
 import { useRenderLeafs } from "@/presentation/hooks/richTextEditor/useRenderLeafs";
 import { withImage } from "./elements/plugins/withImage";
 import { ImageEditModal } from "./elements/modals/ImageEditModal";
-import { serialize } from "@/presentation/utils/editor/serializeArticle";
 import { keyHandler } from "@/presentation/utils/editor/keyHandler";
 import { useSetRecoilState } from "recoil";
 import { articleContentAtom } from "@/presentation/store/editor";

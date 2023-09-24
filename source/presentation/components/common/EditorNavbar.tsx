@@ -18,7 +18,7 @@ export const EditorNavBar = (): JSX.Element => {
   return (
     <header className="w-full sticky bg-white z-20 top-0 flex flex-col md:flex-row items-center justify-between px-8">
       <div className="md:px-6 py-2 flex flex-col md:flex-row md:items-center md:w-fit w-full justify-between overflow-hidden">
-        <Link href={"/"} className="w-fit">
+        <Link href={"/"} className="w-fit" title="Voltar ao inicio">
           <TCGLogo className={"h-12"} />
         </Link>
         <NavbarTitle />

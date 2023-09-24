@@ -34,13 +34,14 @@ export const DeckBuilderAssistent = (): JSX.Element => {
     <div className="fixed bottom-24 right-24 text-sm text-system-800">
       <button
         type="button"
+        title="Assitente do construtor"
         onClick={toggleHelper}
         className={classNames(
           "h-24 w-24 drop-shadow-2xl animate animate_infinite",
           { [RANDOM_ANIMATION]: hasMessage }
         )}
       >
-        <img src={RotomDex.src} alt="" />
+        <img src={RotomDex.src} height={96} width={96} alt="" />
       </button>
       <AnimatePresence>
         {open && (
