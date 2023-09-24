@@ -17,6 +17,13 @@ interface CreateParams {
   user_name: string;
 }
 
+interface IUserUpdateParams {
+  id: string;
+  user_name: string;
+  name: string;
+  email: string;
+}
+
 interface IUserProfileImageParams {
   string64: string;
   originalName: string;
@@ -43,11 +50,30 @@ export class UserRepository implements IUserRepository {
   private static readonly authRoute: string = "/user/login";
   private static readonly getPtofile: string = "/user/verifyUserToken";
   private static readonly getById: string = "/user";
+  private static readonly update: string = "/user";
   private static readonly uploadProfileImage: string = "/user-profile-image";
 
   constructor(client: IHttpClient, cookieService: ICookieService) {
     this.client = client;
     this.cookieService = cookieService;
+  }
+
+  async update(
+    params: IUserUpdateParams
+  ): Promise<TEither<TApplicationError, undefined>> {
+    try {
+      await this.client.request<
+        IApiResponse<undefined>,
+        { user: IUserUpdateParams; user_id: string }
+      >({
+        method: HttpMethod.PUT,
+        url: UserRepository.update,
+        payload: { user: params, user_id: params.id },
+      });
+      return right(undefined);
+    } catch (error) {
+      return left(generateHttpErrorResponse(error));
+    }
   }
 
   async create(

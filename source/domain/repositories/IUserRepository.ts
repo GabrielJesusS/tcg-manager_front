@@ -13,6 +13,13 @@ interface IUserAuthParams {
   password: string;
 }
 
+interface IUserUpdateParams {
+  id: string;
+  user_name: string;
+  name: string;
+  email: string;
+}
+
 interface IUserData {
   id: number | string;
   user_name: string;
@@ -43,6 +50,9 @@ export interface IUserRepository {
   getProfile: () => Promise<TEither<TApplicationError, IUserData>>;
   getById: (id: string) => Promise<TEither<TApplicationError, IUserData>>;
   signOut: () => Promise<TEither<TApplicationError, undefined>>;
+  update: (
+    params: Partial<IUserUpdateParams>
+  ) => Promise<TEither<TApplicationError, undefined>>;
   uploadProfileImage: (
     params: IUserProfileImageParams
   ) => Promise<TEither<TApplicationError, IUserProfileImageResponse>>;
