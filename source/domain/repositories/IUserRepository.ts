@@ -21,6 +21,18 @@ interface IUserData {
   experience_level: number;
 }
 
+interface IUserProfileImageParams {
+  string64: string;
+  originalName: string;
+  user: {
+    id: string;
+  };
+}
+
+interface IUserProfileImageResponse {
+  url: string;
+}
+
 export interface IUserRepository {
   create: (
     params: IUserCreateParams
@@ -31,4 +43,7 @@ export interface IUserRepository {
   getProfile: () => Promise<TEither<TApplicationError, IUserData>>;
   getById: (id: string) => Promise<TEither<TApplicationError, IUserData>>;
   signOut: () => Promise<TEither<TApplicationError, undefined>>;
+  uploadProfileImage: (
+    params: IUserProfileImageParams
+  ) => Promise<TEither<TApplicationError, IUserProfileImageResponse>>;
 }

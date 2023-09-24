@@ -8,12 +8,21 @@ import { generateHttpErrorResponse } from "@/data/modules/generateHttpErrorRespo
 import { ICookieService } from "@/services/ICookieService";
 import { IAuthUserPayload } from "./models/AuthUserPayload";
 import { IGetProfileResponse } from "./responses/GetProfileResponse";
+import { IUserProfileImageResponse } from "./responses/UserProfileImageResponse";
 
 interface CreateParams {
   name: string;
   email: string;
   password: string;
   user_name: string;
+}
+
+interface IUserProfileImageParams {
+  string64: string;
+  originalName: string;
+  user: {
+    id: string;
+  };
 }
 
 interface AuthParams {
@@ -34,6 +43,7 @@ export class UserRepository implements IUserRepository {
   private static readonly authRoute: string = "/user/login";
   private static readonly getPtofile: string = "/user/verifyUserToken";
   private static readonly getById: string = "/user";
+  private static readonly uploadProfileImage: string = "/user-profile-image";
 
   constructor(client: IHttpClient, cookieService: ICookieService) {
     this.client = client;
@@ -123,6 +133,25 @@ export class UserRepository implements IUserRepository {
       );
 
       return right(undefined);
+    } catch (error) {
+      return left(generateHttpErrorResponse(error));
+    }
+  }
+
+  async uploadProfileImage(
+    params: IUserProfileImageParams
+  ): Promise<TEither<TApplicationError, IUserProfileImageResponse>> {
+    try {
+      const { body } = await this.client.request<
+        IApiResponse<IUserProfileImageResponse>,
+        IUserProfileImageParams
+      >({
+        method: HttpMethod.POST,
+        url: UserRepository.uploadProfileImage,
+        payload: params,
+      });
+
+      return right(body.data);
     } catch (error) {
       return left(generateHttpErrorResponse(error));
     }
