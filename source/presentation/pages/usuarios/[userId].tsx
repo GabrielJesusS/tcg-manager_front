@@ -13,6 +13,8 @@ import { useSetRecoilState } from "recoil";
 import { userEditModalAtom } from "@/presentation/store/modal";
 import { ExcludeUserModal } from "@/presentation/components/common/modals/ExcludeUserModal";
 import { useGetProfile } from "@/presentation/hooks/useGetProfile";
+import BG from "@/presentation/public/images/rsc/bgs/header.webp";
+
 
 function UserProfile(): JSX.Element {
   const { query, replace } = useRouter();
@@ -36,7 +38,9 @@ function UserProfile(): JSX.Element {
     <DefaultLayout>
       {data ? (
         <main className=" max-w-7xl bg-system grow mx-auto w-full ">
-          <div className="bg-red-200 h-56 w-full"></div>
+          <div className="bg-red-200 h-56 w-full">
+            <img src={BG.src} alt="" className="h-full w-full object-cover" />
+          </div>
           <div className="px-safe">
             <div className="flex flex-col items-center md:items-start md:flex-row">
               <Avatar
