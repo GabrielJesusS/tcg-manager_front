@@ -36,20 +36,19 @@ export const Deckitem = ({
       </Link>
       <div className="text-system-800 bg-system p-2">
         <Link href={`decks/${deckId}`}>
-          <h3 className="text-sm font-bold break-words line-clamp-1  md:text-xl">
+          <h3 className="text-sm font-bold break-words line-clamp-2  md:text-xl">
             {deckTitle}
           </h3>
         </Link>
         <small className="text-xs md:text-sm">
-          Criado por
+          Criado por 
           <Link className="dft-link" href={`usuarios/${deckAuthor.authorId}`}>
             {deckAuthor.authorName}
           </Link>
         </small>
-        <p className="text-system-400 text-sm line-clamp-1 max-md:hidden">
+        <p className="text-system-400 text-sm line-clamp-3 max-md:hidden">
           {deckDescription}
         </p>
-        <p className="text-xs md:text-sm flex">Nota: {deckRate.toFixed(1)}</p>
         <p className="text-xs md:text-sm flex">
           Dificuldade: {deckDifficulty.toFixed(1)}
         </p>
