@@ -82,6 +82,11 @@ export const DeckCardInsertModal = (): JSX.Element => {
   }
 
   const insertCard = (): void => {
+    if (!selectedCard) {
+      notify("Nenhuma carta selecionada", StatusEnum.ERROR);
+      return;
+    }
+
     const card = data?.reduce((acc, e) => {
       const rawCard = e.data.find((card) => card.id === selectedCard);
 
