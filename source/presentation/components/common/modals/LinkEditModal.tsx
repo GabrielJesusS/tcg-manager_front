@@ -4,6 +4,7 @@ import { linkModalAtom } from "@/presentation/store/editor/linkModalAtom";
 import { useSlate } from "slate-react";
 import { useState } from "react";
 import { useLink } from "@/presentation/hooks/richTextEditor/useLink";
+import { TextInput } from "../Textinput";
 
 export const LinkEditModal = (): JSX.Element => {
   const [open, setOpen] = useRecoilState(linkModalAtom);
@@ -19,20 +20,22 @@ export const LinkEditModal = (): JSX.Element => {
   return (
     <DefaultQuestionModal
       isOpen={open}
+      small
       close={() => {
         setOpen(false);
       }}
       action={{ actionText: "Salvar link", actionClick: handleClick }}
     >
-      <div>Opan meu amigo, salve salve KKK </div>
-      <div>{i}</div>
-      <input
-        type="text"
-        value={i}
-        onChange={(e) => {
-          setI(e.target.value);
-        }}
-      />
+      <div className="my-safe">
+        <TextInput
+          type="text"
+          value={i}
+          label="URL:"
+          onChange={(e) => {
+            setI(e.target.value);
+          }}
+        />
+      </div>
     </DefaultQuestionModal>
   );
 };
