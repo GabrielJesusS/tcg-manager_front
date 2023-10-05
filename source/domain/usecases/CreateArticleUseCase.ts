@@ -2,6 +2,8 @@ import { IUsecase } from "@/core/Usecase";
 import { IArticleRepository } from "../repositories/IArticleRepository";
 
 interface IArticleCreateParams {
+  title: string;
+  description: string;
   content: string;
   user: {
     id: number | string;

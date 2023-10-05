@@ -6,6 +6,8 @@ import { IApiResponse } from "../modules/IApiResponse";
 import { generateHttpErrorResponse } from "../modules/generateHttpErrorResponse";
 
 interface IArticleCreateParams {
+  title: string;
+  description: string;
   content: string;
   user: {
     id: number | string;

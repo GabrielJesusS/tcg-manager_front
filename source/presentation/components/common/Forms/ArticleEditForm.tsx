@@ -38,8 +38,6 @@ export const ArticleEditForm = ({
   function handleImageUpload(e: File[] | FileList): void {
     const image = e[0];
 
-    const imageName = image.name;
-
     const reader = new FileReader();
     const [mime] = image.type.split("/");
 
@@ -67,6 +65,8 @@ export const ArticleEditForm = ({
     if (!userData) return;
 
     const response = await createArticleUseCase.execute({
+      title: data.title,
+      description: data.description,
       content: serializedArticle,
       user: userData,
       uploadImages: articleImageList.map((e) => ({
@@ -189,12 +189,9 @@ export const ArticleEditForm = ({
               status={articleStatus.status}
             />
           </div>
-          {/*  <button
-            onClick={() => console.log(articleContent)}
-            className="btn btn-primary h-fit mx-auto"
-          >
+          <button className="btn btn-primary h-fit mx-auto">
             Publicar novo artigo
-          </button> */}
+          </button>
         </div>
       </form>
     </div>

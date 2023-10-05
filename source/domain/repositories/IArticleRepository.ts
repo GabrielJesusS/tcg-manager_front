@@ -2,6 +2,8 @@ import { TEither } from "@/core/Either";
 import { TApplicationError } from "@/core/Errors";
 
 interface IArticleCreateParams {
+  title: string;
+  description: string;
   content: string;
   user: {
     id: number | string;
