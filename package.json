@@ -11,8 +11,8 @@
     "release": "standard-version",
     "cypress:open": "cypresse open",
     "dev": "env-cmd next dev $npm_package_config_nextpath",
-    "build": "env-cmd --no-override next build $npm_package_config_nextpath && next export $npm_package_config_nextpath -o dist",
-    "start": "env-cmd next start $npm_package_config_nextpath"
+    "build": "next build $npm_package_config_nextpath && next export $npm_package_config_nextpath -o dist",
+    "start": "next start $npm_package_config_nextpath"
   },
   "author": "Gabriel Jesus",
   "license": "ISC",
