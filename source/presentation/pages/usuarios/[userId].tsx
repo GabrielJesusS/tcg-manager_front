@@ -61,9 +61,6 @@ function UserProfile(): JSX.Element {
                     </button>
                   ) : null}
                 </div>
-                <p className="text-xl">
-                  Treinador de nível: {data.experience_level}
-                </p>
                 <div className="flex flex-col items-center space-x-0 space-y-4 sm:space-y-0 sm:flex-row sm:space-x-4">
                   <StatusTag
                     status={StatusEnum.SUCCESS}

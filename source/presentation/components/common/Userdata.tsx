@@ -13,7 +13,6 @@ interface UserdataProps extends HTMLAttributes<HTMLAnchorElement> {
 
 export const Userdata = ({
   userId,
-  userLevel,
   username,
   userPicture,
   className,
@@ -43,14 +42,9 @@ export const Userdata = ({
           </span>
         )}
       </div>
-      <div className="space-y-1">
-        <p className="leading-none text-system-800 block text-lg font-medium ">
-          {username}
-        </p>
-        <small className="leading-none block text-system-400">
-          Treinador de nível: {userLevel}
-        </small>
-      </div>
+      <p className="leading-none text-system-800 block text-lg font-medium ">
+        {username}
+      </p>
     </Link>
   );
 };
