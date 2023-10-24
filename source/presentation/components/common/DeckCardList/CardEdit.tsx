@@ -117,7 +117,7 @@ export const CardEdit = (): JSX.Element => {
         <motion.div
           {...animation}
           ref={ref}
-          className="fixed top-0 left-0 z-30 lg:z-0 lg:relative w-full h-full  lg:h-auto lg:max-w-xs lg:rounded-2xl bg-system shadow-md"
+          className="fixed fourth-element top-0 left-0 z-30 lg:z-0 lg:relative w-full h-full  lg:h-auto lg:max-w-xs lg:rounded-2xl bg-system shadow-md"
         >
           <div className="lg:sticky lg:top-10">
             {!cardExists && (

@@ -2,6 +2,8 @@ import { DeckBuildViewer } from "@/presentation/components/common/DeckBuilder/De
 import { DeckBuilderAssistent } from "@/presentation/components/common/DeckBuilder/DeckBuilderAssistent";
 import { DeckBuilderMeta } from "@/presentation/components/common/DeckBuilder/DeckBuilderMeta";
 import { DeckStatistics } from "@/presentation/components/common/DeckBuilder/DeckStatistics";
+import { DeckTour } from "@/presentation/components/common/DeckBuilder/DeckTour";
+import { DeckTourButton } from "@/presentation/components/common/DeckBuilder/DeckTourButton";
 import { CardEdit } from "@/presentation/components/common/DeckCardList/CardEdit";
 import { CardFilterModal } from "@/presentation/components/common/modals/CardFilterModal";
 import { DeckCardInsertModal } from "@/presentation/components/common/modals/DeckCardInsertModal";
@@ -12,7 +14,7 @@ import ArrowIcon from "@/presentation/public/images/icons/chevron.svg";
 
 const NewDeck = (): JSX.Element => {
   return (
-    <>
+    <DeckTour>
       <DefaultLayout>
         <main className="bg-bg-pattern h-auto flex flex-1">
           <section className="max-w-7xl h-auto space-y-5 w-full text-system-800 mx-auto bg-system-100 p-safe">
@@ -37,6 +39,7 @@ const NewDeck = (): JSX.Element => {
               </div>
               <CardEdit />
             </div>
+            <DeckTourButton />
           </section>
         </main>
       </DefaultLayout>
@@ -44,7 +47,7 @@ const NewDeck = (): JSX.Element => {
       <DeckPublishedModal />
       <DeckBuilderAssistent />
       <CardFilterModal />
-    </>
+    </DeckTour>
   );
 };
 

@@ -14,7 +14,7 @@ export const DeckInsertButton = (): JSX.Element => {
   }
 
   return (
-    <div className="w-full relative aspect-card border-4 border-dashed rounded-md flex outline-system-200">
+    <div className="w-full relative aspect-card second-element border-4 border-dashed rounded-md flex outline-system-200">
       <button
         title="Adicionar nova carta"
         onClick={toggleModal}

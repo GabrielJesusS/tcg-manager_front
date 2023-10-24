@@ -31,7 +31,7 @@ export const DeckStatistics = (): JSX.Element => {
   }, [totalCards]);
 
   return (
-    <div className="bg-system shadow-md rounded-2xl w-full py-5 px-6">
+    <div className="bg-system shadow-md rounded-2xl w-full py-5 px-6 third-element">
       <h2 className="font-bold text-2xl text-center">Estatísticas</h2>
       <p className="w-full text-center">
         Total de cartas:{" "}

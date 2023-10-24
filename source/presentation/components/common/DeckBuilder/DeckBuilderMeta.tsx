@@ -115,7 +115,7 @@ export const DeckBuilderMeta = (): JSX.Element => {
   return (
     <form
       onSubmit={handleSubmit(submitHandler)}
-      className="bg-system shadow-md rounded-2xl py-5 px-6 space-y-4"
+      className="bg-system shadow-md rounded-2xl py-5 px-6 space-y-4 first-element"
     >
       <h2 className="font-bold text-2xl text-center sm:whitespace-nowrap">
         Informações do deck
