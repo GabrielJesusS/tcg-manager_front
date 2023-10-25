@@ -145,10 +145,10 @@ export const ImageEditModal = (): JSX.Element => {
         <span className="min-h-full w-0.5 block bg-gradient-to-b from-transparent via-system-200 to-transparent" />
         <div className="space-y-4 shrink-0 flex flex-col grow md:max-w-fit justify-between">
           <div className="space-y-4">
-            <ImageUploader
+           {/*  <ImageUploader
               onChange={uploadImage}
               label="Faça upload de uma imagem"
-            />
+            /> */}
             <TextInput
               type="url"
               onChange={(e) => {

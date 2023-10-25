@@ -18,6 +18,9 @@ import { userDataAtom } from "@/presentation/store/genericAtoms";
 import { serialize } from "@/presentation/utils/editor/serializeArticle";
 import { Descendant } from "slate";
 import { createCreateArticleUseCase } from "@/factories/createCreateArticleUseCase";
+import { useNotify } from "@/presentation/hooks/useNotify";
+import { useRouter } from "next/router";
+import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
 
 interface IArticleEditFormProps {
   form: UseFormReturn<IArticleSchema>;
@@ -32,7 +35,9 @@ export const ArticleEditForm = ({
   const articleImageList = useRecoilValue(imageListSelector);
   const articleStatus = useRecoilValue(articleStatusAtom);
   const userData = useRecoilValue(userDataAtom);
+  const { notify } = useNotify();
   const { register, control, setValue, handleSubmit } = form;
+  const { replace } = useRouter();
   const setTitle = useSetRecoilState(articleTitleAtom);
 
   function handleImageUpload(e: File[] | FileList): void {
@@ -49,8 +54,6 @@ export const ArticleEditForm = ({
 
       reader.readAsDataURL(image);
     }
-
-    console.log(image);
   }
 
   function handleSendArticle(content: Descendant[]): string {
@@ -76,7 +79,13 @@ export const ArticleEditForm = ({
       })),
     });
 
-    console.log(response);
+    if (response.isLeft()) {
+      notify("Um erro ocorreu, tente novamente mais tarde!", StatusEnum.ERROR);
+      return;
+    }
+
+    notify("Artigo publicado com sucesso!", StatusEnum.SUCCESS);
+    void replace(PageRoutesEnum.HOME);
   }
 
   return (

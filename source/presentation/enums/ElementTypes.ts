@@ -46,7 +46,7 @@ export const ELEMENT_BLOCKS: Record<
   [ElementTypesEnum.LINK]: (node: LinkElement, children: string): string =>
     `<a href="${node.href}">${children}</a>`,
   [ElementTypesEnum.IMAGE]: (node: ImageElement): string =>
-    `<div class="w-full flex"><img src="${node.key}" class="${classNames(
+    `<div class="w-full flex"><img src="${node.src}" class="${classNames(
       ASPECT_RATIO_MAP[node.aspectRatio],
       SIZE_MAP[node.size],
       BEHAVIOR_MAP[node.behavior],

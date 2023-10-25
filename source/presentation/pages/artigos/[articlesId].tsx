@@ -13,9 +13,9 @@ const ArticleViewer = (): JSX.Element => {
   return (
     <DefaultLayout>
       {data ? (
-        <div className=" bg-slate-400 grow">
+        <div className=" bg-bg-pattern grow">
           <main className="p-safe mx-auto max-w-7xl space-y-4">
-            <section className="bg-system rounded-lg p-3 text-xs sm:text-base">
+            <section className="bg-system shadow-2xl rounded-lg p-3 text-xs sm:text-base">
               <article className="space-y-4">
                 <header>
                   <h1 className="text-2xl lg:text-3.5xl font-bold">
