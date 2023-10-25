@@ -8,9 +8,9 @@ import { Banners } from "../data/local/banners";
 function Home(): JSX.Element {
   return (
     <>
-      <Navbar></Navbar>
-      <main>
-        <div className="dft-container">
+      <Navbar />
+      <main className="bg-bg-pattern">
+        <div className="dft-container bg-system">
           <HomeCaroussel banners={Banners}></HomeCaroussel>
           <section className="px-safe py-safe space-y-6 lg:space-y-0 lg:grid lg:grid-cols-2 gap-6">
             <ArticlesList
@@ -28,10 +28,9 @@ function Home(): JSX.Element {
           </section>
         </div>
       </main>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }
 
-
-export default Home
+export default Home;

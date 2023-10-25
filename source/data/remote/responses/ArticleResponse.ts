@@ -4,4 +4,8 @@ export interface IArticleResponse {
   created_at: string;
   title: string;
   description: string;
+  user: {
+    name: string;
+    id: string;
+  };
 }

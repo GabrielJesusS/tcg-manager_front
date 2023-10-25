@@ -102,6 +102,7 @@ export class ArticleRepository implements IArticleRepository {
         url: ArticleRepository.getOne,
         params: {
           id: Number(id),
+          relations: "user" ,
         },
       });
 

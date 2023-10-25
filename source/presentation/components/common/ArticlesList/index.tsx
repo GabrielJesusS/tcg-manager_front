@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { HTMLAttributes } from "react";
 import { ArticleItem } from "./ArticleItem";
+import { useGetArticles } from "@/presentation/hooks/useGetArticles";
+import { OrderByEnum } from "@/presentation/enums/OrderByEnum";
+import { useRecoilValue } from "recoil";
+import { filterParamsAtom } from "@/presentation/store/filters/cardFiltersAtom";
 
 interface ArticlesListProps extends HTMLAttributes<HTMLDivElement> {
   topicTitle: string;
@@ -11,31 +15,31 @@ interface Article {
   articleId: string;
   articleTitle: string;
   articleAuthor: string;
-  articleViews: number;
+articleViews: number;
   articleLink: string;
   articleImage: string;
   articleDescription: string;
 }
 
-export const ArticlesList = ({
-  topicTitle,
-  articles,
-}: ArticlesListProps): JSX.Element => {
+export const ArticlesList = (): JSX.Element => {
+  const filters = useRecoilValue(filterParamsAtom);
+  const { data } = useGetArticles(filters, OrderByEnum.NAME);
+
+  console.log(data);
+
   return (
-    <div className="rounded overflow-hidden">
-      <div className=" text-center w-full bg-system-800 text-system px-2 py-3 text-xs md:text-base">
-        <span>{topicTitle}</span>
-      </div>
-      <ul className="divide-y">
-        {articles?.map((article) => (
-          <li key={article.articleId}>
-            <ArticleItem {...article} />
+    <ul className="divide-y">
+      {data?.map((articles) =>
+        articles.data.map((article) => (
+          <li key={article.id}>
+            <ArticleItem
+              id={article.id.toString()}
+              description={article.description}
+              title={article.title}
+            />
           </li>
-        ))}
-      </ul>
-      <div className=" text-center w-full bg-system-800 text-system px-2 py-3 text-xs md:text-base">
-        <Link href={""}>Ver mais...</Link>
-      </div>
-    </div>
+        ))
+      )}
+    </ul>
   );
 };
