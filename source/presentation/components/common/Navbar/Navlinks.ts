@@ -1,4 +1,4 @@
-import {PageRoutesEnum} from "@/presentation/enums/PagesEnum"
+import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
 
 interface INavlinks {
   id: number;
@@ -20,12 +20,12 @@ export const NavLinks: INavlinks[] = [
       {
         name: "Listagem",
         url: PageRoutesEnum.DECKS,
-        isPrivate: false
+        isPrivate: false,
       },
       {
         name: "Criar novo deck",
         url: PageRoutesEnum.NEW_DECK,
-        isPrivate: true
+        isPrivate: true,
       },
     ],
   },
@@ -36,12 +36,12 @@ export const NavLinks: INavlinks[] = [
       {
         name: "Listagem",
         url: PageRoutesEnum.ARTICLES,
-        isPrivate: false
+        isPrivate: false,
       },
       {
         name: "Publicar novo artigo",
         url: PageRoutesEnum.NEW_ARTICLE,
-        isPrivate: true
+        isPrivate: true,
       },
     ],
   },
@@ -52,13 +52,13 @@ export const NavLinks: INavlinks[] = [
       {
         name: "Listagem",
         url: PageRoutesEnum.CARDS,
-        isPrivate: false
+        isPrivate: false,
       },
       {
         name: "Carta surpresa",
         url: "/cards/1",
-        isPrivate: false
-      }
+        isPrivate: false,
+      },
     ],
   },
   {
@@ -68,20 +68,8 @@ export const NavLinks: INavlinks[] = [
       {
         name: "Listagem",
         url: PageRoutesEnum.SETS,
-        isPrivate: false
+        isPrivate: false,
       },
     ],
   },
-  {
-    id: 5,
-    title: "Usuários",
-    links: [
-      {
-        name: "Listagem",
-        url: PageRoutesEnum.USERS,
-        isPrivate: false
-      },
-    ],
-  },
-  
 ];
