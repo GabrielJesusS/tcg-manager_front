@@ -19,7 +19,7 @@ const Cards = (): JSX.Element => {
   }, [data, query]);
 
   return (
-    <SearchLayout tilte={listTitle} filters={<CardFilter />}>
+    <SearchLayout tilte={listTitle} filters={<CardFilter />} filterName="cardList">
       <PokemonCardList />
     </SearchLayout>
   );

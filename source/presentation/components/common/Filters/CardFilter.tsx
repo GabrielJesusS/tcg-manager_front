@@ -21,7 +21,7 @@ const defaultValue = {
 };
 
 export const CardFilter = (): JSX.Element => {
-  const [filtersValue, setFilterParams] = useRecoilState(filterParamsAtom);
+  const [filtersValue, setFilterParams] = useRecoilState(filterParamsAtom("cardList"));
   const [order, setOrder] = useRecoilState(cardFilterOrderAtom);
 
   const { data } = useGetSubtypes();

@@ -3,7 +3,7 @@ import { SearchLayout } from "@/presentation/components/layouts/SearchLayout";
 
 const Cards = (): JSX.Element => {
   return (
-    <SearchLayout tilte={"Artigos"} filters={<></>}>
+    <SearchLayout tilte={"Artigos"} filterName="articleList" filters={<></>}>
       <ArticlesList />
     </SearchLayout>
   );

@@ -45,7 +45,7 @@ const skeletonArray = generateArray(20);
 export const DeckCardInsertModal = (): JSX.Element => {
   const [isOpen, setOpen] = useRecoilState(deckCardInsertAtom);
   const setFilterOpen = useSetRecoilState(deckCardFilterAtom);
-  const [filters, setFilters] = useRecoilState(filterParamsAtom);
+  const [filters, setFilters] = useRecoilState(filterParamsAtom("cardList"));
   const cardsInLimit = useRecoilValue(cardsInLimitSelector);
   const { data, isValidating, isLoading, setSize, mutate } = useGetCards(
     filters,
@@ -56,7 +56,7 @@ export const DeckCardInsertModal = (): JSX.Element => {
   const [_, unlock] = useLockBody();
 
   const debounce = useDebounce(searchPokemon, 1000);
-  const resetFilters = useResetRecoilState(filterParamsAtom);
+  const resetFilters = useResetRecoilState(filterParamsAtom("cardList"));
   const { notify } = useNotify();
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>): void {

@@ -16,12 +16,14 @@ interface ISearchLayout {
   filters: React.ReactNode;
   children: React.ReactNode;
   disableFilters?: boolean;
+  filterName: string;
 }
 
 export const SearchLayout = ({
   children,
   filters,
   tilte,
+  filterName,
   disableFilters,
 }: ISearchLayout): JSX.Element => {
   const filterAnimation: AnimationProps = {
@@ -41,7 +43,7 @@ export const SearchLayout = ({
     setFilterOpen(!isMobile);
   }, [isMobile]);
 
-  const [filterValues, setFilterParams] = useRecoilState(filterParamsAtom);
+  const [filterValues, setFilterParams] = useRecoilState(filterParamsAtom(filterName));
 
   function handleSearch(event: ChangeEvent<HTMLInputElement>): void {
     debounce(event.target.value);
