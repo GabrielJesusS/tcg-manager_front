@@ -28,11 +28,13 @@ export const CardFilter = (): JSX.Element => {
 
   const subtypesList = useMemo(
     () =>
-      data?.data.map((e) => ({
-        id: e,
-        text: e,
-        value: e,
-      })),
+      data
+        ? data.data.map((e) => ({
+            id: e,
+            text: e,
+            value: e,
+          }))
+        : [],
     [data]
   );
 
