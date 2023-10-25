@@ -56,7 +56,7 @@ export const NavLinks: INavlinks[] = [
       },
       {
         name: "Carta surpresa",
-        url: "/cards/1",
+        url: PageRoutesEnum.RANDOM_CARD,
         isPrivate: false,
       },
     ],
