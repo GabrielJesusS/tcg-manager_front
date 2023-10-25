@@ -26,7 +26,6 @@ export const CardFilter = (): JSX.Element => {
 
   const { data } = useGetSubtypes();
 
-  console.log(data)
   const subtypesList = useMemo(
     () =>
       data

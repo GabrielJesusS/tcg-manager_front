@@ -34,7 +34,7 @@ export const AdminLoginForm = (): JSX.Element => {
   }, [errors]);
 
   function handleFormSubmit(data: IAdminLoginFormParams): void {
-    console.log(data);
+    
   }
 
   return (

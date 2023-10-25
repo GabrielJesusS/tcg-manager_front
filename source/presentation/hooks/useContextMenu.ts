@@ -19,8 +19,6 @@ export function useContextMenu<T extends HTMLElement, U extends HTMLElement>(
         const x = e.clientX - rect.left - (isRight ? 0 : rectMenu.width);
         const y = e.clientY - rect.top;
 
-        console.log(isRight);
-
         menu.current.style.left = `${x}px`;
         menu.current.style.top = `${y}px`;
       }

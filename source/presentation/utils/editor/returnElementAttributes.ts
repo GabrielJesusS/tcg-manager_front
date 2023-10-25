@@ -19,7 +19,6 @@ const IMAGE_ASPECT = invertClassMapping(ASPECT_RATIO_MAP);
 const IMAGE_SIZE = invertClassMapping(SIZE_MAP);
 const IMAGE_BEHAVIOR = invertClassMapping(BEHAVIOR_MAP);
 
-console.log();
 export function returnElementAttributes(el: Node): Partial<CustomElement> {
   let nodeAttributes: Partial<CustomElement> = {};
   let linkAttributes: Partial<LinkElement> = {};

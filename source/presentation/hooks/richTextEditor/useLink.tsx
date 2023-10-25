@@ -64,7 +64,6 @@ export function useLink(editor: Editor): IUseLink {
 
       if (editor.isVoid(parentNode as Element)) {
         // Insert the new link after the void node
-        console.log(link);
         Transforms.insertNodes(
           editor,
           createParagraphNode([...link.children]),
