@@ -12,12 +12,12 @@ import LoadingIcon from "@/presentation/public/images/icons/loading.svg";
 import Spinda from "@/presentation/public/images/rsc/spinda.webp";
 
 export const DeckList = (): JSX.Element => {
-  const filters = useRecoilValue(filterParamsAtom);
+  const filters = useRecoilValue(filterParamsAtom("deckList"));
   const { data, error, setSize, size, isLoading, isValidating } = useGetDecks(
     filters,
     OrderByEnum.NAME
   );
-  const resetFilter = useResetRecoilState(filterParamsAtom);
+  const resetFilter = useResetRecoilState(filterParamsAtom("deckList"));
   const { notify } = useNotify();
 
   const itemsFounded = useMemo(() => {

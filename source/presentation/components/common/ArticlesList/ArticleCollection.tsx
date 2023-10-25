@@ -8,7 +8,7 @@ import { Button } from "../Button";
 import { PageRoutesEnum } from "@/presentation/enums/PagesEnum";
 
 export const ArticleCollection = (): JSX.Element => {
-  const filters = useRecoilValue(filterParamsAtom);
+  const filters = useRecoilValue(filterParamsAtom("articleList"));
   const { data } = useGetArticles(filters, OrderByEnum.NAME);
 
   return (

@@ -20,9 +20,9 @@ import { useRouter } from "next/router";
 const skeletonArray = generateArray(20);
 
 export const PokemonCardList = (): JSX.Element => {
-  const filters = useRecoilValue(filterParamsAtom);
+  const filters = useRecoilValue(filterParamsAtom("cardList"));
   const order = useRecoilValue(cardFilterOrderAtom);
-  const resetFilter = useResetRecoilState(filterParamsAtom);
+  const resetFilter = useResetRecoilState(filterParamsAtom("cardList"));
   const [cardSet, setCardSet] = useState<string>("");
   const { notify } = useNotify();
   const { query, isReady } = useRouter();

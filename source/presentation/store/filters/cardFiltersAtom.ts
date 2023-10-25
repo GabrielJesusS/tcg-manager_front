@@ -1,5 +1,5 @@
 import { OrderByEnum } from "@/presentation/enums/OrderByEnum";
-import { atom } from "recoil";
+import { atom, atomFamily } from "recoil";
 
 export interface ICardFilter {
   name: string;
@@ -8,7 +8,7 @@ export interface ICardFilter {
   subtypes: string;
 }
 
-export const filterParamsAtom = atom<ICardFilter>({
+export const filterParamsAtom = atomFamily<ICardFilter, string>({
   key: "FilterParamsAtom",
   default: {
     name: "",
