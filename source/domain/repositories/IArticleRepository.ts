@@ -28,6 +28,10 @@ interface IArticle {
   created_at: string;
   title: string;
   description: string;
+  user: {
+    id: string;
+    name: string;
+  };
 }
 
 interface IArticleListProps {
