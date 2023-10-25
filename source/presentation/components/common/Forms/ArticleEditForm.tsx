@@ -36,7 +36,7 @@ export const ArticleEditForm = ({
   const articleStatus = useRecoilValue(articleStatusAtom);
   const userData = useRecoilValue(userDataAtom);
   const { notify } = useNotify();
-  const { register, control, setValue, handleSubmit } = form;
+  const { register, control, setValue, handleSubmit, formState: {errors} } = form;
   const { replace } = useRouter();
   const setTitle = useSetRecoilState(articleTitleAtom);
 
@@ -104,6 +104,7 @@ export const ArticleEditForm = ({
                 type="text"
                 label="Título do artigo"
                 placeholder="Meu artigo..."
+                error={errors.title?.message}
                 {...field}
                 onChange={(e) => {
                   setTitle(e.target.value);
@@ -116,6 +117,7 @@ export const ArticleEditForm = ({
             type="text"
             label="Descrição do artigo"
             placeholder="Este artigo fala..."
+            error={errors.description?.message}
             {...register("description")}
           />
           <div className="flex-1">
