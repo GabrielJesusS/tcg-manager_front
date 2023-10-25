@@ -17,7 +17,6 @@ export const Deckitem = ({
   deckId,
   deckTitle,
   deckAuthor,
-  deckRate,
   deckDifficulty,
   deckDescription,
 }: DeckitemProps): JSX.Element => {
@@ -41,7 +40,7 @@ export const Deckitem = ({
           </h3>
         </Link>
         <small className="text-xs md:text-sm">
-          Criado por 
+          Criado por {" "}
           <Link className="dft-link" href={`usuarios/${deckAuthor.authorId}`}>
             {deckAuthor.authorName}
           </Link>
