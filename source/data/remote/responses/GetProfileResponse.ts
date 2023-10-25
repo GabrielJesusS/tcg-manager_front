@@ -4,4 +4,5 @@ export interface IGetProfileResponse {
   name: string;
   email: string;
   experience_level: number;
+  admin: boolean;
 }
