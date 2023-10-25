@@ -10,6 +10,7 @@ interface IGetProfile {
   name: string;
   email: string;
   experience_level: number;
+  admin: boolean;
 }
 
 export const useGetProfile = (): IFetch<IGetProfile> => {

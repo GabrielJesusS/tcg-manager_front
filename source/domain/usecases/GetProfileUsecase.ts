@@ -9,6 +9,7 @@ interface IUserDataProps {
   name: string;
   email: string;
   experience_level: number;
+  admin: boolean;
 }
 
 export class GetUserProfileUsecase implements IUsecase {

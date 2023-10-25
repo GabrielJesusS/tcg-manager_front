@@ -2,6 +2,8 @@ import { AdminManagerList } from "@/presentation/components/admin/AdminManagerLi
 import { AdminSideBar } from "@/presentation/components/admin/AdminSidebar";
 import { SearchFilter } from "@/presentation/components/admin/SearchFilter";
 import { desktopOnly } from "@/presentation/middlewares/desktopOnly";
+import { loadUserData } from "@/presentation/middlewares/loadUserData";
+import { verifyAdminToken } from "@/presentation/middlewares/verifyAdminUser";
 
 function ArticleList(): JSX.Element {
   return (
@@ -17,4 +19,4 @@ function ArticleList(): JSX.Element {
   );
 }
 
-export default desktopOnly(ArticleList);
+export default desktopOnly(verifyAdminToken(loadUserData(ArticleList)));
