@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Edit from "@/presentation/public/images/icons/edit.svg";
 import { StatusTag } from "@/presentation/components/common/StatusTag";
 import { StatusEnum } from "@/presentation/enums/NotifyTypeEnum";
-import Spinda from "@/presentation/public/images/rsc/imagePreview.png";
+import Spinda from "@/presentation/public/images/rsc/user-profile.webp";
 import { Avatar } from "@/presentation/components/common/Avatar";
 import { useGetUser } from "@/presentation/hooks/useGetUser";
 import { useEffect } from "react";

@@ -6,6 +6,7 @@ import { checkDeckExists } from "@/presentation/middlewares/checkDeckExists";
 import { parseDeckCards } from "@/utils/parseDeckCards";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
+import BG from "@/presentation/public/images/rsc/bgs/header.webp"
 
 function Deck(): JSX.Element {
   const { query } = useRouter();
@@ -21,7 +22,7 @@ function Deck(): JSX.Element {
 
   return (
     <DefaultLayout>
-      <DeckHeader title="deck" />
+      <DeckHeader thumbnail={BG.src} title={data?.name ?? "Deck"}/>
       <div className="p-safe grow bg-system-100 space-y-4">
         <small className="text-center block">{data?.description}</small>
         <h2 className="text-2xl font-bold ">Cartas</h2>
