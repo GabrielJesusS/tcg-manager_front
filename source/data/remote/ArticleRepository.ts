@@ -4,6 +4,8 @@ import { IArticleRepository } from "@/domain/repositories/IArticleRepository";
 import { HttpMethod, IHttpClient } from "@/services/http";
 import { IApiResponse } from "../modules/IApiResponse";
 import { generateHttpErrorResponse } from "../modules/generateHttpErrorResponse";
+import { IArticleListResponse } from "./responses/ArticleListResponse";
+import { IArticleResponse } from "./responses/ArticleResponse";
 
 interface IArticleCreateParams {
   title: string;
@@ -19,6 +21,14 @@ interface IArticleCreateParams {
   }>;
 }
 
+interface ISearchOnListParams {
+  relations?: string;
+  searchParams?: string;
+  page?: number;
+  pageSize?: number;
+  orderBy: string;
+}
+
 interface IArticleCreatePayload {
   article: IArticleCreateParams;
 }
@@ -27,6 +37,8 @@ export class ArticleRepository implements IArticleRepository {
   private readonly client: IHttpClient;
 
   private static readonly createRoute: string = "/article/";
+  private static readonly getOne: string = "/article/";
+  private static readonly list: string = "/article/";
 
   constructor(client: IHttpClient) {
     this.client = client;
@@ -35,7 +47,6 @@ export class ArticleRepository implements IArticleRepository {
   async create(
     params: IArticleCreateParams
   ): Promise<TEither<TApplicationError, void>> {
-    console.log(params);
     try {
       const {
         body: { data },
@@ -49,6 +60,56 @@ export class ArticleRepository implements IArticleRepository {
       });
 
       return right(data);
+    } catch (error) {
+      return left(generateHttpErrorResponse(error));
+    }
+  }
+
+  async getList(
+    params: ISearchOnListParams
+  ): Promise<TEither<TApplicationError, IArticleListResponse>> {
+    try {
+      const {
+        body: { data },
+      } = await this.client.request<
+        IApiResponse<IArticleListResponse>,
+        undefined,
+        ISearchOnListParams
+      >({
+        method: HttpMethod.GET,
+        url: ArticleRepository.list,
+        params: { ...params, relations: "user" },
+      });
+
+      return right(data);
+    } catch (error) {
+      return left(generateHttpErrorResponse(error));
+    }
+  }
+
+  async getById(id): Promise<TEither<TApplicationError, IArticleResponse>> {
+    try {
+      const {
+        body: {
+          data: { data },
+        },
+      } = await this.client.request<
+        IApiResponse<{ data: IArticleResponse[] }>,
+        undefined,
+        { id: number; relations?: string }
+      >({
+        method: HttpMethod.GET,
+        url: ArticleRepository.getOne,
+        params: {
+          id: Number(id),
+        },
+      });
+
+      if (!data.length) {
+        throw new Error("Deck not found");
+      }
+
+      return right(data[0]);
     } catch (error) {
       return left(generateHttpErrorResponse(error));
     }
