@@ -16,12 +16,12 @@ export class SubtypeRepository implements ISubtypeRepository {
 
   async getList(): Promise<TEither<TApplicationError, ISubtypesResponse>> {
     try {
-      const { body } = await this.client.request<ISubtypesResponse>({
+      const { body } = await this.client.request<{ data: ISubtypesResponse }>({
         method: HttpMethod.GET,
         url: SubtypeRepository.getListRoute,
       });
 
-      return right(body);
+      return right(body.data);
     } catch (error) {
       return left(generateHttpErrorResponse(error));
     }
