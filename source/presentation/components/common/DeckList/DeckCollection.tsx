@@ -9,9 +9,9 @@ import { useRecoilValue, useResetRecoilState } from "recoil";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export const DeckCollection = (): JSX.Element => {
-  const filters = useRecoilValue(filterParamsAtom);
+  const filters = useRecoilValue(filterParamsAtom("deckList"));
   const { data, error } = useGetDecks(filters, OrderByEnum.NAME);
-  const resetFilter = useResetRecoilState(filterParamsAtom);
+  const resetFilter = useResetRecoilState(filterParamsAtom("deckList"));
   const { notify } = useNotify();
 
   useEffect(() => {
