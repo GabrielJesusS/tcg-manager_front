@@ -8,6 +8,7 @@ export function checkDeckExists(Component: FC): FC {
     const {
       query: { id },
       isReady,
+      replace,
     } = useRouter();
 
     const [deckId, setDeckId] = useState<string | null>(null);
@@ -27,7 +28,7 @@ export function checkDeckExists(Component: FC): FC {
       }
 
       if (error) {
-        return <></>;
+        void replace("/404");
       }
     }
 

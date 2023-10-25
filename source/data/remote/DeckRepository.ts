@@ -67,12 +67,12 @@ export class DeckRepository implements IDeckRepository {
       } = await this.client.request<
         IApiResponse<{ data: IDeckResponse[] }>,
         undefined,
-        { id: string; relations?: string }
+        { id: number; relations?: string }
       >({
         method: HttpMethod.GET,
         url: DeckRepository.getOne,
         params: {
-          id,
+          id: Number(id),
           relations: "cards",
         },
       });

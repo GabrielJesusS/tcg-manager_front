@@ -42,7 +42,6 @@ export const useGetDecks = (
         return await deckListUseCase.execute({
           page: e.page,
           searchParams: generateFilterString(params),
-          orderBy: order,
         });
       },
       swr: {

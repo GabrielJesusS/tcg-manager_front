@@ -26,7 +26,6 @@ interface ISearchOnList {
   searchParams?: string;
   page?: number;
   pageSize?: number;
-  orderBy?: string;
 }
 
 export class GetDeckListUseCase implements IUsecase {
